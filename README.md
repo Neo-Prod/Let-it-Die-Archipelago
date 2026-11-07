@@ -58,6 +58,51 @@ Only the `Archipelago` folder, `dinput8.dll`, `let_it_die.apworld` and `LetItDie
 
 The YAML includes all options with default values. `manifest.json` and `SHA256SUMS.txt` are optional integrity information, not game requirements. No saves, logs or personal connection details are included.
 
+## Four goals
+
+Choose the boss that ends your run:
+
+- Max Sharp
+- Jackson
+- Crowley
+- Taro Gunkanyama
+
+Checks above your chosen goal's floor are excluded from the run.
+
+## Customizable starting fighter
+
+Start with a **Grade 6 fighter**, with starting stats and gains per progressive item configured in your YAML. This includes the six base stats, **Death Bag capacity**, **skill slots**, and **Rage Gauge capacity**.
+
+## Blueprints, decals, and equipment
+
+Equipment blueprints and premium decals are available as Archipelago items. Choose the **maximum equipment tier** and which equipment factions are included in your run:
+
+- D.O.D. Arms
+- War Ensemble
+- Candle Wolf
+- M.I.L.K.
+
+Equipment is progressive: each receipt unlocks the next blueprint in its equipment family, available to purchase at **+0**. Previously unlocked equipment remains available.
+
+An optional setting groups each armor set into one progressive item family, unlocking its **head, body, and leg pieces together**. When disabled, the three pieces progress separately.
+
+## Filler
+
+- KC (Kill Coins) 2.000, 10.000 and 50.000.
+
+## Checks and locations
+
+- **Bosses:** defeat bosses and minibosses.
+- **Exploration:** visit each included area for the first time.
+- **Haters:** defeat the Hater in each eligible area.
+- **Tubers:** configure the number of checks per eligible version for each of the six families in your YAML: **Scratch, Hovering, Bullet, Bone, Reversal, and Treasure**.
+- **Screamers:** the remaining checks are distributed as evenly as possible between the included **10-floor bands**. Each eligible Screamer kill has a configurable chance to award a check for its band.
+
+An optional **Screamer pity** setting guarantees a check after `ceil(100 / check chance)` eligible kills without a check. Receiving a check resets the counter. For example, at a **25%** chance, the fourth eligible kill is guaranteed to award a check if the first three did not. At **50%**, the guarantee also occurs on the second kill.
+
+- **Chest Sanity** red, **silver, and gold chests, for each **10-floor bands**.
+- **Marerial Sanity** copper, aluminium, iron, oil, wood, cloth and faction metals.
+
 ## AI Disclosure
 
 AI was used in this project mainly for decompilation and recovering classes and native functions using Guidra and UE Explorer. 
