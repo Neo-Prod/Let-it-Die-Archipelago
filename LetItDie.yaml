@@ -1,0 +1,265 @@
+# LET IT DIE Archipelago - Version 1.11
+# Includes all 54 game options and all 11 common Archipelago options.
+# Set name to your slot name. The values below are the default settings.
+# Goal: max_sharp (10F), jackson (20F), crowley (30F), taro_gunkanyama (40F).
+# Goal requirements: 15/35/80/150 character progressives and weapon/armor tiers 2/3/4/5.
+# The nine character progressive categories are added together for these requirements.
+# maximum_equipment_tier uses catalogue tiers 1..6, not native star rarity.
+# group_armor_sets=true: each receipt grants head/body/legs from the same set.
+# If false, pieces from three different families can satisfy the armor requirements.
+# screamer_pity=true: guarantee a check after ceil(100 / screamer_check_chance) eligible kills.
+# YAML changes apply to a NEW generation.
+
+name: Player{number}
+description: LET IT DIE Archipelago Version 1.11 - complete configuration
+game: LET IT DIE
+LET IT DIE:
+
+  # A system that can move progression earlier, to try and prevent the player from getting stuck
+  # and bored early.
+  # 
+  # A lower setting means more getting stuck. A higher setting means less getting stuck.
+  # Range: 0..99
+  progression_balancing: 50
+
+  # Set rules for reachability of your items/locations.
+  # 
+  # **Full:** ensure everything can be reached and acquired.
+  # 
+  # **Minimal:** ensure what is needed to reach your goal can be acquired.
+  # Choices: full, minimal, none, locations, items
+  accessibility: full
+
+  # Forces these items to be in their native world.
+  local_items: []
+
+  # Forces these items to be outside their native world.
+  non_local_items: []
+
+  # Start with the specified amount of these items. Example: {Bomb: 1, Arrow: 3}
+  start_inventory: {}
+
+  # Start with these item's locations prefilled into the ``!hint`` command.
+  start_hints: []
+
+  # Start with these locations and their item prefilled into the ``!hint`` command.
+  start_location_hints: []
+
+  # Prevent these locations from having an important item.
+  exclude_locations: []
+
+  # Prevent these locations from having an unimportant item.
+  priority_locations: []
+
+  # Share part of your item pool with other players.
+  item_links: []
+
+  # Generic items plando.
+  plando_items: []
+
+  # Fighter class used for the starting fighter.
+  # Choices: all_rounder, striker, defender, attacker, shooter, collector, skill_master, lucky_star
+  starting_fighter_class: all_rounder
+
+  # Grade used for the starting fighter.
+  # Range: 1..9
+  starting_fighter_grade: 6
+
+  # Base HP of the starting fighter before Archipelago items are received.
+  # Range: 1..100000
+  starting_hp: 200
+
+  # Base stamina of the starting fighter.
+  # Range: 1..10000
+  starting_stm: 200
+
+  # Base strength of the starting fighter.
+  # Range: 0..10000
+  starting_str: 10
+
+  # Base dexterity of the starting fighter.
+  # Range: 0..10000
+  starting_dex: 10
+
+  # Base vitality of the starting fighter.
+  # Range: 0..10000
+  starting_vit: 10
+
+  # Base luck of the starting fighter.
+  # Range: 0..10000
+  starting_luk: 10
+
+  # Base number of skill/decal slots.
+  # Range: 0..20
+  starting_skill_slots: 0
+
+  # Base Death Bag capacity.
+  # Range: 1..100
+  starting_death_bag: 1
+
+  # Base Rage Gauge capacity.
+  # Range: 0..20
+  starting_rage_gauge: 0
+
+  # Number of Progressive HP items placed in the item pool.
+  # Range: 0..44
+  progressive_hp_quantity: 30
+
+  # Number of Progressive STM items placed in the item pool.
+  # Range: 0..44
+  progressive_stm_quantity: 30
+
+  # Number of Progressive STR items placed in the item pool.
+  # Range: 0..44
+  progressive_str_quantity: 30
+
+  # Number of Progressive DEX items placed in the item pool.
+  # Range: 0..44
+  progressive_dex_quantity: 30
+
+  # Number of Progressive VIT items placed in the item pool.
+  # Range: 0..44
+  progressive_vit_quantity: 30
+
+  # Number of Progressive Luck items placed in the item pool.
+  # Range: 0..44
+  progressive_luck_quantity: 30
+
+  # Number of Progressive Death Bag items placed in the item pool.
+  # Range: 0..44
+  progressive_death_bag_quantity: 30
+
+  # Number of Progressive Skill Slots items placed in the item pool.
+  # Range: 0..44
+  progressive_skill_slots_quantity: 9
+
+  # Number of Progressive Rage Gauge items placed in the item pool.
+  # Range: 0..44
+  progressive_rage_gauge_quantity: 6
+
+  # HP gained for each Progressive HP item.
+  # Range: 0..100000
+  progressive_hp_increase: 200
+
+  # STM gained for each Progressive STM item.
+  # Range: 0..10000
+  progressive_stm_increase: 5
+
+  # STR gained for each Progressive STR item.
+  # Range: 0..10000
+  progressive_str_increase: 6
+
+  # DEX gained for each Progressive DEX item.
+  # Range: 0..10000
+  progressive_dex_increase: 6
+
+  # VIT gained for each Progressive VIT item.
+  # Range: 0..10000
+  progressive_vit_increase: 3
+
+  # Luck gained for each Progressive Luck item.
+  # Range: 0..10000
+  progressive_luck_increase: 2
+
+  # Death Bag capacity gained per Progressive Death Bag item.
+  # Range: 0..100
+  progressive_death_bag_increase: 1
+
+  # Skill/decal slots gained per Progressive Skill Slots item.
+  # Range: 0..20
+  progressive_skill_slots_increase: 1
+
+  # Rage Gauge capacity gained per Progressive Rage Gauge item.
+  # Range: 0..20
+  progressive_rage_gauge_increase: 1
+
+  # Percent chance for an eligible Screamer kill to complete the next
+  # pending Screamer location in the current 10-floor zone.
+  # Range: 1..100
+  screamer_check_chance: 25
+
+  # Guarantee a Screamer check after ceil(100 / screamer_check_chance)
+  # eligible kills without a check. Any check resets the counter.
+  # Counters persist separately for each ten-floor band. Default: disabled.
+  screamer_pity: false
+
+  # Minimum Screamer check locations in each ten-floor band (0..2500).
+  # Extra locations are filled with KC items. Chance and pity still apply.
+  minimum_screamer_checks_per_band: 100
+
+  # Filler probabilities: these three percentages must add up to 100.
+  kill_coins_2000_percentage: 70
+  kill_coins_10000_percentage: 25
+  kill_coins_50000_percentage: 5
+
+  # Include D.O.D. Arms weapons and head/body/leg armor in the generated pool.
+  enable_dod_arms: true
+
+  # Include War Ensemble weapons and head/body/leg armor in the generated pool.
+  enable_war_ensemble: true
+
+  # Include Candle Wolf weapons and head/body/leg armor in the generated pool.
+  enable_candle_wolf: true
+
+  # Include M.I.L.K. weapons and head/body/leg armor in the generated pool.
+  enable_milk: true
+
+  # Maximum global equipment tier from the user tier tables (1 to 6).
+  # 
+  # Each equipment remains a distinct progressive step. Two equipment types
+  # in the same tier both keep their own receipt. This is not the number of
+  # progressive copies per family, nor the item's star rarity.
+  # Range: 1..6
+  maximum_equipment_tier: 6
+
+  # Replace each complete head/body/legs armor set's three progressive
+  # families with one progressive. Each receipt grants all three blueprints
+  # of the next step. A four-step set needs four receipts instead of twelve.
+  # Isolated pieces and weapons remain separate. Default: disabled.
+  group_armor_sets: false
+
+  # Final boss. Checks above this boss's floor are excluded.
+  # Choices: max_sharp, jackson, crowley, taro_gunkanyama
+  goal: taro_gunkanyama
+
+  # Scratch Checks Per Version
+  # Range: 0..1000
+  scratch_checks: 20
+
+  # Hovering Checks Per Version
+  # Range: 0..1000
+  hovering_checks: 5
+
+  # Bullet Checks Per Version
+  # Range: 0..1000
+  bullet_checks: 10
+
+  # Bone Checks Per Version
+  # Range: 0..1000
+  bone_checks: 3
+
+  # Reversal Checks Per Version
+  # Range: 0..1000
+  reversal_checks: 1
+
+  # Treasure Checks Per Version
+  # Range: 0..1000
+  treasure_checks: 1
+
+  # Chest opening checks per ten-floor band up to the selected goal.
+  # Each color accepts 0..1000 checks. Zero disables that color.
+  # Tracker logic uses placed room chests only; actual enemy-dropped chests count.
+  red_chest_checks: 30
+  silver_chest_checks: 15
+  gold_chest_checks: 3
+
+  # Checks per ordinary material type and star rank (Aluminum, Iron, Copper,
+  # Wood, Oil, and Cloth). Cloth ranks 1-5 always use this quantity.
+  # Picked-up materials are consumed; they do not enter the Death Bag.
+  material_checks: 10
+  # Checks per material type one star above the selected goal's ordinary ranks.
+  # This affects rare ranks up to 5 stars. Cloth uses material_checks instead.
+  rare_material_checks: 2
+  # Checks per faction metal type and rank, up to 4 stars and the chosen goal.
+  # Set any of these three quantities to 0 to disable its checks.
+  faction_metal_checks: 1
