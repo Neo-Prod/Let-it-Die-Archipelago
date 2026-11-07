@@ -1,0 +1,20 @@
+EXPORTS
+ _fltused DATA
+ g_win DATA
+ lid_find_module_ascii
+ lid_get_export
+ lid_init_kernel_api
+ lid_init_user_api
+ lid_main_module
+ lid_master_scan_region
+ lid_memcmp
+ lid_memcpy
+ lid_memset
+ lid_strlen
+ lid_wappend
+ lid_wcopy
+ lid_wcslen
+ lid_wstrcmp
+ memcmp
+ memcpy
+ memset

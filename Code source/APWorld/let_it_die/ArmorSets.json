@@ -1,0 +1,1346 @@
+{
+  "schema": 1,
+  "sets": [
+    {
+      "name": "Progressive DIY Attack Set",
+      "ap_id": 7140001,
+      "members": [
+        "Progressive DIY Attack Head",
+        "Progressive DIY Attack Coat",
+        "Progressive DIY Attack Pants"
+      ],
+      "member_ids": [
+        7110095,
+        7110046,
+        7110141
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Doctor Drill Set",
+      "ap_id": 7140002,
+      "members": [
+        "Progressive Doctor Drill Mask",
+        "Progressive Doctor Drill Body",
+        "Progressive Doctor Drill Pants"
+      ],
+      "member_ids": [
+        7110096,
+        7110047,
+        7110142
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Happy Wheeler Set",
+      "ap_id": 7140003,
+      "members": [
+        "Progressive Happy Wheeler Head",
+        "Progressive Happy Wheeler Body",
+        "Progressive Happy Wheeler Pants"
+      ],
+      "member_ids": [
+        7110097,
+        7110048,
+        7110143
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Chemical Agent Set",
+      "ap_id": 7140004,
+      "members": [
+        "Progressive Chemical Agent Mask",
+        "Progressive Chemical Agent Body",
+        "Progressive Chemical Agent Pants"
+      ],
+      "member_ids": [
+        7110098,
+        7110049,
+        7110144
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Trucker Set",
+      "ap_id": 7140005,
+      "members": [
+        "Progressive Trucker Hat",
+        "Progressive Trucker Apron",
+        "Progressive Trucker Pants"
+      ],
+      "member_ids": [
+        7110099,
+        7110050,
+        7110145
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Steel Soldier Set",
+      "ap_id": 7140006,
+      "members": [
+        "Progressive Steel Soldier Mask",
+        "Progressive Steel Soldier Apron",
+        "Progressive Steel Soldier Pants"
+      ],
+      "member_ids": [
+        7110100,
+        7110051,
+        7110146
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Steel Tribe Set",
+      "ap_id": 7140007,
+      "members": [
+        "Progressive Steel Tribe Mask",
+        "Progressive Steel Tribe Body",
+        "Progressive Steel Tribe Pants"
+      ],
+      "member_ids": [
+        7110101,
+        7110052,
+        7110147
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Power Stomper Set",
+      "ap_id": 7140008,
+      "members": [
+        "Progressive Power Stomper Mask",
+        "Progressive Power Stomper Body",
+        "Progressive Power Stomper Pants"
+      ],
+      "member_ids": [
+        7110102,
+        7110053,
+        7110148
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Texas Farmer Set",
+      "ap_id": 7140009,
+      "members": [
+        "Progressive Texas Farmer Mask",
+        "Progressive Texas Farmer Coat",
+        "Progressive Texas Farmer Pants"
+      ],
+      "member_ids": [
+        7110103,
+        7110054,
+        7110149
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Road Shocker Set",
+      "ap_id": 7140010,
+      "members": [
+        "Progressive Road Shocker Head",
+        "Progressive Road Shocker Coat",
+        "Progressive Road Shocker Pants"
+      ],
+      "member_ids": [
+        7110104,
+        7110055,
+        7110150
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Violent Grinder Set",
+      "ap_id": 7140011,
+      "members": [
+        "Progressive Violent Grinder Head",
+        "Progressive Violent Grinder Body",
+        "Progressive Violent Grinder Pants"
+      ],
+      "member_ids": [
+        7110105,
+        7110056,
+        7110151
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Knight Set",
+      "ap_id": 7140012,
+      "members": [
+        "Progressive Knight's Helm",
+        "Progressive Knight's Armor",
+        "Progressive Knight's Leggings"
+      ],
+      "member_ids": [
+        7110106,
+        7110057,
+        7110152
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Agamemnon Set",
+      "ap_id": 7140013,
+      "members": [
+        "Progressive Agamemnon Mask",
+        "Progressive Agamemnon Mail",
+        "Progressive Agamemnon Leggings"
+      ],
+      "member_ids": [
+        7110107,
+        7110058,
+        7110153
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Fencing Set",
+      "ap_id": 7140014,
+      "members": [
+        "Progressive Fencing Helmet",
+        "Progressive Fencing Armor",
+        "Progressive Fencing Leggings"
+      ],
+      "member_ids": [
+        7110108,
+        7110059,
+        7110154
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Clay Figurine Set",
+      "ap_id": 7140015,
+      "members": [
+        "Progressive Clay Figurine Helmet",
+        "Progressive Clay Figurine Armor",
+        "Progressive Clay Figurine Leggings"
+      ],
+      "member_ids": [
+        7110109,
+        7110060,
+        7110155
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Rogue Set",
+      "ap_id": 7140016,
+      "members": [
+        "Progressive Rogue Helmet",
+        "Progressive Rogue Armor",
+        "Progressive Rogue Leggings"
+      ],
+      "member_ids": [
+        7110110,
+        7110061,
+        7110156
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Sengoku Set",
+      "ap_id": 7140017,
+      "members": [
+        "Progressive Sengoku Helmet",
+        "Progressive Sengoku Armor",
+        "Progressive Sengoku Leggings"
+      ],
+      "member_ids": [
+        7110111,
+        7110062,
+        7110157
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Evil Wizard Set",
+      "ap_id": 7140018,
+      "members": [
+        "Progressive Evil Wizard Cowl",
+        "Progressive Evil Wizard Coat",
+        "Progressive Evil Wizard Leggings"
+      ],
+      "member_ids": [
+        7110112,
+        7110063,
+        7110158
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Paladin Set",
+      "ap_id": 7140019,
+      "members": [
+        "Progressive Paladin Helmet",
+        "Progressive Paladin Armor",
+        "Progressive Paladin Leggings"
+      ],
+      "member_ids": [
+        7110113,
+        7110064,
+        7110159
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Priest Set",
+      "ap_id": 7140020,
+      "members": [
+        "Progressive Priest's Cowl",
+        "Progressive Priest's Coat",
+        "Progressive Priest's Leggings"
+      ],
+      "member_ids": [
+        7110114,
+        7110065,
+        7110160
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Warrior Set",
+      "ap_id": 7140021,
+      "members": [
+        "Progressive Warrior Helmet",
+        "Progressive Warrior Armor",
+        "Progressive Warrior Leggings"
+      ],
+      "member_ids": [
+        7110115,
+        7110066,
+        7110161
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Sword Dancer Set",
+      "ap_id": 7140022,
+      "members": [
+        "Progressive Sword Dancer Head",
+        "Progressive Sword Dancer Armor",
+        "Progressive Sword Dancer Leggings"
+      ],
+      "member_ids": [
+        7110116,
+        7110067,
+        7110162
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Assault Force Set",
+      "ap_id": 7140023,
+      "members": [
+        "Progressive Assault Force Head",
+        "Progressive Assault Force Body",
+        "Progressive Assault Force Pants"
+      ],
+      "member_ids": [
+        7110117,
+        7110068,
+        7110163
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Dark Ryback Set",
+      "ap_id": 7140024,
+      "members": [
+        "Progressive Dark Ryback Mask",
+        "Progressive Dark Ryback Body",
+        "Progressive Dark Ryback Pants"
+      ],
+      "member_ids": [
+        7110118,
+        7110069,
+        7110164
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Phantom Soldier Set",
+      "ap_id": 7140025,
+      "members": [
+        "Progressive Phantom Soldier Head",
+        "Progressive Phantom Soldier Body",
+        "Progressive Phantom Soldier Pants"
+      ],
+      "member_ids": [
+        7110119,
+        7110070,
+        7110165
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Night Scout Set",
+      "ap_id": 7140026,
+      "members": [
+        "Progressive Night Scout Head",
+        "Progressive Night Scout Body",
+        "Progressive Night Scout Pants"
+      ],
+      "member_ids": [
+        7110120,
+        7110071,
+        7110166
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Special Forces' Set",
+      "ap_id": 7140027,
+      "members": [
+        "Progressive Special Forces' Beret",
+        "Progressive Special Forces' Vest",
+        "Progressive Special Forces' Pants"
+      ],
+      "member_ids": [
+        7110121,
+        7110072,
+        7110167
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Iron Eagle Set",
+      "ap_id": 7140028,
+      "members": [
+        "Progressive Iron Eagle Head",
+        "Progressive Iron Eagle Body",
+        "Progressive Iron Eagle Pants"
+      ],
+      "member_ids": [
+        7110122,
+        7110073,
+        7110168
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Silent Sniper Set",
+      "ap_id": 7140029,
+      "members": [
+        "Progressive Silent Sniper Head",
+        "Progressive Silent Sniper Body",
+        "Progressive Silent Sniper Pants"
+      ],
+      "member_ids": [
+        7110123,
+        7110074,
+        7110169
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Barrett Punisher Set",
+      "ap_id": 7140030,
+      "members": [
+        "Progressive Barrett Punisher Head",
+        "Progressive Barrett Punisher Body",
+        "Progressive Barrett Punisher Pants"
+      ],
+      "member_ids": [
+        7110124,
+        7110075,
+        7110170
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Combat Diver Set",
+      "ap_id": 7140031,
+      "members": [
+        "Progressive Combat Diver Head",
+        "Progressive Combat Diver Body",
+        "Progressive Combat Diver Pants"
+      ],
+      "member_ids": [
+        7110125,
+        7110076,
+        7110171
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Guerrilla Blaster Set",
+      "ap_id": 7140032,
+      "members": [
+        "Progressive Guerrilla Blaster Head",
+        "Progressive Guerrilla Blaster Body",
+        "Progressive Guerrilla Blaster Pants"
+      ],
+      "member_ids": [
+        7110126,
+        7110077,
+        7110172
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Exo-armor Set",
+      "ap_id": 7140033,
+      "members": [
+        "Progressive Exo-armor Head",
+        "Progressive Exo-armor Body",
+        "Progressive Exo-armor Pants"
+      ],
+      "member_ids": [
+        7110127,
+        7110078,
+        7110173
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Clay Figurine RE Set",
+      "ap_id": 7140034,
+      "members": [
+        "Progressive Clay Figurine Helmet RE",
+        "Progressive Clay Figurine Armor RE",
+        "Progressive Clay Figurine Leggings RE"
+      ],
+      "member_ids": [
+        7110128,
+        7110079,
+        7110174
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Iron Eagle RE Set",
+      "ap_id": 7140035,
+      "members": [
+        "Progressive Iron Eagle Head RE",
+        "Progressive Iron Eagle Body RE",
+        "Progressive Iron Eagle Pants RE"
+      ],
+      "member_ids": [
+        7110129,
+        7110080,
+        7110175
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Apocalyptic Hockey Set",
+      "ap_id": 7140036,
+      "members": [
+        "Progressive Apocalyptic Hockey Mask",
+        "Progressive Apocalyptic Hockey Body",
+        "Progressive Apocalyptic Hockey Pants"
+      ],
+      "member_ids": [
+        7110130,
+        7110084,
+        7110176
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Motocross Rider Set",
+      "ap_id": 7140037,
+      "members": [
+        "Progressive Motocross Head",
+        "Progressive Motocross Rider Body",
+        "Progressive Motocross Rider Pants"
+      ],
+      "member_ids": [
+        7110131,
+        7110085,
+        7110177
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Killer Wrestler Set",
+      "ap_id": 7140038,
+      "members": [
+        "Progressive Killer Wrestler Head",
+        "Progressive Killer Wrestler Body",
+        "Progressive Killer Wrestler Pants"
+      ],
+      "member_ids": [
+        7110132,
+        7110086,
+        7110178
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Kendo Set",
+      "ap_id": 7140039,
+      "members": [
+        "Progressive Kendo Mask",
+        "Progressive Kendo Body",
+        "Progressive Kendo Pants"
+      ],
+      "member_ids": [
+        7110133,
+        7110087,
+        7110179
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Heavy Hitter Set",
+      "ap_id": 7140040,
+      "members": [
+        "Progressive Heavy Hitter Head",
+        "Progressive Heavy Hitter Body",
+        "Progressive Heavy Hitter Pants"
+      ],
+      "member_ids": [
+        7110134,
+        7110088,
+        7110180
+      ],
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Hard Puncher Set",
+      "ap_id": 7140041,
+      "members": [
+        "Progressive Hard Puncher Head",
+        "Progressive Hard Puncher Body",
+        "Progressive Hard Puncher Pants"
+      ],
+      "member_ids": [
+        7110135,
+        7110089,
+        7110181
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Blitz Bowler Set",
+      "ap_id": 7140042,
+      "members": [
+        "Progressive Blitz Bowler Head",
+        "Progressive Blitz Bowler Body",
+        "Progressive Blitz Bowler Pants"
+      ],
+      "member_ids": [
+        7110136,
+        7110090,
+        7110182
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Cycle Madness Set",
+      "ap_id": 7140043,
+      "members": [
+        "Progressive Cycle Madness Head",
+        "Progressive Cycle Madness Body",
+        "Progressive Cycle Madness Pants"
+      ],
+      "member_ids": [
+        7110137,
+        7110091,
+        7110183
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Swimming Master Set",
+      "ap_id": 7140044,
+      "members": [
+        "Progressive Swimming Master Head",
+        "Progressive Swimming Master Body",
+        "Progressive Swimming Master Pants"
+      ],
+      "member_ids": [
+        7110138,
+        7110092,
+        7110184
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Blood Diver Set",
+      "ap_id": 7140045,
+      "members": [
+        "Progressive Splatter 13 Head",
+        "Progressive Splatter 13 Body",
+        "Progressive Splatter 13 Boots"
+      ],
+      "member_ids": [
+        7110139,
+        7110093,
+        7110185
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Hard Target Set",
+      "ap_id": 7140046,
+      "members": [
+        "Progressive Hard Target Head",
+        "Progressive Hard Target Body",
+        "Progressive Hard Target Pants"
+      ],
+      "member_ids": [
+        7110140,
+        7110094,
+        7110186
+      ],
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive White Steel Set",
+      "ap_id": 7140047,
+      "members": [
+        "Progressive White Steel Head",
+        "Progressive White Steel Body",
+        "Progressive White Steel Leggings"
+      ],
+      "member_ids": [
+        7110253,
+        7110255,
+        7110251
+      ],
+      "tiers": [
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Hell Steel Set",
+      "ap_id": 7140048,
+      "members": [
+        "Progressive Hell Steel Head",
+        "Progressive Hell Steel Body",
+        "Progressive Hell Steel Leggings"
+      ],
+      "member_ids": [
+        7110254,
+        7110256,
+        7110252
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Black Thunder Set",
+      "ap_id": 7140049,
+      "members": [
+        "Progressive Black Thunder Helmet",
+        "Progressive Black Thunder Armor",
+        "Progressive Black Thunder Leggings"
+      ],
+      "member_ids": [
+        7110260,
+        7110263,
+        7110257
+      ],
+      "tiers": [
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Hell Thunder Set",
+      "ap_id": 7140050,
+      "members": [
+        "Progressive Hell Thunder Helmet",
+        "Progressive Hell Thunder Armor",
+        "Progressive Hell Thunder Leggings"
+      ],
+      "member_ids": [
+        7110261,
+        7110264,
+        7110258
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Knight ZX Set",
+      "ap_id": 7140051,
+      "members": [
+        "Progressive Knight's Helm ZX",
+        "Progressive Knight's Armor ZX",
+        "Progressive Knight's Leggings ZX"
+      ],
+      "member_ids": [
+        7110262,
+        7110265,
+        7110259
+      ],
+      "tiers": [
+        4,
+        5
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Jackal X Set",
+      "ap_id": 7140052,
+      "members": [
+        "Progressive Jackal X Head",
+        "Progressive Jackal X Body",
+        "Progressive Jackal X Pants"
+      ],
+      "member_ids": [
+        7110280,
+        7110286,
+        7110274
+      ],
+      "tiers": [
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Jackal Y Set",
+      "ap_id": 7140053,
+      "members": [
+        "Progressive Jackal Y Head",
+        "Progressive Jackal Y Body",
+        "Progressive Jackal Y Pants"
+      ],
+      "member_ids": [
+        7110281,
+        7110287,
+        7110275
+      ],
+      "tiers": [
+        4,
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Jackal Z Set",
+      "ap_id": 7140054,
+      "members": [
+        "Progressive Jackal Z Head",
+        "Progressive Jackal Z Body",
+        "Progressive Jackal Z Pants"
+      ],
+      "member_ids": [
+        7110282,
+        7110288,
+        7110276
+      ],
+      "tiers": [
+        4,
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Jackal X D Set",
+      "ap_id": 7140055,
+      "members": [
+        "Progressive Jackal X Head D",
+        "Progressive Jackal X Body D",
+        "Progressive Jackal X Pants D"
+      ],
+      "member_ids": [
+        7110283,
+        7110289,
+        7110277
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Jackal Y D Set",
+      "ap_id": 7140056,
+      "members": [
+        "Progressive Jackal Y Head D",
+        "Progressive Jackal Y Body D",
+        "Progressive Jackal Y Pants D"
+      ],
+      "member_ids": [
+        7110284,
+        7110290,
+        7110278
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Jackal Z D Set",
+      "ap_id": 7140057,
+      "members": [
+        "Progressive Jackal Z Head D",
+        "Progressive Jackal Z Body D",
+        "Progressive Jackal Z Pants D"
+      ],
+      "member_ids": [
+        7110285,
+        7110291,
+        7110279
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Red Napalm Set",
+      "ap_id": 7140058,
+      "members": [
+        "Progressive Red Napalm Head",
+        "Progressive Red Napalm Body",
+        "Progressive Red Napalm Pants"
+      ],
+      "member_ids": [
+        7110295,
+        7110298,
+        7110292
+      ],
+      "tiers": [
+        5
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Hell Napalm Set",
+      "ap_id": 7140059,
+      "members": [
+        "Progressive Hell Napalm Head",
+        "Progressive Hell Napalm Body",
+        "Progressive Hell Napalm Pants"
+      ],
+      "member_ids": [
+        7110296,
+        7110299,
+        7110293
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Assault Force Gold Set",
+      "ap_id": 7140060,
+      "members": [
+        "Progressive Assault Force Head G1",
+        "Progressive Assault Force Body G1",
+        "Progressive Assault Force Pants G1"
+      ],
+      "member_ids": [
+        7110297,
+        7110300,
+        7110294
+      ],
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "faction": "war_ensemble"
+    },
+    {
+      "name": "Progressive Travis Set",
+      "ap_id": 7140061,
+      "members": [
+        "Progressive Travis' Sunglasses 1",
+        "Progressive Travis' Jacket 1",
+        "Progressive Travis' Pants 1"
+      ],
+      "member_ids": [
+        7110309,
+        7110320,
+        7110302
+      ],
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Meijin Set",
+      "ap_id": 7140062,
+      "members": [
+        "Progressive Meijin Head 1",
+        "Progressive Meijin Armor 1",
+        "Progressive Meijin Greaves 1"
+      ],
+      "member_ids": [
+        7110313,
+        7110321,
+        7110303
+      ],
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Momoko Yamada Set",
+      "ap_id": 7140063,
+      "members": [
+        "Progressive Momoko Yamada Head 1",
+        "Progressive Momoko Yamada Body 1",
+        "Progressive Momoko Yamada Pants 1"
+      ],
+      "member_ids": [
+        7110317,
+        7110322,
+        7110304
+      ],
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "faction": "candle_wolf"
+    },
+    {
+      "name": "Progressive Direct Hell Set",
+      "ap_id": 7140064,
+      "members": [
+        "Progressive Direct Hell Cap 1",
+        "Progressive Direct Hell Jacket 1",
+        "Progressive Direct Hell Pants 1"
+      ],
+      "member_ids": [
+        7110318,
+        7110323,
+        7110305
+      ],
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "faction": "dod_arms"
+    },
+    {
+      "name": "Progressive Pale Wind Set",
+      "ap_id": 7140065,
+      "members": [
+        "Progressive Pale Wind Head",
+        "Progressive Pale Wind Body",
+        "Progressive Pale Wind Pants"
+      ],
+      "member_ids": [
+        7110326,
+        7110328,
+        7110324
+      ],
+      "tiers": [
+        5
+      ],
+      "faction": "milk"
+    },
+    {
+      "name": "Progressive Hell Wind Set",
+      "ap_id": 7140066,
+      "members": [
+        "Progressive Hell Wind Head",
+        "Progressive Hell Wind Body",
+        "Progressive Hell Wind Pants"
+      ],
+      "member_ids": [
+        7110327,
+        7110329,
+        7110325
+      ],
+      "tiers": [
+        6
+      ],
+      "faction": "milk"
+    }
+  ]
+}
