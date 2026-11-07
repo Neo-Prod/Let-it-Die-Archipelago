@@ -1,4 +1,4 @@
-# LET IT DIE Archipelago - V1.0
+# LET IT DIE Archipelago
 
 ## 1. Install the mod
 
@@ -56,6 +56,9 @@ This release fixes reconnecting to an existing AP save. Removing the 12 Hater ch
 
 Only the `Archipelago` folder, `dinput8.dll`, `let_it_die.apworld` and `LetItDie.yaml` are needed for the mod installation, in addition to LET IT DIE and Archipelago themselves. Universal Tracker is optional and installed separately.
 
-The English YAML includes all 55 options with default values. `manifest.json` and `SHA256SUMS.txt` are optional integrity information, not game requirements. No saves, logs or personal connection details are included.
+The YAML includes all options with default values. `manifest.json` and `SHA256SUMS.txt` are optional integrity information, not game requirements. No saves, logs or personal connection details are included.
 
-Tested game: Windows 64-bit `BrgGame-Steam.exe`, SHA-256 `f33e91e6e8d58566bfabad8d01cd0486586a0d43fe1c58e65fc6485a417bddfd`. The APWorld declares Archipelago 0.6.4 as its minimum version. A separate-machine installation and the Universal Tracker graphical interface have not been tested.
+## AI Disclosure
+
+AI was used in this project mainly for decompilation and recovering classes and native functions using Guidra and UE Explorer. 
+It was also used to run tests to spot potential errors to avoid having to test each change in-game, which saved a lot of time.
