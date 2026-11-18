@@ -73,8 +73,8 @@ Equipment blueprints and premium decals are available as Archipelago items. Choo
 - M.I.L.K.
 
 Equipment is progressive: each receipt unlocks the next blueprint in its equipment family, available to purchase at **+0**. Previously unlocked equipment remains available.
-Equipment catalogue tiers now range from 1 to 9. `maximum_equipment_tier` defaults to 6. 
-`equipment_upgrade_steps` defaults to 0 and accepts 0 to 4 extra receipts between tier-table milestones. 
+Equipment catalogue tiers now range from 1 to 9. **maximum_equipment_tier** defaults to 6. 
+**equipment_upgrade_steps** defaults to 0 and accepts 0 to 4 extra receipts between tier-table milestones. 
 For example, 2 gives +0, +2, +4, then the next equipment rank. 
 Uncapped milestones follow the tier table, including +5/+10/+15/+20 where applicable.
 
@@ -94,8 +94,8 @@ An optional setting groups each armor set into one progressive item family, unlo
 
 An optional **Screamer pity** setting guarantees a check after `ceil(100 / check chance)` eligible kills without a check. Receiving a check resets the counter. For example, at a **25%** chance, the fourth eligible kill is guaranteed to award a check if the first three did not. At **50%**, the guarantee also occurs on the second kill.
 
-- **Chest Sanity** red, **silver, and gold chests, for each **10-floor bands**.
-- **Marerial Sanity** copper, aluminium, iron, oil, wood, cloth and faction metals.
+- **Chest Sanity** red, silver, and gold chests, for each **10-floor bands**.
+- **Material Sanity** copper, aluminium, iron, oil, wood, cloth and faction metals.
 - **ShopSanity**
 
 ## AI Disclosure
