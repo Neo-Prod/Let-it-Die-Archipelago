@@ -1,4 +1,3 @@
-# LET IT DIE Archipelago - Version 1.2
 # LET IT DIE Archipelago
 
 ## 1. Install the mod
