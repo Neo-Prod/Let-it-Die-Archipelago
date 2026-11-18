@@ -32,7 +32,7 @@ static int r103_view(const R6Ops*o,uint64_t game,uint64_t expected_player,uint64
  R103View v={0};R87Identity ui;uint64_t manager,player,info;
  if(!out||!f||!base||base>UINT64_MAX-0x2200000||f->game_ui<0x60||f->game_ui>0x1430-8||f->ui_drop<0x60||f->ui_drop>0x30c0-8||
  !r87_identity(o,game,"BrgGameInfoNative",0,&v.game)||v.game.cls!=f->game_class||
- !r6_at(o,game,f->game_ui,&ui.object,8)||!r87_identity(o,ui.object,"BrgUIManager",base+0x21d81b0,&ui)||ui.cls!=f->ui_class||
+ !r6_at(o,game,f->game_ui,&ui.object,8)||!r87_identity(o,ui.object,"BrgUIManager",base+0x21dbca0,&ui)||ui.cls!=f->ui_class||
  !r6_at(o,ui.object,f->ui_drop,&manager,8)||!r6_at(o,ui.object,f->graph.ui_player,&player,8)||
  (expected_player&&player!=expected_player)||!r87_graph(o,manager,player,base,&f->graph,&v.graph)||
  !r87_same_identity(&ui,&v.graph.ui)||v.graph.manager.cls!=f->manager_class||
@@ -44,7 +44,7 @@ static int r103_bind(const R6Ops*o,uint64_t game,uint64_t expected_player,uint64
  R103Fields f={0};R103View v,end;R87Identity g,ui;R87Graph graph;uint64_t manager,player;
  if(!out||!view||!base||base>UINT64_MAX-0x2200000||!r87_identity(o,game,"BrgGameInfoNative",0,&g)||
  !r103_object_field(o,g.cls,"BrgGameInfoNative","mUIManager",0x1430,&f.game_ui)||
- !r6_at(o,game,f.game_ui,&ui.object,8)||!r87_identity(o,ui.object,"BrgUIManager",base+0x21d81b0,&ui)||
+ !r6_at(o,game,f.game_ui,&ui.object,8)||!r87_identity(o,ui.object,"BrgUIManager",base+0x21dbca0,&ui)||
  !r103_object_field(o,ui.cls,"BrgUIManager","mDropItemManager",0x30c0,&f.ui_drop)||
  !r6_at(o,ui.object,f.ui_drop,&manager,8)||!r6_at(o,ui.object,0x2d4c,&player,8)||(expected_player&&player!=expected_player)||
  !r87_bind(o,manager,player,base,&f.graph,&graph))return 0;

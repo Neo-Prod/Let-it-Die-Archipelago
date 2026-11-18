@@ -21,6 +21,21 @@
 #include "material_capability_worker.h"
 #include "material_module_worker.h"
 #endif
+#ifndef LID_SHOP_CATALOGUE_ENABLED
+#define LID_SHOP_CATALOGUE_ENABLED 0
+#endif
+#if LID_SHOP_CATALOGUE_ENABLED
+#if !LID_MATERIAL_CAPABILITY_ENABLED
+#error "Shop catalogue requires the existing verified material crypto provider"
+#endif
+#include "shop_runtime_catalogue.h"
+#include "shop_runtime_policy.h"
+#endif
+#include "shop_purchase_feature.h"
+#if LID_SHOP_PURCHASE_ENABLED
+#include "shop_display.h"
+#include "shop_tower_receipt_disk.h"
+#endif
 enum {R26_NEW,R26_STARTING,R26_ACTIVE,R26_DRAINING,R26_DONE,R26_FAILED,R26_TIMEOUT,R26_CLOSED};
 typedef struct R26Transport {
     R15Queue queue;R16Service service;R26Disk disk;HANDLE thread;
@@ -36,7 +51,23 @@ typedef struct R26Transport {
 #if LID_NOTIFICATIONS_ENABLED
     R154Disk notifications;
 #endif
+#if LID_SHOP_CATALOGUE_ENABLED
+    /* Append only: existing coin/material/notification field offsets retained. */
+    LidShopCatalogueLoader shop_catalogue;wchar_t shop_directory[1000];int shop_catalogue_result;
+    LidShopPolicy shop_policy;
+#endif
+#if LID_SHOP_PURCHASE_ENABLED
+    LidShopPurchaseBridge shop_bridge;LidShopPurchaseDisk shop_disk;
+    unsigned shop_bridge_published,shop_io_state;uint64_t shop_next_poll;
+    LidShopDisplay shop_display;
+    LidTowerReceiptPort*tower_receipts;LidTowerReceiptDisk tower_disk;
+    unsigned tower_io_state;uint64_t tower_next_poll;
+#endif
 } R26Transport;
+#if LID_SHOP_PURCHASE_ENABLED
+#include "shop_purchase_transport.h"
+#include "shop_tower_receipt_transport.h"
+#endif
 static DWORD WINAPI r26_worker(LPVOID opaque){
     R26Transport*t=opaque;R26Ops*ops=&t->disk.ops;R16IO io={&t->disk,r26_disk_read,r26_disk_publish};
     DWORD tid=ops->thread_id();
@@ -44,8 +75,10 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 #if LID_NOTIFICATIONS_ENABLED
     (void)r154_disk_init(&t->notifications,&t->disk,&t->queue.context,t->owner,tid);
 #endif
-#if LID_KILL_COIN_DELIVERY_ENABLED
+#if LID_KILL_COIN_DELIVERY_ENABLED || LID_SHOP_PURCHASE_ENABLED
     int checks_failed=0;
+#endif
+#if LID_KILL_COIN_DELIVERY_ENABLED
     if(r142_init(&t->coin_disk,&t->disk,t->coin_directory,&t->queue.context,tid)&&
        r141_init(&t->coins,&t->queue.context,t->owner,tid))
         __atomic_store_n(&t->coin_ready,1,__ATOMIC_RELEASE);
@@ -60,14 +93,49 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
     uint64_t started=0;int draining=0;
     for(;;){
         uint64_t now=ops->clock();unsigned result=r16_service_step(&t->service,tid,now);__atomic_store_n(&t->last_result,result,__ATOMIC_RELEASE);
+#if LID_SHOP_CATALOGUE_ENABLED
+        if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE)){
+            if(!t->shop_policy.initialized&&lid_sm_mode(&t->shop_policy)==LID_SM_UNKNOWN&&
+               !lid_sm_prepare(&t->shop_policy,ops,t->shop_directory,&t->queue.context,t->owner,tid))
+                __atomic_store_n(&t->shop_policy.mode,LID_SM_FAILED,__ATOMIC_RELEASE);
+            if(t->shop_policy.initialized)(void)lid_sm_poll(&t->shop_policy);
+        }
+        if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE)&&lid_sm_mode(&t->shop_policy)==LID_SM_ENABLED&&
+           __atomic_load_n(&t->shop_catalogue_result,__ATOMIC_ACQUIRE)==LID_SC_WAITING&&
+           __atomic_load_n(&t->material_mailbox.request_set,__ATOMIC_ACQUIRE)){
+            if(!t->shop_catalogue.initialized){
+                R99Capability request;
+                if(!r99_decode(&request,t->material_mailbox.request,R99_SIZE)||request.kind!=R99_REQUEST||
+                   !r15_same_context(&request.context,&t->queue.context)||
+                   !r15_equal(request.catalogue,t->shop_policy.full,32)||
+                   !lid_sc_loader_prepare(&t->shop_catalogue,ops,&t->material_crypto,t->shop_directory,
+                        &t->queue.context,request.catalogue,t->owner,tid))
+                    __atomic_store_n(&t->shop_catalogue_result,LID_SC_FAILED,__ATOMIC_RELEASE);
+            }
+            if(__atomic_load_n(&t->shop_catalogue_result,__ATOMIC_ACQUIRE)==LID_SC_WAITING)
+                __atomic_store_n(&t->shop_catalogue_result,lid_sc_loader_poll(&t->shop_catalogue),__ATOMIC_RELEASE);
+        }
+#endif
 #if LID_NOTIFICATIONS_ENABLED
         if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE))(void)r154_disk_step(&t->notifications,tid);
+#endif
+#if LID_SHOP_PURCHASE_ENABLED
+        if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE)&&
+           __atomic_load_n(&t->shop_catalogue.catalogue.initialized,__ATOMIC_ACQUIRE)){
+            if(!t->shop_display.initialized&&
+               __atomic_load_n(&t->shop_display.state,__ATOMIC_ACQUIRE)==LID_SD_WAIT&&
+               !lid_sd_prepare(&t->shop_display,ops,t->shop_directory,&t->shop_catalogue.catalogue))
+                __atomic_store_n(&t->shop_display.state,LID_SD_FAILED,__ATOMIC_RELEASE);
+            if(t->shop_display.initialized)(void)lid_sd_poll(&t->shop_display);
+        }
+        r254_shop_io_step(t,now);
+        r276_tower_io_step(t,now);
 #endif
         if((result&(R16_FAULT|R16_PUBLISHED))==(R16_FAULT|R16_PUBLISHED)){
 #if LID_MATERIAL_CAPABILITY_ENABLED
             if(t->material_hash_enabled)(void)r106_hash_cancel(&t->material_hash,&t->material_crypto,tid);
 #endif
-#if LID_KILL_COIN_DELIVERY_ENABLED
+#if LID_KILL_COIN_DELIVERY_ENABLED || LID_SHOP_PURCHASE_ENABLED
             checks_failed=1;__atomic_store_n(&t->stop,1,__ATOMIC_RELEASE);
 #else
             __atomic_store_n(&t->state,R26_FAILED,__ATOMIC_RELEASE);return 2;
@@ -100,6 +168,15 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 #if LID_KILL_COIN_DELIVERY_ENABLED
             if(checks_failed)drained=1;
             if(__atomic_load_n(&t->coin_ready,__ATOMIC_ACQUIRE)&&!r141_drained(&t->coins))drained=0;
+#endif
+#if LID_SHOP_PURCHASE_ENABLED && !LID_KILL_COIN_DELIVERY_ENABLED
+            if(checks_failed)drained=1;
+#endif
+#if LID_SHOP_PURCHASE_ENABLED
+            if(!r254_shop_io_drained(t))drained=0;
+            if(!r276_tower_io_drained(t))drained=0;
+#endif
+#if LID_KILL_COIN_DELIVERY_ENABLED || LID_SHOP_PURCHASE_ENABLED
             if(drained&&checks_failed){__atomic_store_n(&t->state,R26_FAILED,__ATOMIC_RELEASE);return 2;}
 #endif
             if(drained){
@@ -115,6 +192,9 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 static int r26_start(R26Transport*t,const R26Ops*ops,const wchar_t*directory,const R15Context*c,uint32_t owner,uint32_t drain_timeout){
     if(!t||t->state!=R26_NEW||t->queue.initialized||!owner||!r26_ops_valid(ops)||ops->thread_id()!=owner||drain_timeout<10||drain_timeout>30000)return 0;
     t->owner=owner;t->drain_timeout=drain_timeout;
+#if LID_SHOP_CATALOGUE_ENABLED
+    if(!directory||!r26_append(t->shop_directory,1000,directory))return 0;
+#endif
 #if LID_NOTIFICATIONS_ENABLED
     if(!r26_append(t->notifications.directory,1000,directory))return 0;
 #endif

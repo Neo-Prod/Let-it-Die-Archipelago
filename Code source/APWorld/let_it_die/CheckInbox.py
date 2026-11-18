@@ -5,6 +5,7 @@ Research prototype; no automatic worker, game access, native source or network.
 import hashlib,json,os,tempfile
 from pathlib import Path
 from .CheckWire import Frame,Context,EVENT,FAULT,VISIT,CHEST,SIZE,receipt_ack
+from .ArchiveCompatibility import archived_check
 
 MAX_BYTES=32*1024*1024;MAX_RECEIVED=100000;MAX_OUTSTANDING=4096;MAX_BATCH=64
 def unique_object(pairs):
@@ -44,7 +45,7 @@ class DurableInbox:
             if set(pending)!={str(i) for i in range(consumed+1,len(hashes)+1)}:raise ValueError('receipt holes')
             for seq,text in pending.items():
                 if type(text) is not str or len(text)!=SIZE*2:raise ValueError('receipt frame size')
-                data=bytes.fromhex(text);frame=Frame.decode(data)
+                data=bytes.fromhex(text);frame=archived_check(data)
                 if frame.kind not in (EVENT,VISIT,CHEST) or frame.context!=context or frame.sequence!=int(seq) or hashlib.sha256(data).hexdigest()!=hashes[int(seq)-1]:raise ValueError('receipt frame mismatch')
             self.state=state
     def _store(self,state):
@@ -80,7 +81,7 @@ class DurableInbox:
         if type(limit) is not int or not 1<=limit<=MAX_BATCH:raise ValueError('consumer limit')
         count=0
         while self.state['consumed']<self.received and count<limit:
-            seq=self.state['consumed']+1;frame=Frame.decode(bytes.fromhex(self.state['raw'][str(seq)]))
+            seq=self.state['consumed']+1;frame=archived_check(bytes.fromhex(self.state['raw'][str(seq)]))
             callback(frame) # Must persist outbox outcome before returning; replay is possible.
             state=json.loads(json.dumps(self.state));state['consumed']=seq;del state['raw'][str(seq)];self._store(state);count+=1
         return count

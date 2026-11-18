@@ -26,13 +26,13 @@ def _publish_companion(directory: Path, payload: bytes) -> None:
             os.unlink(temporary)
 
 
-def publish_blueprint_target(directory: Path, snapshot: ReceiptSnapshot, target: Message) -> None:
+def publish_blueprint_target(directory: Path, snapshot: ReceiptSnapshot, target: Message, *, upgrade_steps: int | None = None) -> None:
     """Return only after both publications; this is NOT a game save/ACK.
 
     A failed TARGET publication can leave an unmatched companion, which the
     paired native reader must refuse before retaining the entry batch.
     """
-    payload = payload_for_target(snapshot, target)
+    payload = payload_for_target(snapshot, target, upgrade_steps=upgrade_steps)
     character = target.encode()
     directory = Path(directory)
     from .DecalProgression import payload_for_target as decal_payload

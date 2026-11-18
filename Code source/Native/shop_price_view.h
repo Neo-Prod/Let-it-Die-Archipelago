@@ -3,7 +3,7 @@
 /* Both reads use the same detached Part during the proven buy_part scope:
    first required-funds map, then the final debit. */
 static int lid_shop_price_site(unsigned long long rva){
-    return rva==0x1309bdeULL||rva==0x134f38eULL;
+    return rva==0x130a3beULL||rva==0x13511aeULL;
 }
 /* Pure scalar edits for caller-proven DETACHED temporary records ONLY.
    No includes from mod.c yet. Never pass master/cache memory to these helpers.

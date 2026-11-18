@@ -35,7 +35,7 @@ static int checks_material_input_request_core(void*opaque){
  c->diagnostic=3;if(!r15_same_context(&request.context,&c->snapshot.stamp.context))return -1;
  c->layout=g_material_host.layout;
  if(!r81_layout_valid(&c->layout)||c->layout.object_class!=c->snapshot.view.graph.manager.cls){
-  c->diagnostic=4;int acquired=checks_chest_scope_begin(0);int ok=r81_bind(&g_checks_ops,c->manager,(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20f8d60,&c->layout);checks_chest_scope_end(0,acquired);if(!ok)return -1;
+  c->diagnostic=4;int acquired=checks_chest_scope_begin(0);int ok=r81_bind(&g_checks_ops,c->manager,(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20fcc90,&c->layout);checks_chest_scope_end(0,acquired);if(!ok)return -1;
  }
  /* Reconciliation requires owner callbacks even before the first material.
     Bind their table before that check; this never resets a receipt or hooks. */
@@ -53,7 +53,7 @@ static int checks_material_input_prepare_core(void*opaque,const R81Sample*sample
  c->diagnostic=7;if(sample->manager!=c->manager||!g_material_activation_hash||!r122_owned_module(g_material_activation_hash,&g_material_input_slot,h->slot.installed?&h->slot:0,&g_material_input_ops,&h->binding))return 0;
  /* Canonical internal admission token: actual outer caller already verified
     as pre-input10CCED2. R40 repeats this admission with the real free slot. */
- c->diagnostic=8;if(!checks_material_bag_request((void*)(ULONG_PTR)c->snapshot.view.graph.player.object,-1,image+0x10cd01e,0,&out))return 0;
+ c->diagnostic=8;if(!checks_material_bag_request((void*)(ULONG_PTR)c->snapshot.view.graph.player.object,-1,image+0x10ccbce,0,&out))return 0;
  c->diagnostic=9;
  return out==0&&h->pickup.pending&&h->manager==c->manager&&checks_material_callback_module(h);
 }
@@ -65,7 +65,7 @@ static uint32_t WINAPI checks_material_preinput(void*self){
  uint64_t caller=(uint64_t)(ULONG_PTR)__builtin_return_address(0),image=g_material_owner_measurement.image;uint32_t tid=g_get_tid?g_get_tid():0;
  uint32_t(*original)(void*)=(uint32_t(*)(void*))(ULONG_PTR)__atomic_load_n(&g_material_input_slot.original,__ATOMIC_ACQUIRE);
  if(!original)return 0;
- if(tid!=g_material_input_slot.owner||caller!=image+0x10cced2)return original(self);
+ if(tid!=g_material_input_slot.owner||caller!=image+0x10cca82)return original(self);
  R123InputContext context={0};context.manager=(uint64_t)(ULONG_PTR)self;
  R121InputOps ops={g_checks_ops,&context,g_material_input_slot.owner,image,context.manager,&context.layout,checks_chest_thread,original,checks_material_input_request,checks_material_input_prepare};
  uint32_t result=r121_preinput(&g_material_input_gate,&ops,context.manager,caller);

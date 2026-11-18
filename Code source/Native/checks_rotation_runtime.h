@@ -29,13 +29,13 @@ static int checks_rotation_assign(void*c,R31String*out,const uint16_t*text,unsig
     R31Runtime*r=c;typedef void (WINAPI *Assign)(R31String*,const uint16_t*);
     uint16_t copy[32];
     if(!r->exe||!out||out->data||out->num||out->capacity||!text||length<1||length>32||text[length-1])return 0;
-    ((Assign)(r->exe+0x19970))(out,text);
+    ((Assign)(r->exe+0x19c40))(out,text);
     return out->num==(int)length&&out->capacity>=out->num&&out->capacity<=4096&&out->data&&
       checks_rotation_read(c,out->data,copy,length*2)&&!lid_memcmp(copy,text,length*2);
 }
 static void checks_rotation_destroy(void*c,R31String*value){
     R31Runtime*r=c;typedef void (WINAPI *Release)(void*);
-    if(value->data)((Release)(r->exe+0xdfdf0))(value->data);
+    if(value->data)((Release)(r->exe+0xdfb60))(value->data);
     *value=(R31String){0};
 }
 static void*checks_rotation_original_selector(void*c,void*out){
@@ -68,7 +68,7 @@ static int checks_rotation_writer_eligible(void*c){
     R31Runtime*r=c;int value=0,found;char line[192];size_t n=0;
     typedef unsigned char (WINAPI *Flag)(int*,const uint16_t*);
     if(!r->exe)return 0;
-    found=((Flag)(r->exe+0x128f110))(&value,(const uint16_t*)L"KGF_MET_TUTORIAL_CLEAR")==1;
+    found=((Flag)(r->exe+0x128f680))(&value,(const uint16_t*)L"KGF_MET_TUTORIAL_CLEAR")==1;
     append_ascii(line,sizeof(line),&n,"AP ROTATION R34: tutorial found=");append_dec(line,sizeof(line),&n,(unsigned)found);
     append_ascii(line,sizeof(line),&n," positive=");append_dec(line,sizeof(line),&n,value>=1);
     append_ascii(line,sizeof(line),&n,found&&value>=1?"; writer override eligible.":"; original template argument preserved.");line[n]=0;log_ascii(line);
@@ -79,7 +79,7 @@ static uint64_t WINAPI checks_rotation_writer_detour(uint32_t uid,const uint16_t
     uintptr_t caller=checks_rotation_caller(__builtin_return_address(0));
     /* Revoke before either known Core writer can rebuild the Stage. Foreign
        threads touch only the atomic revision, never proof payload fields. */
-    if(caller==0x111dee5||caller==0x111e8a5)r35_revoke(&g_checks_rotation_proof);
+    if(caller==0x111cad5||caller==0x111d7c5)r35_revoke(&g_checks_rotation_proof);
     return r34_writer_guard(&g_checks_rotation_runtime.rotation,caller,uid,tmpl,flag,checks_rotation_writer_eligible);
 #else
     return r34_writer_guard(&g_checks_rotation_runtime.rotation,checks_rotation_caller(__builtin_return_address(0)),uid,tmpl,flag,checks_rotation_writer_eligible);

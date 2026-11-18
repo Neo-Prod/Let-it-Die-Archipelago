@@ -21,7 +21,7 @@ class _WindowsSQLite:
     SQLITE_OK = 0
     SQLITE_OPEN_READWRITE = 0x00000002
 
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, *, read_only: bool = False):
         import ctypes
 
         self._ctypes = ctypes
@@ -57,7 +57,7 @@ class _WindowsSQLite:
         rc = self._lib.sqlite3_open_v2(
             str(path).encode("utf-8"),
             ctypes.byref(self._db),
-            self.SQLITE_OPEN_READWRITE,
+            0x00000001 if read_only else self.SQLITE_OPEN_READWRITE,
             None,
         )
         if rc != self.SQLITE_OK:

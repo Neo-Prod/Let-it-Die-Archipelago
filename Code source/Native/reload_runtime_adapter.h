@@ -7,6 +7,14 @@
 #ifndef LID_NATIVE_RELOAD_ENABLED
 #define LID_NATIVE_RELOAD_ENABLED 0
 #endif
+#ifndef LID_SHOP_SAVE_SCOPE_ENABLED
+#define LID_SHOP_SAVE_SCOPE_ENABLED 0
+#endif
+#if LID_SHOP_SAVE_SCOPE_ENABLED
+#include "shop_save_scope.h"
+#include "momoka_install_guard.h"
+#include "shop_save_observer.h"
+#endif
 #include "reload_bound_source.h"
 #include "reload_handoff.h"
 #include "reload_request_reservation.h"
@@ -90,25 +98,25 @@ done:
 static int progress_reload_idle_valid(void){
     LidReloadRuntime*r=&g_reload_runtime;BYTE*exe=r->exe;
     return r->idle_held&&progress_reload_thread(0)==r->writer&&
-        readable_range(exe+0xf8a0390,0x78)&&readable_range(exe+0xf8a0490,0x78)&&
-        lid_reload_request_pointer(exe+0xf8a0390,0)==exe+0x212a498&&
-        lid_reload_request_pointer(exe+0xf8a0490,0)==exe+0x212a498&&
-        !lid_reload_request_pointer(exe+0xf8a0390,0x40)&&!lid_reload_request_pointer(exe+0xf8a0490,0x40);
+        readable_range(exe+0xf8a5390,0x78)&&readable_range(exe+0xf8a5490,0x78)&&
+        lid_reload_request_pointer(exe+0xf8a5390,0)==exe+0x212e0e8&&
+        lid_reload_request_pointer(exe+0xf8a5490,0)==exe+0x212e0e8&&
+        !lid_reload_request_pointer(exe+0xf8a5390,0x40)&&!lid_reload_request_pointer(exe+0xf8a5490,0x40);
 }
 static int progress_reload_idle_begin(void){
     LidReloadRuntime*r=&g_reload_runtime;BYTE*exe=r->exe;
-    if(r->idle_held||progress_reload_thread(0)!=r->writer||!readable_range(exe+0xf8a0390,0x78)||
-       !readable_range(exe+0xf8a0490,0x78)||lid_reload_request_pointer(exe+0xf8a0390,0)!=exe+0x212a498||
-       lid_reload_request_pointer(exe+0xf8a0490,0)!=exe+0x212a498)return 0;
-    if(!g_progress_gate_ops.try_enter(exe+0xf8a03a8))return 0;
-    if(!g_progress_gate_ops.try_enter(exe+0xf8a04a8)){g_progress_gate_ops.leave(exe+0xf8a03a8);return 0;}
+    if(r->idle_held||progress_reload_thread(0)!=r->writer||!readable_range(exe+0xf8a5390,0x78)||
+       !readable_range(exe+0xf8a5490,0x78)||lid_reload_request_pointer(exe+0xf8a5390,0)!=exe+0x212e0e8||
+       lid_reload_request_pointer(exe+0xf8a5490,0)!=exe+0x212e0e8)return 0;
+    if(!g_progress_gate_ops.try_enter(exe+0xf8a53a8))return 0;
+    if(!g_progress_gate_ops.try_enter(exe+0xf8a54a8)){g_progress_gate_ops.leave(exe+0xf8a53a8);return 0;}
     r->idle_held=1;
     if(progress_reload_idle_valid())return 1;
-    r->idle_held=0;g_progress_gate_ops.leave(exe+0xf8a04a8);g_progress_gate_ops.leave(exe+0xf8a03a8);return 0;
+    r->idle_held=0;g_progress_gate_ops.leave(exe+0xf8a54a8);g_progress_gate_ops.leave(exe+0xf8a53a8);return 0;
 }
 static void progress_reload_idle_end(void){
     LidReloadRuntime*r=&g_reload_runtime;if(!r->idle_held)return;
-    r->idle_held=0;g_progress_gate_ops.leave(r->exe+0xf8a04a8);g_progress_gate_ops.leave(r->exe+0xf8a03a8);
+    r->idle_held=0;g_progress_gate_ops.leave(r->exe+0xf8a54a8);g_progress_gate_ops.leave(r->exe+0xf8a53a8);
 }
 static int progress_reload_patch_quiet(void*c){(void)c;return progress_reload_idle_valid();}
 static int progress_reload_patch_read(void*c,const void*p,size_t n){(void)c;return readable_range(p,n);}
@@ -132,8 +140,8 @@ static int progress_reload_json_window(void*unused){
         return LID_RELOAD_GATE_VIEW(&current,0)&&lid_progress_gate_same_view(&current,&g_progress_apply_lease.view);
     }
     return p==LID_RR_LOADING&&tid==r->request_thread&&r->boundary.stage==LID_BOUNDARY_BUSY&&
-        !r->idle_held&&!r->request_lease.held&&readable_range(r->exe+0xf89fec0,8)&&
-        lid_reload_request_pointer(r->exe+0xf89fec0,0)==r->handler;
+        !r->idle_held&&!r->request_lease.held&&readable_range(r->exe+0xf8a4ed8,8)&&
+        lid_reload_request_pointer(r->exe+0xf8a4ed8,0)==r->handler;
 }
 static void*progress_reload_json_allocate(void*c,size_t n){(void)c;return g_tbb_malloc(n);}
 static void progress_reload_json_release(void*c,void*p){(void)c;if(p)g_tbb_free(p);}
@@ -149,9 +157,9 @@ static int progress_reload_bind_json(BYTE*exe){
 }
 static int progress_reload_request_identity(const LidBoundaryArgs*a,void*caller){
     LidReloadRuntime*r=&g_reload_runtime;void*handler;
-    if(!a||caller!=r->exe+0x1167309||!readable_range(r->exe+0xf89fec0,8))return 0;
-    handler=lid_reload_request_pointer(r->exe+0xf89fec0,0);
-    return handler&&readable_range(handler,0x418)&&lid_reload_request_pointer(handler,0)==r->exe+0x210db10&&
+    if(!a||caller!=r->exe+0x115d0e9||!readable_range(r->exe+0xf8a4ed8,8))return 0;
+    handler=lid_reload_request_pointer(r->exe+0xf8a4ed8,0);
+    return handler&&readable_range(handler,0x418)&&lid_reload_request_pointer(handler,0)==r->exe+0x2111880&&
         (BYTE*)handler+0x410==(BYTE*)a->self;
 }
 static int progress_reload_validate(void*c,const LidBoundaryArgs*a){
@@ -166,9 +174,9 @@ static int progress_reload_reserve(void*c){
     LidReloadRuntime*r=&g_reload_runtime;LidReloadRequestView view={0};LidReloadProxyGuard proxy;
     char line[192];size_t n=0;int status;unsigned attempts=0;unsigned long long start=0,now=0;
     const char*reason=0;(void)c;
-    view.generation=progress_native_game(r->exe);view.request_runner=r->exe+0xf8a0390;view.save_runner=r->exe+0xf8a0490;
-    view.runner_vtable=r->exe+0x212a498;view.handler=r->handler;view.handler_vtable=r->exe+0x210db10;
-    view.core_self=r->args.self;view.current_request_global=(void**)(r->exe+0xf89fec0);view.writer_thread=r->writer;
+    view.generation=progress_native_game(r->exe);view.request_runner=r->exe+0xf8a5390;view.save_runner=r->exe+0xf8a5490;
+    view.runner_vtable=r->exe+0x212e0e8;view.handler=r->handler;view.handler_vtable=r->exe+0x2111880;
+    view.core_self=r->args.self;view.current_request_global=(void**)(r->exe+0xf8a4ed8);view.writer_thread=r->writer;
     view.ownership_verified=g_progress_runtime_mutex.owned&&!g_progress_runtime_mutex.poisoned&&g_progress_runtime_mutex.owner_thread==r->writer;
     view.callsite_verified=progress_reload_request_identity(&r->args,r->caller);
     view.transaction_active=g_progress_host.active||g_progress_host.poisoned||!g_progress_host.grant_published||
@@ -256,9 +264,9 @@ static int progress_reload_projection(void*c,void*soul){
     LidReloadCapacityValues restored={0};int selected_record,slot,skill_target,bag_target;
     (void)c;strings.readable=progress_native_readable;
     if(progress_reload_phase()==LID_RR_FAILED)return 0;
-    if(!soul||!readable_range(soul,0x39c)||!readable_range(r->exe+0xf8b0088,4))return 0;
+    if(!soul||!readable_range(soul,0x39c)||!readable_range(r->exe+0xf8b5090,4))return 0;
     /* RPC Soul[0] comes from F8B0124, NOT the account UID at F8B0088. */
-    value=lid_wire_r32(r->exe+0xf8b0088);
+    value=lid_wire_r32(r->exe+0xf8b5090);
     if(!value||value>2147483647u)return 0;
     do{digits[n++]=(wchar_t)('0'+value%10);value/=10;}while(value);
     for(i=0;i<(int)n;i++)if(r->source.snapshot.uid[i]!=(unsigned short)digits[n-1-(size_t)i])return 0;
@@ -310,7 +318,88 @@ static unsigned char progress_reload_original(void*a,void*b,void*c,void*d,const 
     LID_PERF_END(core_time,5,"initial_core_and_postcheck",result);
     return result==1&&progress_reload_phase()==LID_RR_LOADING;
 }
-static unsigned char WINAPI progress_reload_save_hook(void*runner,void*json){return lid_reload_bridge_save(&g_reload_runtime.bridge,runner,json);}
+#if LID_SHOP_SAVE_SCOPE_ENABLED
+static LidShopSaveScope*g_shop_save_scope;
+static unsigned char progress_shop_save_original(void*context,void*runner,void*json){
+    return lid_reload_bridge_save(context,runner,json);
+}
+/* Publish once per process, under real native idle locks. process_epoch is the
+   process creation time, NOT an AP run identity. Observer context must remain
+   process-resident; authenticate run-specific expectations separately. */
+static int progress_shop_save_scope_publish(LidShopSaveScope*s,const LidMomokaInstallGuard*guard){
+    LidReloadRuntime*r=&g_reload_runtime;LidShopSaveScope*expected=0;
+    if(!s||!s->initialized||s->process_epoch!=r->epoch||s->writer!=r->writer||
+       s->ops.original!=progress_shop_save_original||s->ops.original_context!=&r->bridge||
+       !guard||guard->base!=(uintptr_t)r->exe||guard->writer!=r->writer||!lid_momoka_install_held(guard)||
+       !lid_reload_bridge_valid(&r->bridge)||__atomic_load_n(&s->active,__ATOMIC_ACQUIRE)||s->fault)return 0;
+    return __atomic_compare_exchange_n(&g_shop_save_scope,&expected,s,0,__ATOMIC_ACQ_REL,__ATOMIC_ACQUIRE);
+}
+#endif
+static unsigned char WINAPI progress_reload_save_hook(void*runner,void*json){
+#if LID_SHOP_SAVE_SCOPE_ENABLED
+    uintptr_t caller=(uintptr_t)__builtin_return_address(0);
+    LidShopSaveScope*s=__atomic_load_n(&g_shop_save_scope,__ATOMIC_ACQUIRE);
+    if(s&&s->process_epoch==g_reload_runtime.epoch)return lid_shop_save_scope_call(s,runner,json,caller);
+#endif
+    return lid_reload_bridge_save(&g_reload_runtime.bridge,runner,json);
+}
+#if LID_SHOP_SAVE_SCOPE_ENABLED
+typedef struct LidShopSaveDiagnostic {
+    unsigned attempted,published,lines;
+    DWORD(WINAPI*alloc)(void);void*(WINAPI*get)(DWORD);BOOL(WINAPI*set)(DWORD,void*);void(WINAPI*error_set)(DWORD);
+    LidShopSaveScope scope;LidShopSaveObserver observer;LidMomokaInstallGuard guard;
+} LidShopSaveDiagnostic;
+static LidShopSaveDiagnostic g_shop_save_diagnostic;
+static void*progress_shop_tls_get(void*c,unsigned slot){return ((LidShopSaveDiagnostic*)c)->get(slot);}
+static int progress_shop_tls_set(void*c,unsigned slot,void*p){return !!((LidShopSaveDiagnostic*)c)->set(slot,p);}
+static uint32_t progress_shop_tid(void*c){(void)c;return (uint32_t)progress_reload_thread(0);}
+static unsigned progress_shop_error(void*c){(void)c;return g_win.GetLastError();}
+static void progress_shop_error_set(void*c,unsigned error){((LidShopSaveDiagnostic*)c)->error_set(error);}
+static int progress_shop_read(void*c,uintptr_t p,void*out,size_t n){(void)c;
+    if(!p||!out||!n||!readable_range((void*)p,n))return 0;lid_memcpy(out,(void*)p,n);return 1;}
+static int progress_shop_try(void*c,uintptr_t p){(void)c;return !!g_progress_gate_ops.try_enter((void*)p);}
+static void progress_shop_leave(void*c,uintptr_t p){(void)c;g_progress_gate_ops.leave((void*)p);}
+static void progress_shop_save_diagnostic_tick(void){
+    LidShopSaveDiagnostic*d=&g_shop_save_diagnostic;LidReloadRuntime*r=&g_reload_runtime;
+    unsigned attempted=__atomic_load_n(&d->attempted,__ATOMIC_ACQUIRE);
+    unsigned published=__atomic_load_n(&d->published,__ATOMIC_ACQUIRE);
+    /* Once idle/refused, cached reads only: no per-event thread/world/clock/IO
+       query. Initialization is owned exclusively by the existing game writer. */
+    if(attempted&&(!published||!__atomic_load_n(&d->observer.pending,__ATOMIC_ACQUIRE)))return;
+    if(progress_reload_thread(0)!=r->writer)return;
+    if(!attempted){
+        __atomic_store_n(&d->attempted,1,__ATOMIC_RELEASE);void*kernel=lid_find_module_ascii("kernel32.dll");
+        if(!kernel||!r->proxy_verified||!g_win.GetLastError||!g_progress_gate_ops.try_enter||!g_progress_gate_ops.leave)goto refused;
+        d->alloc=(DWORD(WINAPI*)(void))lid_get_export(kernel,"TlsAlloc");d->get=(void*(WINAPI*)(DWORD))lid_get_export(kernel,"TlsGetValue");
+        d->set=(BOOL(WINAPI*)(DWORD,void*))lid_get_export(kernel,"TlsSetValue");d->error_set=(void(WINAPI*)(DWORD))lid_get_export(kernel,"SetLastError");
+        if(!d->alloc||!d->get||!d->set||!d->error_set)goto refused;
+        unsigned slot=(unsigned)d->alloc();if(slot==~0u)goto refused;
+        LidShopSaveScopeOps ops={{d,progress_shop_tls_get,progress_shop_tls_set,progress_shop_tid,progress_shop_error,progress_shop_error_set},
+            &r->bridge,progress_shop_save_original,&d->observer,lid_shop_save_observe};
+        LidShopSaveOriginOps source={d,progress_shop_read,progress_shop_tid};
+        LidMomokaInstallOps idle={d,progress_shop_read,progress_shop_try,progress_shop_leave,progress_shop_tid};
+        if(!lid_shop_save_scope_prepare(&d->scope,r->epoch,r->writer,slot,&ops)||
+           !lid_shop_save_observer_prepare(&d->observer,&d->scope,(uintptr_t)r->exe,1,&source,0,0)||
+           !lid_momoka_install_prepare(&d->guard,(uintptr_t)r->exe,1,r->writer,&idle)||
+           lid_momoka_install_begin(&d->guard)!=LID_MI_HELD)goto refused;
+        int published=progress_shop_save_scope_publish(&d->scope,&d->guard);
+        (void)lid_momoka_install_end(&d->guard);if(!published)goto refused;
+        __atomic_store_n(&d->published,1,__ATOMIC_RELEASE);log_ascii("AP SHOP SAVE R237: read-only native Save observer published; no AP transaction changes.");
+    }
+    if(__atomic_load_n(&d->published,__ATOMIC_ACQUIRE)&&__atomic_load_n(&d->observer.pending,__ATOMIC_ACQUIRE)){
+        LidShopSaveEvent e;if(!lid_shop_save_event_take(&d->observer,&e)||d->lines>=128)return;
+        if(e.stage==2){char line[256];size_t n=0;line[0]=0;d->lines++;
+            append_ascii(line,sizeof(line),&n,"AP SHOP SAVE R237: completed kind=");append_dec(line,sizeof(line),&n,e.kind);
+            append_ascii(line,sizeof(line),&n," native_result=");append_dec(line,sizeof(line),&n,e.native_result);
+            append_ascii(line,sizeof(line),&n," dropped=");append_dec(line,sizeof(line),&n,__atomic_load_n(&d->observer.dropped,__ATOMIC_ACQUIRE));
+            line[n]=0;log_ascii(line);
+        }
+    }
+    return;
+refused:
+    log_ascii("AP SHOP SAVE R237: optional observer not published; native Save unchanged, no retry loop.");
+}
+#endif
 static unsigned char WINAPI progress_reload_apply_hook(void*runner,void*root){
     void*caller=__builtin_return_address(0);
     return lid_reload_bridge_apply(&g_reload_runtime.bridge,runner,root,caller);
@@ -339,7 +428,7 @@ static unsigned char progress_reload_core_dispatch(const LidBoundaryArgs*a,void*
     if(p!=LID_RR_ARMED)return 0;
     expected=LID_RR_ARMED;
     if(!__atomic_compare_exchange_n(&r->phase,&expected,LID_RR_LOADING,0,__ATOMIC_ACQ_REL,__ATOMIC_ACQUIRE))return 0;
-    r->args=*a;r->caller=caller;r->handler=lid_reload_request_pointer(r->exe+0xf89fec0,0);
+    r->args=*a;r->caller=caller;r->handler=lid_reload_request_pointer(r->exe+0xf8a4ed8,0);
     r->request=(unsigned long long)(uintptr_t)r->handler;r->request_thread=tid;
     r->body_before=g_v070_last_body;r->hub_before=__atomic_load_n(&g_hub_entry_signal.serial,__ATOMIC_ACQUIRE);
     result=lid_boundary_call(&r->boundary,&ops,a,1,r->epoch,r->request);
@@ -398,11 +487,11 @@ static int progress_reload_prepare(BYTE*exe){
     r->io.hash=(LidCngHash)lid_get_export(bcrypt,"BCryptHash");r->io.algorithm_close=(LidCngClose)lid_get_export(bcrypt,"BCryptCloseAlgorithmProvider");
     r->proxy=lid_find_module_ascii("dinput8.dll");
     if(!r->clock||!r->io.algorithm||!r->io.hash||!r->io.algorithm_close||!r->proxy||
-       !progress_reload_hash_module(exe,45069312,lid_wire_game)||!progress_reload_hash_module(r->proxy,31232,lid_reload_proxy_sha)||
+       !progress_reload_hash_module(exe,45076480,lid_wire_game)||!progress_reload_hash_module(r->proxy,31232,lid_reload_proxy_sha)||
        !progress_reload_build_path(r->save_path,1120,L"brggame.sav"))return 0;
     r->proxy_verified=1;
     r->bridge.hooks=&r->hooks;r->bridge.boundary=&r->boundary;r->bridge.context=&r->source;
-    r->bridge.runner=exe+0xf8a0490;r->bridge.apply_return=exe+0x11088b3;
+    r->bridge.runner=exe+0xf8a5490;r->bridge.apply_return=exe+0x11080d3;
     r->bridge.thread_id=progress_reload_thread;r->bridge.capture=lid_reload_bound_source_capture;
     if(!progress_reload_idle_begin())return 0;
     if(!progress_reload_proxy_read(&proxy)){progress_reload_idle_end();return 0;}
@@ -528,7 +617,12 @@ static void progress_reload_views_tick(void){
    READY/FAILED are atomic cached checks, no steady hub file/clock loop. */
 static int progress_reload_tick(BYTE*exe){
     LidReloadRuntime*r=&g_reload_runtime;unsigned phase=progress_reload_phase();int status;
-    if(phase==LID_RR_READY)return 0;
+    if(phase==LID_RR_READY){
+#if LID_SHOP_SAVE_SCOPE_ENABLED
+        progress_shop_save_diagnostic_tick();
+#endif
+        return 0;
+    }
     if(phase==LID_RR_FAILED)return 1;
     if(phase==LID_RR_NEW){
         if(!g_savedata_route_active||!g_v074_cfg.valid)return 0;

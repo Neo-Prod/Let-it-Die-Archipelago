@@ -13,6 +13,7 @@ import tempfile
 from .CharacterProgression import ReceiptSnapshot
 from .Fillers import AMOUNTS_BY_ID
 from .KillCoinWire import CoinFrame, ACK, decode
+from .ArchiveCompatibility import archived_coin
 
 
 def prefix_digest(history):
@@ -37,7 +38,7 @@ class AppliedCursor:
             raise ValueError("KC history truncated or cursor invalid")
         if self.prefix != prefix_digest(snapshot.history[:self.index + 1]):
             raise ValueError("KC receipt history changed")
-        frame = decode(self.evidence)
+        frame = archived_coin(self.evidence)
         if (frame.kind != ACK or frame.index != self.index or
                 frame.item != snapshot.history[self.index][0]):
             raise ValueError("KC journal evidence mismatch")
@@ -51,7 +52,7 @@ def next_grant(snapshot, context, cursor=None):
     start = 0
     if cursor is not None:
         cursor.validate(snapshot)
-        previous = decode(cursor.evidence).context
+        previous = archived_coin(cursor.evidence).context
         if (previous.run, previous.config) != (context.run, context.config):
             raise ValueError("KC native slot changed")
         start = cursor.index + 1

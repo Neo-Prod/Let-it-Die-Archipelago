@@ -1,0 +1,6476 @@
+{
+  "schema": 1,
+  "pdf_sha256": "88c78b7c108bad18299ca570294bad72ae6afcb9b9f2448dbea235efa4269e5c",
+  "equipment": {
+    "Progressive Jungle Machete": {
+      "ap_id": 7110001,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP001_001",
+        "PT_ARM_WP001_003",
+        "PT_ARM_WP001_002",
+        "PT_ARM_WP001_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Jungle Machete",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Butterfly Knife": {
+      "ap_id": 7110002,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP002_001",
+        "PT_ARM_WP002_003",
+        "PT_ARM_WP002_002",
+        "PT_ARM_WP002_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Butterfly Knife",
+        "y": 480.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Axe": {
+      "ap_id": 7110003,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP003_001",
+        "PT_ARM_WP003_003",
+        "PT_ARM_WP003_002",
+        "PT_ARM_WP003_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Steel Axe",
+        "y": 342.65,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Robber Crossbow": {
+      "ap_id": 7110004,
+      "faction": "candle_wolf",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP004_001",
+        "PT_ARM_WP004_003",
+        "PT_ARM_WP004_002",
+        "PT_ARM_WP004_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Robber Crossbow",
+        "y": 355.22,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Metal Bat": {
+      "ap_id": 7110005,
+      "faction": "milk",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP005_001",
+        "PT_ARM_WP005_003",
+        "PT_ARM_WP005_002",
+        "PT_ARM_WP005_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Metal Bat",
+        "y": 242.15,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Buzzsaw Knuckles": {
+      "ap_id": 7110006,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP006_001",
+        "PT_ARM_WP006_003",
+        "PT_ARM_WP006_002",
+        "PT_ARM_WP006_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Buzzsaw Knuckles",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive FFWF-103 Flamethrower": {
+      "ap_id": 7110007,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP007_001",
+        "PT_ARM_WP007_003",
+        "PT_ARM_WP007_002",
+        "PT_ARM_WP007_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "FFWF-103 Flamethrower",
+        "y": 493.41,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Hammer": {
+      "ap_id": 7110008,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP011_001",
+        "PT_ARM_WP011_003",
+        "PT_ARM_WP011_002",
+        "PT_ARM_WP011_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Iron Hammer",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Combat Pickaxe": {
+      "ap_id": 7110009,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP012_001",
+        "PT_ARM_WP012_003",
+        "PT_ARM_WP012_002",
+        "PT_ARM_WP012_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Combat Pickaxe",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight’s Lance": {
+      "ap_id": 7110010,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP013_001",
+        "PT_ARM_WP013_003",
+        "PT_ARM_WP013_002",
+        "PT_ARM_WP013_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Knight's Lance",
+        "y": 367.78,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Masamune Blade": {
+      "ap_id": 7110011,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP016_001",
+        "PT_ARM_WP016_003",
+        "PT_ARM_WP016_002",
+        "PT_ARM_WP016_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Masamune Blade",
+        "y": 380.34,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Glinty Magnum": {
+      "ap_id": 7110012,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP017_001",
+        "PT_ARM_WP017_003",
+        "PT_ARM_WP017_002",
+        "PT_ARM_WP017_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Glinty Magnum",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Stun Rod": {
+      "ap_id": 7110013,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP018_001",
+        "PT_ARM_WP018_003",
+        "PT_ARM_WP018_002",
+        "PT_ARM_WP018_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Stun Rod",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Longsword": {
+      "ap_id": 7110014,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP019_001",
+        "PT_ARM_WP019_003",
+        "PT_ARM_WP019_002",
+        "PT_ARM_WP019_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Longsword",
+        "y": 405.47,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Claw": {
+      "ap_id": 7110015,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP020_001",
+        "PT_ARM_WP020_003",
+        "PT_ARM_WP020_002",
+        "PT_ARM_WP020_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Iron Claw",
+        "y": 430.59,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pitbull Shotgun": {
+      "ap_id": 7110016,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP021_001",
+        "PT_ARM_WP021_003",
+        "PT_ARM_WP021_002",
+        "PT_ARM_WP021_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Pitbull Shotgun",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Striker Flail": {
+      "ap_id": 7110017,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP024_001",
+        "PT_ARM_WP024_003",
+        "PT_ARM_WP024_002",
+        "PT_ARM_WP024_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Striker Flail",
+        "y": 443.16,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DUKE-02 Sniper Rifle": {
+      "ap_id": 7110018,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP025_001",
+        "PT_ARM_WP025_003",
+        "PT_ARM_WP025_002",
+        "PT_ARM_WP025_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "DUKE-02 Sniper Rifle",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cleaver Saber": {
+      "ap_id": 7110019,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP026_001",
+        "PT_ARM_WP026_003",
+        "PT_ARM_WP026_002",
+        "PT_ARM_WP026_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Cleaver Saber",
+        "y": 254.71,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Bloody Pitching Machine": {
+      "ap_id": 7110020,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP028_001",
+        "PT_ARM_WP028_003",
+        "PT_ARM_WP028_002",
+        "PT_ARM_WP028_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Bloody Pitching Machine",
+        "y": 279.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Flame Wand": {
+      "ap_id": 7110021,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP029_001",
+        "PT_ARM_WP029_003",
+        "PT_ARM_WP029_002",
+        "PT_ARM_WP029_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Flame Wand",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Loaded Glove": {
+      "ap_id": 7110022,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP030_001",
+        "PT_ARM_WP030_003",
+        "PT_ARM_WP030_002",
+        "PT_ARM_WP030_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Loaded Glove",
+        "y": 317.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive KAMAS-A1 Assault Rifle": {
+      "ap_id": 7110023,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP031_001",
+        "PT_ARM_WP031_003",
+        "PT_ARM_WP031_002",
+        "PT_ARM_WP031_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "KAMAS-A1 Assault Rifle",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive KAMAS-A1 Assault Rifle RE": {
+      "ap_id": 7110024,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP031_0B1",
+        "PT_ARM_WP031_0B3",
+        "PT_ARM_WP031_0B2",
+        "PT_ARM_WP031_0B4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "KAMAS-A1 Assault Rifle RE",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Nail Gun": {
+      "ap_id": 7110025,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP032_001",
+        "PT_ARM_WP032_003",
+        "PT_ARM_WP032_002",
+        "PT_ARM_WP032_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Nail Gun",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Brutal Yo-Yo": {
+      "ap_id": 7110026,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP033_001",
+        "PT_ARM_WP033_003",
+        "PT_ARM_WP033_002",
+        "PT_ARM_WP033_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Brutal Yo-Yo",
+        "y": 304.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Welding Gun": {
+      "ap_id": 7110027,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP034_001",
+        "PT_ARM_WP034_003",
+        "PT_ARM_WP034_002",
+        "PT_ARM_WP034_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Welding Gun",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Bowling Stomper": {
+      "ap_id": 7110028,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP035_001",
+        "PT_ARM_WP035_003",
+        "PT_ARM_WP035_002",
+        "PT_ARM_WP035_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Bowling Stomper",
+        "y": 330.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Drill Arm": {
+      "ap_id": 7110029,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP036_001",
+        "PT_ARM_WP036_003",
+        "PT_ARM_WP036_002",
+        "PT_ARM_WP036_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Drill Arm",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Red Hot Iron": {
+      "ap_id": 7110030,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP037_001",
+        "PT_ARM_WP037_003",
+        "PT_ARM_WP037_002",
+        "PT_ARM_WP037_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Red Hot Iron",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Tactical Shovel": {
+      "ap_id": 7110031,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP038_001",
+        "PT_ARM_WP038_003",
+        "PT_ARM_WP038_002",
+        "PT_ARM_WP038_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Tactical Shovel",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cyclone Shuriken": {
+      "ap_id": 7110032,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP039_001",
+        "PT_ARM_WP039_003",
+        "PT_ARM_WP039_002",
+        "PT_ARM_WP039_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Cyclone Shuriken",
+        "y": 468.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fireball Baton": {
+      "ap_id": 7110033,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP040_001",
+        "PT_ARM_WP040_003",
+        "PT_ARM_WP040_002",
+        "PT_ARM_WP040_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Fireball Baton",
+        "y": 355.22,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Motor Psycho": {
+      "ap_id": 7110034,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP041_001",
+        "PT_ARM_WP041_003",
+        "PT_ARM_WP041_002",
+        "PT_ARM_WP041_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Motor Psycho",
+        "y": 367.78,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pork Chopper": {
+      "ap_id": 7110035,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP042_001",
+        "PT_ARM_WP042_003",
+        "PT_ARM_WP042_002",
+        "PT_ARM_WP042_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Pork Chopper",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Apocalyptic Hockey Stick": {
+      "ap_id": 7110036,
+      "faction": "milk",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP043_001",
+        "PT_ARM_WP043_003",
+        "PT_ARM_WP043_002",
+        "PT_ARM_WP043_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Apocalyptic Hockey Stick",
+        "y": 405.47,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fireworks Launcher": {
+      "ap_id": 7110037,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP044_001",
+        "PT_ARM_WP044_003",
+        "PT_ARM_WP044_002",
+        "PT_ARM_WP044_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Fireworks Launcher",
+        "y": 220.8,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive M-404 Rocket Launcher": {
+      "ap_id": 7110038,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP045_001",
+        "PT_ARM_WP045_003",
+        "PT_ARM_WP045_002",
+        "PT_ARM_WP045_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "M-404 Rocket Launcher",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hunting Bow": {
+      "ap_id": 7110039,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP046_001",
+        "PT_ARM_WP046_003",
+        "PT_ARM_WP046_002",
+        "PT_ARM_WP046_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Hunting Bow",
+        "y": 418.03,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Lightning Wand": {
+      "ap_id": 7110040,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP047_001",
+        "PT_ARM_WP047_003",
+        "PT_ARM_WP047_002",
+        "PT_ARM_WP047_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Lightning Wand",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Chainsaw Viper": {
+      "ap_id": 7110041,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP048_001",
+        "PT_ARM_WP048_003",
+        "PT_ARM_WP048_002",
+        "PT_ARM_WP048_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Chainsaw Viper",
+        "y": 233.36,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Longsword RE": {
+      "ap_id": 7110042,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP060_001",
+        "PT_ARM_WP060_003",
+        "PT_ARM_WP060_002",
+        "PT_ARM_WP060_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Longsword RE",
+        "y": 418.03,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Lion Knuckles": {
+      "ap_id": 7110043,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP062_001",
+        "PT_ARM_WP062_003",
+        "PT_ARM_WP062_002",
+        "PT_ARM_WP062_004"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Lion Knuckles",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pulse Stun Gun": {
+      "ap_id": 7110044,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP063_001",
+        "PT_ARM_WP063_003",
+        "PT_ARM_WP063_002",
+        "PT_ARM_WP063_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Pulse Stun Gun",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Timber Rebellion": {
+      "ap_id": 7110045,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP064_001",
+        "PT_ARM_WP064_003",
+        "PT_ARM_WP064_002",
+        "PT_ARM_WP064_004"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Timber Rebellion",
+        "y": 296.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DIY Attack Coat": {
+      "ap_id": 7110046,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_001",
+        "PT_DIY_TOPS_101",
+        "PT_DIY_TOPS_002",
+        "PT_DIY_TOPS_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "DIY Attack",
+        "y": 103.96,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Doctor Drill Body": {
+      "ap_id": 7110047,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_003",
+        "PT_DIY_TOPS_103",
+        "PT_DIY_TOPS_004",
+        "PT_DIY_TOPS_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Doctor Drill",
+        "y": 129.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Happy Wheeler Body": {
+      "ap_id": 7110048,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_005",
+        "PT_DIY_TOPS_105",
+        "PT_DIY_TOPS_006",
+        "PT_DIY_TOPS_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Happy Wheeler",
+        "y": 141.65,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Chemical Agent Body": {
+      "ap_id": 7110049,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_007",
+        "PT_DIY_TOPS_107",
+        "PT_DIY_TOPS_008",
+        "PT_DIY_TOPS_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Chemical Agent",
+        "y": 154.21,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Trucker Apron": {
+      "ap_id": 7110050,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_009",
+        "PT_DIY_TOPS_109",
+        "PT_DIY_TOPS_010",
+        "PT_DIY_TOPS_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Trucker",
+        "y": 166.78,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Soldier Apron": {
+      "ap_id": 7110051,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_011",
+        "PT_DIY_TOPS_111",
+        "PT_DIY_TOPS_012",
+        "PT_DIY_TOPS_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Soldier",
+        "y": 179.34,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Tribe Body": {
+      "ap_id": 7110052,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_013",
+        "PT_DIY_TOPS_113",
+        "PT_DIY_TOPS_014",
+        "PT_DIY_TOPS_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Tribe",
+        "y": 191.9,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Power Stomper Body": {
+      "ap_id": 7110053,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_015",
+        "PT_DIY_TOPS_115",
+        "PT_DIY_TOPS_016",
+        "PT_DIY_TOPS_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Power Stomper",
+        "y": 204.46,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Texas Farmer Coat": {
+      "ap_id": 7110054,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_017",
+        "PT_DIY_TOPS_117",
+        "PT_DIY_TOPS_018",
+        "PT_DIY_TOPS_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Texas Farmer",
+        "y": 217.03,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Road Shocker Coat": {
+      "ap_id": 7110055,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_019",
+        "PT_DIY_TOPS_119",
+        "PT_DIY_TOPS_020",
+        "PT_DIY_TOPS_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Road Shocker",
+        "y": 229.59,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Violent Grinder Body": {
+      "ap_id": 7110056,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_031",
+        "PT_DIY_TOPS_131",
+        "PT_DIY_TOPS_032",
+        "PT_DIY_TOPS_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Violent Grinder",
+        "y": 254.71,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Armor": {
+      "ap_id": 7110057,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_001",
+        "PT_FAN_TOPS_101",
+        "PT_FAN_TOPS_002",
+        "PT_FAN_TOPS_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Agamemnon Mail": {
+      "ap_id": 7110058,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_003",
+        "PT_FAN_TOPS_103",
+        "PT_FAN_TOPS_004",
+        "PT_FAN_TOPS_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Agamemnon",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fencing Armor": {
+      "ap_id": 7110059,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_005",
+        "PT_FAN_TOPS_105",
+        "PT_FAN_TOPS_006",
+        "PT_FAN_TOPS_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Fencing",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Armor": {
+      "ap_id": 7110060,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_007",
+        "PT_FAN_TOPS_107",
+        "PT_FAN_TOPS_008",
+        "PT_FAN_TOPS_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Rogue Armor": {
+      "ap_id": 7110061,
+      "faction": "candle_wolf",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_009",
+        "PT_FAN_TOPS_109",
+        "PT_FAN_TOPS_010",
+        "PT_FAN_TOPS_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Rogue",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sengoku Armor": {
+      "ap_id": 7110062,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_011",
+        "PT_FAN_TOPS_111",
+        "PT_FAN_TOPS_012",
+        "PT_FAN_TOPS_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sengoku",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Evil Wizard Coat": {
+      "ap_id": 7110063,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_013",
+        "PT_FAN_TOPS_113",
+        "PT_FAN_TOPS_014",
+        "PT_FAN_TOPS_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Evil Wizard",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Paladin Armor": {
+      "ap_id": 7110064,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_015",
+        "PT_FAN_TOPS_115",
+        "PT_FAN_TOPS_016",
+        "PT_FAN_TOPS_116"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Paladin",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Priest's Coat": {
+      "ap_id": 7110065,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_017",
+        "PT_FAN_TOPS_117",
+        "PT_FAN_TOPS_018",
+        "PT_FAN_TOPS_118"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Priest",
+        "y": 233.36,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Warrior Armor": {
+      "ap_id": 7110066,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_019",
+        "PT_FAN_TOPS_119",
+        "PT_FAN_TOPS_020",
+        "PT_FAN_TOPS_120"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Warrior",
+        "y": 245.92,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sword Dancer Armor": {
+      "ap_id": 7110067,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_031",
+        "PT_FAN_TOPS_131",
+        "PT_FAN_TOPS_032",
+        "PT_FAN_TOPS_132"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sword Dancer",
+        "y": 258.48,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Body": {
+      "ap_id": 7110068,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_001",
+        "PT_MIL_TOPS_101",
+        "PT_MIL_TOPS_002",
+        "PT_MIL_TOPS_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Dark Ryback Body": {
+      "ap_id": 7110069,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_003",
+        "PT_MIL_TOPS_103",
+        "PT_MIL_TOPS_004",
+        "PT_MIL_TOPS_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Dark Ryback",
+        "y": 351.45,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Phantom Soldier Body": {
+      "ap_id": 7110070,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_005",
+        "PT_MIL_TOPS_105",
+        "PT_MIL_TOPS_006",
+        "PT_MIL_TOPS_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Phantom Soldier",
+        "y": 364.01,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Night Scout Body": {
+      "ap_id": 7110071,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_007",
+        "PT_MIL_TOPS_107",
+        "PT_MIL_TOPS_008",
+        "PT_MIL_TOPS_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Night Scout",
+        "y": 376.57,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Special Forces' Vest": {
+      "ap_id": 7110072,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_009",
+        "PT_MIL_TOPS_109",
+        "PT_MIL_TOPS_010",
+        "PT_MIL_TOPS_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Special Forces'",
+        "y": 389.14,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Body": {
+      "ap_id": 7110073,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_011",
+        "PT_MIL_TOPS_111",
+        "PT_MIL_TOPS_012",
+        "PT_MIL_TOPS_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle",
+        "y": 401.7,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Silent Sniper Body": {
+      "ap_id": 7110074,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_013",
+        "PT_MIL_TOPS_113",
+        "PT_MIL_TOPS_014",
+        "PT_MIL_TOPS_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Silent Sniper",
+        "y": 426.82,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Barrett Punisher Body": {
+      "ap_id": 7110075,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_015",
+        "PT_MIL_TOPS_115",
+        "PT_MIL_TOPS_016",
+        "PT_MIL_TOPS_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Barrett Punisher",
+        "y": 439.39,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Combat Diver Body": {
+      "ap_id": 7110076,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_017",
+        "PT_MIL_TOPS_117",
+        "PT_MIL_TOPS_018",
+        "PT_MIL_TOPS_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Combat Diver",
+        "y": 451.95,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Guerrilla Blaster Body": {
+      "ap_id": 7110077,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_019",
+        "PT_MIL_TOPS_119",
+        "PT_MIL_TOPS_020",
+        "PT_MIL_TOPS_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Guerrilla Blaster",
+        "y": 464.51,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Exo-armor Body": {
+      "ap_id": 7110078,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_031",
+        "PT_MIL_TOPS_131",
+        "PT_MIL_TOPS_032",
+        "PT_MIL_TOPS_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Exo-armor",
+        "y": 477.07,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Armor RE": {
+      "ap_id": 7110079,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_TOPS_001",
+        "PT_REC_TOPS_101",
+        "PT_REC_TOPS_002",
+        "PT_REC_TOPS_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine RE",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Body RE": {
+      "ap_id": 7110080,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_TOPS_003",
+        "PT_REC_TOPS_103",
+        "PT_REC_TOPS_004",
+        "PT_REC_TOPS_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle RE",
+        "y": 414.26,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Paladin Armor EW": {
+      "ap_id": 7110081,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_005",
+        "PT_SPE_TOPS_105",
+        "PT_SPE_TOPS_006",
+        "PT_SPE_TOPS_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Paladin Armor EW",
+        "y": 220.8,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sengoku Armor BT": {
+      "ap_id": 7110082,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_007",
+        "PT_SPE_TOPS_107",
+        "PT_SPE_TOPS_008",
+        "PT_SPE_TOPS_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sengoku Armor BT",
+        "y": 183.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DIY Attack Coat EL": {
+      "ap_id": 7110083,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_009",
+        "PT_SPE_TOPS_109",
+        "PT_SPE_TOPS_010",
+        "PT_SPE_TOPS_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "DIY Attack Coat EL",
+        "y": 116.52,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Apocalyptic Hockey Body": {
+      "ap_id": 7110084,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_001",
+        "PT_SPO_TOPS_101",
+        "PT_SPO_TOPS_002",
+        "PT_SPO_TOPS_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Apocalyptic Hockey",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Motocross Rider Body": {
+      "ap_id": 7110085,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_003",
+        "PT_SPO_TOPS_103",
+        "PT_SPO_TOPS_004",
+        "PT_SPO_TOPS_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Motocross Rider",
+        "y": 468.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Killer Wrestler Body": {
+      "ap_id": 7110086,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_005",
+        "PT_SPO_TOPS_105",
+        "PT_SPO_TOPS_006",
+        "PT_SPO_TOPS_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Killer Wrestler",
+        "y": 480.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Kendo Body": {
+      "ap_id": 7110087,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_007",
+        "PT_SPO_TOPS_107",
+        "PT_SPO_TOPS_008",
+        "PT_SPO_TOPS_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Kendo",
+        "y": 493.41,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Heavy Hitter Body": {
+      "ap_id": 7110088,
+      "faction": "milk",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_009",
+        "PT_SPO_TOPS_109",
+        "PT_SPO_TOPS_010",
+        "PT_SPO_TOPS_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Heavy Hitter",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hard Puncher Body": {
+      "ap_id": 7110089,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_011",
+        "PT_SPO_TOPS_111",
+        "PT_SPO_TOPS_012",
+        "PT_SPO_TOPS_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hard Puncher",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Blitz Bowler Body": {
+      "ap_id": 7110090,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_013",
+        "PT_SPO_TOPS_113",
+        "PT_SPO_TOPS_014",
+        "PT_SPO_TOPS_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Blitz Bowler",
+        "y": 531.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cycle Madness Body": {
+      "ap_id": 7110091,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_015",
+        "PT_SPO_TOPS_115",
+        "PT_SPO_TOPS_016",
+        "PT_SPO_TOPS_116"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Cycle Madness",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Swimming Master Body": {
+      "ap_id": 7110092,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_017",
+        "PT_SPO_TOPS_117",
+        "PT_SPO_TOPS_018",
+        "PT_SPO_TOPS_118"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Swimming Master",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Splatter 13 Body": {
+      "ap_id": 7110093,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_019",
+        "PT_SPO_TOPS_119",
+        "PT_SPO_TOPS_020",
+        "PT_SPO_TOPS_120"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Blood Diver",
+        "y": 95.17,
+        "basis": "PDF row title Blood Diver, cells explicitly name Splatter13/BlackBeltTerror"
+      }
+    },
+    "Progressive Hard Target Body": {
+      "ap_id": 7110094,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_031",
+        "PT_SPO_TOPS_131",
+        "PT_SPO_TOPS_032",
+        "PT_SPO_TOPS_132"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hard Target",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DIY Attack Head": {
+      "ap_id": 7110095,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_001",
+        "PT_DIY_HEAD_101",
+        "PT_DIY_HEAD_002",
+        "PT_DIY_HEAD_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "DIY Attack",
+        "y": 103.96,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Doctor Drill Mask": {
+      "ap_id": 7110096,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_003",
+        "PT_DIY_HEAD_103",
+        "PT_DIY_HEAD_004",
+        "PT_DIY_HEAD_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Doctor Drill",
+        "y": 129.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Happy Wheeler Head": {
+      "ap_id": 7110097,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_005",
+        "PT_DIY_HEAD_105",
+        "PT_DIY_HEAD_006",
+        "PT_DIY_HEAD_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Happy Wheeler",
+        "y": 141.65,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Chemical Agent Mask": {
+      "ap_id": 7110098,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_007",
+        "PT_DIY_HEAD_107",
+        "PT_DIY_HEAD_008",
+        "PT_DIY_HEAD_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Chemical Agent",
+        "y": 154.21,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Trucker Hat": {
+      "ap_id": 7110099,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_009",
+        "PT_DIY_HEAD_109",
+        "PT_DIY_HEAD_010",
+        "PT_DIY_HEAD_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Trucker",
+        "y": 166.78,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Soldier Mask": {
+      "ap_id": 7110100,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_011",
+        "PT_DIY_HEAD_111",
+        "PT_DIY_HEAD_012",
+        "PT_DIY_HEAD_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Soldier",
+        "y": 179.34,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Tribe Mask": {
+      "ap_id": 7110101,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_013",
+        "PT_DIY_HEAD_113",
+        "PT_DIY_HEAD_014",
+        "PT_DIY_HEAD_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Tribe",
+        "y": 191.9,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Power Stomper Mask": {
+      "ap_id": 7110102,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_015",
+        "PT_DIY_HEAD_115",
+        "PT_DIY_HEAD_016",
+        "PT_DIY_HEAD_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Power Stomper",
+        "y": 204.46,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Texas Farmer Mask": {
+      "ap_id": 7110103,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_017",
+        "PT_DIY_HEAD_117",
+        "PT_DIY_HEAD_018",
+        "PT_DIY_HEAD_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Texas Farmer",
+        "y": 217.03,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Road Shocker Head": {
+      "ap_id": 7110104,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_019",
+        "PT_DIY_HEAD_119",
+        "PT_DIY_HEAD_020",
+        "PT_DIY_HEAD_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Road Shocker",
+        "y": 229.59,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Violent Grinder Head": {
+      "ap_id": 7110105,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_031",
+        "PT_DIY_HEAD_131",
+        "PT_DIY_HEAD_032",
+        "PT_DIY_HEAD_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Violent Grinder",
+        "y": 254.71,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Helm": {
+      "ap_id": 7110106,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_001",
+        "PT_FAN_HEAD_101",
+        "PT_FAN_HEAD_002",
+        "PT_FAN_HEAD_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Agamemnon Mask": {
+      "ap_id": 7110107,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_003",
+        "PT_FAN_HEAD_103",
+        "PT_FAN_HEAD_004",
+        "PT_FAN_HEAD_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Agamemnon",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fencing Helmet": {
+      "ap_id": 7110108,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_005",
+        "PT_FAN_HEAD_105",
+        "PT_FAN_HEAD_006",
+        "PT_FAN_HEAD_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Fencing",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Helmet": {
+      "ap_id": 7110109,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_007",
+        "PT_FAN_HEAD_107",
+        "PT_FAN_HEAD_008",
+        "PT_FAN_HEAD_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Rogue Helmet": {
+      "ap_id": 7110110,
+      "faction": "candle_wolf",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_009",
+        "PT_FAN_HEAD_109",
+        "PT_FAN_HEAD_010",
+        "PT_FAN_HEAD_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Rogue",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sengoku Helmet": {
+      "ap_id": 7110111,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_011",
+        "PT_FAN_HEAD_111",
+        "PT_FAN_HEAD_012",
+        "PT_FAN_HEAD_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sengoku",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Evil Wizard Cowl": {
+      "ap_id": 7110112,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_013",
+        "PT_FAN_HEAD_113",
+        "PT_FAN_HEAD_014",
+        "PT_FAN_HEAD_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Evil Wizard",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Paladin Helmet": {
+      "ap_id": 7110113,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_015",
+        "PT_FAN_HEAD_115",
+        "PT_FAN_HEAD_016",
+        "PT_FAN_HEAD_116"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Paladin",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Priest's Cowl": {
+      "ap_id": 7110114,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_017",
+        "PT_FAN_HEAD_117",
+        "PT_FAN_HEAD_018",
+        "PT_FAN_HEAD_118"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Priest",
+        "y": 233.36,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Warrior Helmet": {
+      "ap_id": 7110115,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_019",
+        "PT_FAN_HEAD_119",
+        "PT_FAN_HEAD_020",
+        "PT_FAN_HEAD_120"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Warrior",
+        "y": 245.92,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sword Dancer Head": {
+      "ap_id": 7110116,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_031",
+        "PT_FAN_HEAD_131",
+        "PT_FAN_HEAD_032",
+        "PT_FAN_HEAD_132"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sword Dancer",
+        "y": 258.48,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Head": {
+      "ap_id": 7110117,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_001",
+        "PT_MIL_HEAD_101",
+        "PT_MIL_HEAD_002",
+        "PT_MIL_HEAD_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Dark Ryback Mask": {
+      "ap_id": 7110118,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_003",
+        "PT_MIL_HEAD_103",
+        "PT_MIL_HEAD_004",
+        "PT_MIL_HEAD_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Dark Ryback",
+        "y": 351.45,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Phantom Soldier Head": {
+      "ap_id": 7110119,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_005",
+        "PT_MIL_HEAD_105",
+        "PT_MIL_HEAD_006",
+        "PT_MIL_HEAD_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Phantom Soldier",
+        "y": 364.01,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Night Scout Head": {
+      "ap_id": 7110120,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_007",
+        "PT_MIL_HEAD_107",
+        "PT_MIL_HEAD_008",
+        "PT_MIL_HEAD_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Night Scout",
+        "y": 376.57,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Special Forces' Beret": {
+      "ap_id": 7110121,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_009",
+        "PT_MIL_HEAD_109",
+        "PT_MIL_HEAD_010",
+        "PT_MIL_HEAD_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Special Forces'",
+        "y": 389.14,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Head": {
+      "ap_id": 7110122,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_011",
+        "PT_MIL_HEAD_111",
+        "PT_MIL_HEAD_012",
+        "PT_MIL_HEAD_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle",
+        "y": 401.7,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Silent Sniper Head": {
+      "ap_id": 7110123,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_013",
+        "PT_MIL_HEAD_113",
+        "PT_MIL_HEAD_014",
+        "PT_MIL_HEAD_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Silent Sniper",
+        "y": 426.82,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Barrett Punisher Head": {
+      "ap_id": 7110124,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_015",
+        "PT_MIL_HEAD_115",
+        "PT_MIL_HEAD_016",
+        "PT_MIL_HEAD_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Barrett Punisher",
+        "y": 439.39,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Combat Diver Head": {
+      "ap_id": 7110125,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_017",
+        "PT_MIL_HEAD_117",
+        "PT_MIL_HEAD_018",
+        "PT_MIL_HEAD_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Combat Diver",
+        "y": 451.95,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Guerrilla Blaster Head": {
+      "ap_id": 7110126,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_019",
+        "PT_MIL_HEAD_119",
+        "PT_MIL_HEAD_020",
+        "PT_MIL_HEAD_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Guerrilla Blaster",
+        "y": 464.51,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Exo-armor Head": {
+      "ap_id": 7110127,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_031",
+        "PT_MIL_HEAD_131",
+        "PT_MIL_HEAD_032",
+        "PT_MIL_HEAD_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Exo-armor",
+        "y": 477.07,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Helmet RE": {
+      "ap_id": 7110128,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_HEAD_001",
+        "PT_REC_HEAD_101",
+        "PT_REC_HEAD_002",
+        "PT_REC_HEAD_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine RE",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Head RE": {
+      "ap_id": 7110129,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_HEAD_003",
+        "PT_REC_HEAD_103",
+        "PT_REC_HEAD_004",
+        "PT_REC_HEAD_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle RE",
+        "y": 414.26,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Apocalyptic Hockey Mask": {
+      "ap_id": 7110130,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_001",
+        "PT_SPO_HEAD_101",
+        "PT_SPO_HEAD_002",
+        "PT_SPO_HEAD_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Apocalyptic Hockey",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Motocross Head": {
+      "ap_id": 7110131,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_003",
+        "PT_SPO_HEAD_103",
+        "PT_SPO_HEAD_004",
+        "PT_SPO_HEAD_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Motocross Rider",
+        "y": 468.28,
+        "basis": "Reviewed explicit alias; see mapping audit"
+      }
+    },
+    "Progressive Killer Wrestler Head": {
+      "ap_id": 7110132,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_005",
+        "PT_SPO_HEAD_105",
+        "PT_SPO_HEAD_006",
+        "PT_SPO_HEAD_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Killer Wrestler",
+        "y": 480.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Kendo Mask": {
+      "ap_id": 7110133,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_007",
+        "PT_SPO_HEAD_107",
+        "PT_SPO_HEAD_008",
+        "PT_SPO_HEAD_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Kendo",
+        "y": 493.41,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Heavy Hitter Head": {
+      "ap_id": 7110134,
+      "faction": "milk",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_009",
+        "PT_SPO_HEAD_109",
+        "PT_SPO_HEAD_010",
+        "PT_SPO_HEAD_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Heavy Hitter",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hard Puncher Head": {
+      "ap_id": 7110135,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_011",
+        "PT_SPO_HEAD_111",
+        "PT_SPO_HEAD_012",
+        "PT_SPO_HEAD_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hard Puncher",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Blitz Bowler Head": {
+      "ap_id": 7110136,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_013",
+        "PT_SPO_HEAD_113",
+        "PT_SPO_HEAD_014",
+        "PT_SPO_HEAD_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Blitz Bowler",
+        "y": 531.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cycle Madness Head": {
+      "ap_id": 7110137,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_015",
+        "PT_SPO_HEAD_115",
+        "PT_SPO_HEAD_016",
+        "PT_SPO_HEAD_116"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Cycle Madness",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Swimming Master Head": {
+      "ap_id": 7110138,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_017",
+        "PT_SPO_HEAD_117",
+        "PT_SPO_HEAD_018",
+        "PT_SPO_HEAD_118"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Swimming Master",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Splatter 13 Head": {
+      "ap_id": 7110139,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_019",
+        "PT_SPO_HEAD_119",
+        "PT_SPO_HEAD_020",
+        "PT_SPO_HEAD_120"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Blood Diver",
+        "y": 95.17,
+        "basis": "PDF row title Blood Diver, cells explicitly name Splatter13/BlackBeltTerror"
+      }
+    },
+    "Progressive Hard Target Head": {
+      "ap_id": 7110140,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_031",
+        "PT_SPO_HEAD_131",
+        "PT_SPO_HEAD_032",
+        "PT_SPO_HEAD_132"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hard Target",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DIY Attack Pants": {
+      "ap_id": 7110141,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_001",
+        "PT_DIY_BTM_101",
+        "PT_DIY_BTM_002",
+        "PT_DIY_BTM_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "DIY Attack",
+        "y": 103.96,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Doctor Drill Pants": {
+      "ap_id": 7110142,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_003",
+        "PT_DIY_BTM_103",
+        "PT_DIY_BTM_004",
+        "PT_DIY_BTM_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Doctor Drill",
+        "y": 129.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Happy Wheeler Pants": {
+      "ap_id": 7110143,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_005",
+        "PT_DIY_BTM_105",
+        "PT_DIY_BTM_006",
+        "PT_DIY_BTM_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Happy Wheeler",
+        "y": 141.65,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Chemical Agent Pants": {
+      "ap_id": 7110144,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_007",
+        "PT_DIY_BTM_107",
+        "PT_DIY_BTM_008",
+        "PT_DIY_BTM_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Chemical Agent",
+        "y": 154.21,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Trucker Pants": {
+      "ap_id": 7110145,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_009",
+        "PT_DIY_BTM_109",
+        "PT_DIY_BTM_010",
+        "PT_DIY_BTM_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Trucker",
+        "y": 166.78,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Soldier Pants": {
+      "ap_id": 7110146,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_011",
+        "PT_DIY_BTM_111",
+        "PT_DIY_BTM_012",
+        "PT_DIY_BTM_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Soldier",
+        "y": 179.34,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Steel Tribe Pants": {
+      "ap_id": 7110147,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_013",
+        "PT_DIY_BTM_113",
+        "PT_DIY_BTM_014",
+        "PT_DIY_BTM_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Steel Tribe",
+        "y": 191.9,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Power Stomper Pants": {
+      "ap_id": 7110148,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_015",
+        "PT_DIY_BTM_115",
+        "PT_DIY_BTM_016",
+        "PT_DIY_BTM_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Power Stomper",
+        "y": 204.46,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Texas Farmer Pants": {
+      "ap_id": 7110149,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_017",
+        "PT_DIY_BTM_117",
+        "PT_DIY_BTM_018",
+        "PT_DIY_BTM_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Texas Farmer",
+        "y": 217.03,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Road Shocker Pants": {
+      "ap_id": 7110150,
+      "faction": "dod_arms",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_019",
+        "PT_DIY_BTM_119",
+        "PT_DIY_BTM_020",
+        "PT_DIY_BTM_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Road Shocker",
+        "y": 229.59,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Violent Grinder Pants": {
+      "ap_id": 7110151,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_031",
+        "PT_DIY_BTM_131",
+        "PT_DIY_BTM_032",
+        "PT_DIY_BTM_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Violent Grinder",
+        "y": 254.71,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Leggings": {
+      "ap_id": 7110152,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_001",
+        "PT_FAN_BTM_101",
+        "PT_FAN_BTM_002",
+        "PT_FAN_BTM_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Agamemnon Leggings": {
+      "ap_id": 7110153,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_003",
+        "PT_FAN_BTM_103",
+        "PT_FAN_BTM_004",
+        "PT_FAN_BTM_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Agamemnon",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fencing Leggings": {
+      "ap_id": 7110154,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_005",
+        "PT_FAN_BTM_105",
+        "PT_FAN_BTM_006",
+        "PT_FAN_BTM_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Fencing",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Leggings": {
+      "ap_id": 7110155,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_007",
+        "PT_FAN_BTM_107",
+        "PT_FAN_BTM_008",
+        "PT_FAN_BTM_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Rogue Leggings": {
+      "ap_id": 7110156,
+      "faction": "candle_wolf",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_009",
+        "PT_FAN_BTM_109",
+        "PT_FAN_BTM_010",
+        "PT_FAN_BTM_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Rogue",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sengoku Leggings": {
+      "ap_id": 7110157,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_011",
+        "PT_FAN_BTM_111",
+        "PT_FAN_BTM_012",
+        "PT_FAN_BTM_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sengoku",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Evil Wizard Leggings": {
+      "ap_id": 7110158,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_013",
+        "PT_FAN_BTM_113",
+        "PT_FAN_BTM_014",
+        "PT_FAN_BTM_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Evil Wizard",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Paladin Leggings": {
+      "ap_id": 7110159,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_015",
+        "PT_FAN_BTM_115",
+        "PT_FAN_BTM_016",
+        "PT_FAN_BTM_116"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Paladin",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Priest's Leggings": {
+      "ap_id": 7110160,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_017",
+        "PT_FAN_BTM_117",
+        "PT_FAN_BTM_018",
+        "PT_FAN_BTM_118"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Priest",
+        "y": 233.36,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Warrior Leggings": {
+      "ap_id": 7110161,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_019",
+        "PT_FAN_BTM_119",
+        "PT_FAN_BTM_020",
+        "PT_FAN_BTM_120"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Warrior",
+        "y": 245.92,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Sword Dancer Leggings": {
+      "ap_id": 7110162,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_031",
+        "PT_FAN_BTM_131",
+        "PT_FAN_BTM_032",
+        "PT_FAN_BTM_132"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Sword Dancer",
+        "y": 258.48,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Pants": {
+      "ap_id": 7110163,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_001",
+        "PT_MIL_BTM_101",
+        "PT_MIL_BTM_002",
+        "PT_MIL_BTM_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Dark Ryback Pants": {
+      "ap_id": 7110164,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_003",
+        "PT_MIL_BTM_103",
+        "PT_MIL_BTM_004",
+        "PT_MIL_BTM_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Dark Ryback",
+        "y": 351.45,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Phantom Soldier Pants": {
+      "ap_id": 7110165,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_005",
+        "PT_MIL_BTM_105",
+        "PT_MIL_BTM_006",
+        "PT_MIL_BTM_106"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Phantom Soldier",
+        "y": 364.01,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Night Scout Pants": {
+      "ap_id": 7110166,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_007",
+        "PT_MIL_BTM_107",
+        "PT_MIL_BTM_008",
+        "PT_MIL_BTM_108"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Night Scout",
+        "y": 376.57,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Special Forces' Pants": {
+      "ap_id": 7110167,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_009",
+        "PT_MIL_BTM_109",
+        "PT_MIL_BTM_010",
+        "PT_MIL_BTM_110"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Special Forces'",
+        "y": 389.14,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Pants": {
+      "ap_id": 7110168,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_011",
+        "PT_MIL_BTM_111",
+        "PT_MIL_BTM_012",
+        "PT_MIL_BTM_112"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle",
+        "y": 401.7,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Silent Sniper Pants": {
+      "ap_id": 7110169,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_013",
+        "PT_MIL_BTM_113",
+        "PT_MIL_BTM_014",
+        "PT_MIL_BTM_114"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Silent Sniper",
+        "y": 426.82,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Barrett Punisher Pants": {
+      "ap_id": 7110170,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_015",
+        "PT_MIL_BTM_115",
+        "PT_MIL_BTM_016",
+        "PT_MIL_BTM_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Barrett Punisher",
+        "y": 439.39,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Combat Diver Pants": {
+      "ap_id": 7110171,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_017",
+        "PT_MIL_BTM_117",
+        "PT_MIL_BTM_018",
+        "PT_MIL_BTM_118"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Combat Diver",
+        "y": 451.95,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Guerrilla Blaster Pants": {
+      "ap_id": 7110172,
+      "faction": "war_ensemble",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_019",
+        "PT_MIL_BTM_119",
+        "PT_MIL_BTM_020",
+        "PT_MIL_BTM_120"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Guerrilla Blaster",
+        "y": 464.51,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Exo-armor Pants": {
+      "ap_id": 7110173,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_031",
+        "PT_MIL_BTM_131",
+        "PT_MIL_BTM_032",
+        "PT_MIL_BTM_132"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Exo-armor",
+        "y": 477.07,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Clay Figurine Leggings RE": {
+      "ap_id": 7110174,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_BTM_001",
+        "PT_REC_BTM_101",
+        "PT_REC_BTM_002",
+        "PT_REC_BTM_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Clay Figurine RE",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Eagle Pants RE": {
+      "ap_id": 7110175,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_REC_BTM_003",
+        "PT_REC_BTM_103",
+        "PT_REC_BTM_004",
+        "PT_REC_BTM_104"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Iron Eagle RE",
+        "y": 414.26,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Apocalyptic Hockey Pants": {
+      "ap_id": 7110176,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_001",
+        "PT_SPO_BTM_101",
+        "PT_SPO_BTM_002",
+        "PT_SPO_BTM_102"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Apocalyptic Hockey",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Motocross Rider Pants": {
+      "ap_id": 7110177,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_003",
+        "PT_SPO_BTM_103",
+        "PT_SPO_BTM_004",
+        "PT_SPO_BTM_104"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Motocross Rider",
+        "y": 468.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Killer Wrestler Pants": {
+      "ap_id": 7110178,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_005",
+        "PT_SPO_BTM_105",
+        "PT_SPO_BTM_006",
+        "PT_SPO_BTM_106"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Killer Wrestler",
+        "y": 480.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Kendo Pants": {
+      "ap_id": 7110179,
+      "faction": "milk",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_007",
+        "PT_SPO_BTM_107",
+        "PT_SPO_BTM_008",
+        "PT_SPO_BTM_108"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Kendo",
+        "y": 493.41,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Heavy Hitter Pants": {
+      "ap_id": 7110180,
+      "faction": "milk",
+      "tiers": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_009",
+        "PT_SPO_BTM_109",
+        "PT_SPO_BTM_010",
+        "PT_SPO_BTM_110"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Heavy Hitter",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hard Puncher Pants": {
+      "ap_id": 7110181,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_011",
+        "PT_SPO_BTM_111",
+        "PT_SPO_BTM_012",
+        "PT_SPO_BTM_112"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hard Puncher",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Blitz Bowler Pants": {
+      "ap_id": 7110182,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_013",
+        "PT_SPO_BTM_113",
+        "PT_SPO_BTM_014",
+        "PT_SPO_BTM_114"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Blitz Bowler",
+        "y": 531.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cycle Madness Pants": {
+      "ap_id": 7110183,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_015",
+        "PT_SPO_BTM_115",
+        "PT_SPO_BTM_016",
+        "PT_SPO_BTM_116"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Cycle Madness",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Swimming Master Pants": {
+      "ap_id": 7110184,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_017",
+        "PT_SPO_BTM_117",
+        "PT_SPO_BTM_018",
+        "PT_SPO_BTM_118"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Swimming Master",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Splatter 13 Boots": {
+      "ap_id": 7110185,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_019",
+        "PT_SPO_BTM_119",
+        "PT_SPO_BTM_020",
+        "PT_SPO_BTM_120"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Blood Diver",
+        "y": 95.17,
+        "basis": "PDF row title Blood Diver, cells explicitly name Splatter13/BlackBeltTerror"
+      }
+    },
+    "Progressive Hard Target Pants": {
+      "ap_id": 7110186,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_031",
+        "PT_SPO_BTM_131",
+        "PT_SPO_BTM_032",
+        "PT_SPO_BTM_132"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hard Target",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Jungle Machete E RG": {
+      "ap_id": 7110187,
+      "faction": "war_ensemble",
+      "tiers": [
+        1
+      ],
+      "game_ids": [
+        "PT_ARM_WP001_0B1"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Jungle Machete E RG",
+        "y": 468.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fenrir": {
+      "ap_id": 7110188,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP001_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Fenrir",
+        "y": 220.8,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Beam Katana 1": {
+      "ap_id": 7110189,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP001_0N1",
+        "PT_ARM_WP001_0N3",
+        "PT_ARM_WP001_0N2",
+        "PT_ARM_WP001_0N4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Beam Katana",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Nosferatu": {
+      "ap_id": 7110190,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP002_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Nosferatu",
+        "y": 233.36,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive No Knife 1": {
+      "ap_id": 7110191,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_ARM_WP002_0N1",
+        "PT_ARM_WP002_0N3",
+        "PT_ARM_WP002_0N2"
+      ],
+      "source": {
+        "page": 1,
+        "row": "No Knife",
+        "y": 409.24,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Yes Knife 1": {
+      "ap_id": 7110192,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_ARM_WP002_0Y1",
+        "PT_ARM_WP002_0Y3",
+        "PT_ARM_WP002_0Y2"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Yes Knife",
+        "y": 396.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Astaroth": {
+      "ap_id": 7110193,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP003_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Astaroth",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Muspelheim": {
+      "ap_id": 7110194,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP004_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Muspelheim",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Thunderbolt": {
+      "ap_id": 7110195,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP005_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Thunderbolt",
+        "y": 455.72,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Electro Trigger": {
+      "ap_id": 7110196,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP006_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Electro Trigger",
+        "y": 308.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive FFWF-103 Flamethrower TDM": {
+      "ap_id": 7110197,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP007_0A1",
+        "PT_ARM_WP007_0A3",
+        "PT_ARM_WP007_0A2",
+        "PT_ARM_WP007_0A4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "FFWF-103 Flamethrower TDM",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Iron Hammer RG": {
+      "ap_id": 7110198,
+      "faction": "dod_arms",
+      "tiers": [
+        1
+      ],
+      "game_ids": [
+        "PT_ARM_WP011_0B1"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Iron Hammer RG",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Lunatic": {
+      "ap_id": 7110199,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP011_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Lunatic",
+        "y": 384.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Death Stalker": {
+      "ap_id": 7110200,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP012_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Death Stalker",
+        "y": 321.3,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Belphegor": {
+      "ap_id": 7110201,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP013_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Belphegor",
+        "y": 157.98,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Takama-ga-hara": {
+      "ap_id": 7110202,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP016_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Takama-ga-hara",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Lethal Weapon": {
+      "ap_id": 7110203,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP017_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Lethal Weapon",
+        "y": 245.92,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Asgard": {
+      "ap_id": 7110204,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP019_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Asgard",
+        "y": 208.23,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Ouroboros": {
+      "ap_id": 7110205,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP024_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Ouroboros",
+        "y": 183.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hellhound": {
+      "ap_id": 7110206,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP025_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Hellhound",
+        "y": 258.48,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Cleaver Saber TDM": {
+      "ap_id": 7110207,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP026_0A1",
+        "PT_ARM_WP026_0A3",
+        "PT_ARM_WP026_0A2",
+        "PT_ARM_WP026_0A4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Cleaver Saber TDM",
+        "y": 267.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Crimson Rose": {
+      "ap_id": 7110208,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP026_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Crimson Rose",
+        "y": 518.53,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Bloody Pitching Machine TDM": {
+      "ap_id": 7110209,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP028_0A1",
+        "PT_ARM_WP028_0A3",
+        "PT_ARM_WP028_0A2",
+        "PT_ARM_WP028_0A4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Bloody Pitching Machine TDM",
+        "y": 292.4,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Fixed Match": {
+      "ap_id": 7110210,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP030_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Fixed Match",
+        "y": 531.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Mad Police": {
+      "ap_id": 7110211,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP031_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Mad Police",
+        "y": 296.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Bowling Stomper TDM": {
+      "ap_id": 7110212,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP035_0A1",
+        "PT_ARM_WP035_0A3",
+        "PT_ARM_WP035_0A2",
+        "PT_ARM_WP035_0A4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Bowling Stomper TDM",
+        "y": 342.65,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Drill Arm TDM": {
+      "ap_id": 7110213,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP036_0A1",
+        "PT_ARM_WP036_0A3",
+        "PT_ARM_WP036_0A2",
+        "PT_ARM_WP036_0A4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Drill Arm TDM",
+        "y": 183.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive King Baboon": {
+      "ap_id": 7110214,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP037_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "King Baboon",
+        "y": 333.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Backdraft": {
+      "ap_id": 7110215,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP038_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Backdraft",
+        "y": 271.05,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hatatagami": {
+      "ap_id": 7110216,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP039_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Hatatagami",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Midnight Empress": {
+      "ap_id": 7110217,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP040_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Midnight Empress",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Executioner’s Ride ZX": {
+      "ap_id": 7110218,
+      "faction": "milk",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP041_0A1",
+        "PT_ARM_WP041_0A3"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Executioner's Ride ZX",
+        "y": 392.9,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Motor Psycho TDM": {
+      "ap_id": 7110219,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP041_0B1",
+        "PT_ARM_WP041_0B3",
+        "PT_ARM_WP041_0B2",
+        "PT_ARM_WP041_0B4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Motor Psycho TDM",
+        "y": 380.34,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Emperor": {
+      "ap_id": 7110220,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP041_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Emperor",
+        "y": 468.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Predator": {
+      "ap_id": 7110221,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP042_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Predator",
+        "y": 346.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Judgement Day": {
+      "ap_id": 7110222,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP043_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Judgement Day",
+        "y": 480.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Dragon": {
+      "ap_id": 7110223,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP044_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Dragon",
+        "y": 358.99,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive M-404 Rocket Launcher TDM": {
+      "ap_id": 7110224,
+      "faction": "war_ensemble",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP045_0A1",
+        "PT_ARM_WP045_0A3",
+        "PT_ARM_WP045_0A2",
+        "PT_ARM_WP045_0A4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "M-404 Rocket Launcher TDM",
+        "y": 170.54,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pandemic": {
+      "ap_id": 7110225,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP045_0H4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Pandemic",
+        "y": 283.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Dominion": {
+      "ap_id": 7110226,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP046_0H4"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Dominion",
+        "y": 493.41,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Lightning Wand TDM": {
+      "ap_id": 7110227,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP047_0A1",
+        "PT_ARM_WP047_0A3",
+        "PT_ARM_WP047_0A2",
+        "PT_ARM_WP047_0A4"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Lightning Wand TDM",
+        "y": 531.09,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Black Mamba": {
+      "ap_id": 7110228,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP048_0H4"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Black Mamba",
+        "y": 371.55,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Grim Reaper’s Scythe (Silver)": {
+      "ap_id": 7110229,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_ARM_WP050_001"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Grim Reaper's Scythe (Silver)",
+        "y": 480.84,
+        "basis": "Reviewed explicit alias; see mapping audit"
+      }
+    },
+    "Progressive Grim Reaper’s Scythe": {
+      "ap_id": 7110230,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_ARM_WP050_003"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Grim Reaper's Scythe (Gold)",
+        "y": 493.41,
+        "basis": "Reviewed explicit alias; see mapping audit"
+      }
+    },
+    "Progressive Grim Reaper’s Scythe R1": {
+      "ap_id": 7110231,
+      "faction": "candle_wolf",
+      "tiers": [
+        1,
+        2,
+        3
+      ],
+      "game_ids": [
+        "PT_ARM_WP050_0R1",
+        "PT_ARM_WP050_0R3",
+        "PT_ARM_WP050_0R2"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Grim Reaper's Scythe R",
+        "y": 505.97,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Jackal Sword": {
+      "ap_id": 7110232,
+      "faction": "dod_arms",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP051_001",
+        "PT_ARM_WP051_003"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Jackal Sword",
+        "y": 421.8,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Sword D": {
+      "ap_id": 7110233,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP051_002"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Jackal Sword",
+        "y": 421.8,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Yo-Yo": {
+      "ap_id": 7110234,
+      "faction": "milk",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP052_001",
+        "PT_ARM_WP052_003"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Yo-Yo",
+        "y": 70.04,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Yo-Yo D": {
+      "ap_id": 7110235,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP052_002"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Yo-Yo",
+        "y": 70.04,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Blaster": {
+      "ap_id": 7110236,
+      "faction": "war_ensemble",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP053_001",
+        "PT_ARM_WP053_003"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Jackal Blaster",
+        "y": 308.73,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Blaster D": {
+      "ap_id": 7110237,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP053_002"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Jackal Blaster",
+        "y": 308.73,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Spike Crusher": {
+      "ap_id": 7110238,
+      "faction": "dod_arms",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP054_001"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Spike Crusher",
+        "y": 245.92,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Spike Crusher": {
+      "ap_id": 7110239,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP054_0H1"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Hell Spike Crusher",
+        "y": 258.48,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Static Massager": {
+      "ap_id": 7110240,
+      "faction": "dod_arms",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP055_001"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Static Massager",
+        "y": 271.05,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Viral Massager": {
+      "ap_id": 7110241,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP055_0H1"
+      ],
+      "source": {
+        "page": 1,
+        "row": "Viral Massager",
+        "y": 283.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive M2G-87": {
+      "ap_id": 7110242,
+      "faction": "war_ensemble",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP056_001"
+      ],
+      "source": {
+        "page": 2,
+        "row": "M2G-87",
+        "y": 183.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive M2G-87 Mod.1 FireFly": {
+      "ap_id": 7110243,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP056_0H1"
+      ],
+      "source": {
+        "page": 2,
+        "row": "M2G-87 Mod.1 FireFly",
+        "y": 195.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Vajra of Light": {
+      "ap_id": 7110244,
+      "faction": "candle_wolf",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP057_001"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Vajra of Light",
+        "y": 70.04,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Vajra of God": {
+      "ap_id": 7110245,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP057_0H1"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Vajra of God",
+        "y": 82.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Head of Medusa": {
+      "ap_id": 7110246,
+      "faction": "candle_wolf",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP058_001"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Head of Medusa",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Head of Euryale": {
+      "ap_id": 7110247,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP058_0H1"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Head of Euryale",
+        "y": 107.73,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Mortal Bobslayer": {
+      "ap_id": 7110248,
+      "faction": "milk",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP059_001"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Mortal Bobslayer",
+        "y": 430.59,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Immortal Bobslayer": {
+      "ap_id": 7110249,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_ARM_WP059_0H1"
+      ],
+      "source": {
+        "page": 3,
+        "row": "Immortal Bobslayer",
+        "y": 443.16,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Masamune Blade TDM": {
+      "ap_id": 7110250,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_ARM_WP061_001",
+        "PT_ARM_WP061_003",
+        "PT_ARM_WP061_002",
+        "PT_ARM_WP061_004"
+      ],
+      "source": {
+        "page": 2,
+        "row": "Masamune Blade TDM",
+        "y": 392.9,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive White Steel Leggings": {
+      "ap_id": 7110251,
+      "faction": "dod_arms",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "White Steel",
+        "y": 267.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Steel Leggings": {
+      "ap_id": 7110252,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_DIY_BTM_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Steel",
+        "y": 279.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive White Steel Head": {
+      "ap_id": 7110253,
+      "faction": "dod_arms",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "White Steel",
+        "y": 267.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Steel Head": {
+      "ap_id": 7110254,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_DIY_HEAD_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Steel",
+        "y": 279.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive White Steel Body": {
+      "ap_id": 7110255,
+      "faction": "dod_arms",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "White Steel",
+        "y": 267.28,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Steel Body": {
+      "ap_id": 7110256,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_DIY_TOPS_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Steel",
+        "y": 279.84,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Black Thunder Leggings": {
+      "ap_id": 7110257,
+      "faction": "candle_wolf",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_021"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Black Thunder",
+        "y": 271.05,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Thunder Leggings": {
+      "ap_id": 7110258,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_022"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hell Thunder",
+        "y": 283.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Leggings ZX": {
+      "ap_id": 7110259,
+      "faction": "candle_wolf",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_BTM_0A1",
+        "PT_FAN_BTM_1A1"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight ZX",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Black Thunder Helmet": {
+      "ap_id": 7110260,
+      "faction": "candle_wolf",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_021"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Black Thunder",
+        "y": 271.05,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Thunder Helmet": {
+      "ap_id": 7110261,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_022"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hell Thunder",
+        "y": 283.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Helm ZX": {
+      "ap_id": 7110262,
+      "faction": "candle_wolf",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_HEAD_0A1",
+        "PT_FAN_HEAD_1A1"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight ZX",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Black Thunder Armor": {
+      "ap_id": 7110263,
+      "faction": "candle_wolf",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_021"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Black Thunder",
+        "y": 271.05,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Thunder Armor": {
+      "ap_id": 7110264,
+      "faction": "candle_wolf",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_022"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Hell Thunder",
+        "y": 283.61,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Knight's Armor ZX": {
+      "ap_id": 7110265,
+      "faction": "candle_wolf",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_FAN_TOPS_0A1",
+        "PT_FAN_TOPS_1A1"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Knight ZX",
+        "y": 95.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive 4M Gas Mask N": {
+      "ap_id": 7110266,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive M42 Gas Mask N": {
+      "ap_id": 7110267,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Surgical Mask N": {
+      "ap_id": 7110268,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Pilot’s Mask N": {
+      "ap_id": 7110269,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Iron Mask N": {
+      "ap_id": 7110270,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Tuscan Mask N": {
+      "ap_id": 7110271,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Fencer's Mask N": {
+      "ap_id": 7110272,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Desert Scarf N": {
+      "ap_id": 7110273,
+      "excluded": true,
+      "reason": "User explicitly removed eight N masks from generated pool"
+    },
+    "Progressive Jackal X Pants": {
+      "ap_id": 7110274,
+      "faction": "dod_arms",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_001",
+        "PT_JAC_BTM_101"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Pants": {
+      "ap_id": 7110275,
+      "faction": "war_ensemble",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_002",
+        "PT_JAC_BTM_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Pants": {
+      "ap_id": 7110276,
+      "faction": "milk",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_003",
+        "PT_JAC_BTM_103"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal X Pants D": {
+      "ap_id": 7110277,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_201"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Pants D": {
+      "ap_id": 7110278,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_202"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Pants D": {
+      "ap_id": 7110279,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_BTM_203"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal X Head": {
+      "ap_id": 7110280,
+      "faction": "dod_arms",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_001",
+        "PT_JAC_HEAD_101"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Head": {
+      "ap_id": 7110281,
+      "faction": "war_ensemble",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_002",
+        "PT_JAC_HEAD_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Head": {
+      "ap_id": 7110282,
+      "faction": "milk",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_003",
+        "PT_JAC_HEAD_103"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal X Head D": {
+      "ap_id": 7110283,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_201"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Head D": {
+      "ap_id": 7110284,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_202"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Head D": {
+      "ap_id": 7110285,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_HEAD_203"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal X Body": {
+      "ap_id": 7110286,
+      "faction": "dod_arms",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_001",
+        "PT_JAC_TOPS_101"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Body": {
+      "ap_id": 7110287,
+      "faction": "war_ensemble",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_002",
+        "PT_JAC_TOPS_102"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Body": {
+      "ap_id": 7110288,
+      "faction": "milk",
+      "tiers": [
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_003",
+        "PT_JAC_TOPS_103"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal X Body D": {
+      "ap_id": 7110289,
+      "faction": "dod_arms",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_201"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal X",
+        "y": 304.97,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Y Body D": {
+      "ap_id": 7110290,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_202"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Jackal Y",
+        "y": 514.76,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Jackal Z Body D": {
+      "ap_id": 7110291,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_JAC_TOPS_203"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Jackal Z",
+        "y": 157.98,
+        "basis": "Existing distinct base/R family at4/5; D family at6; IDs unchanged"
+      }
+    },
+    "Progressive Red Napalm Pants": {
+      "ap_id": 7110292,
+      "faction": "war_ensemble",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Red Napalm",
+        "y": 489.64,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Napalm Pants": {
+      "ap_id": 7110293,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Napalm",
+        "y": 502.2,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Pants G1": {
+      "ap_id": 7110294,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_MIL_BTM_0G1",
+        "PT_MIL_BTM_1G1",
+        "PT_MIL_BTM_0G2"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "User-approved stat-equivalent tiers2/3/4 for gold variants; rarity deliberately ignored"
+      }
+    },
+    "Progressive Red Napalm Head": {
+      "ap_id": 7110295,
+      "faction": "war_ensemble",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Red Napalm",
+        "y": 489.64,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Napalm Head": {
+      "ap_id": 7110296,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Napalm",
+        "y": 502.2,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Head G1": {
+      "ap_id": 7110297,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_MIL_HEAD_0G1",
+        "PT_MIL_HEAD_1G1",
+        "PT_MIL_HEAD_0G2"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "User-approved stat-equivalent tiers2/3/4 for gold variants; rarity deliberately ignored"
+      }
+    },
+    "Progressive Red Napalm Body": {
+      "ap_id": 7110298,
+      "faction": "war_ensemble",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_021"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Red Napalm",
+        "y": 489.64,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Napalm Body": {
+      "ap_id": 7110299,
+      "faction": "war_ensemble",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_022"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Hell Napalm",
+        "y": 502.2,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Assault Force Body G1": {
+      "ap_id": 7110300,
+      "faction": "war_ensemble",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_MIL_TOPS_0G1",
+        "PT_MIL_TOPS_1G1",
+        "PT_MIL_TOPS_0G2"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Assault Force",
+        "y": 338.88,
+        "basis": "User-approved stat-equivalent tiers2/3/4 for gold variants; rarity deliberately ignored"
+      }
+    },
+    "Progressive Reaper's Pants": {
+      "ap_id": 7110301,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_BTM_001"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Reaper's Pants",
+        "y": 346.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Travis' Pants 1": {
+      "ap_id": 7110302,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_BTM_015",
+        "PT_SPE_BTM_115",
+        "PT_SPE_BTM_016",
+        "PT_SPE_BTM_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Travis",
+        "y": 242.15,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Meijin Greaves 1": {
+      "ap_id": 7110303,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_BTM_021",
+        "PT_SPE_BTM_121",
+        "PT_SPE_BTM_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Meijin",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Momoko Yamada Pants 1": {
+      "ap_id": 7110304,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_BTM_027",
+        "PT_SPE_BTM_127",
+        "PT_SPE_BTM_028"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Momoko Yamada",
+        "y": 296.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Direct Hell Pants 1": {
+      "ap_id": 7110305,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_BTM_029",
+        "PT_SPE_BTM_129",
+        "PT_SPE_BTM_030"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Direct Hell",
+        "y": 292.4,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive X-Ray Glasses (Model 1)": {
+      "ap_id": 7110306,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_001"
+      ],
+      "source": {
+        "page": 5,
+        "row": "X-Ray Glasses (Blue)",
+        "y": 308.73,
+        "basis": "Reviewed explicit alias; see mapping audit"
+      }
+    },
+    "Progressive X-Ray Glasses (Model 2)": {
+      "ap_id": 7110307,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_002"
+      ],
+      "source": {
+        "page": 5,
+        "row": "X-Ray Glasses (Red)",
+        "y": 321.3,
+        "basis": "Reviewed explicit alias; see mapping audit"
+      }
+    },
+    "Progressive Space Funglasses": {
+      "ap_id": 7110308,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_013"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Space Funglasses",
+        "y": 384.11,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Travis' Sunglasses 1": {
+      "ap_id": 7110309,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_015",
+        "PT_SPE_HEAD_115",
+        "PT_SPE_HEAD_016",
+        "PT_SPE_HEAD_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Travis",
+        "y": 242.15,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Ultra 3D Glasses": {
+      "ap_id": 7110310,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_017"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Ultra 3D Glasses",
+        "y": 358.99,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive X-Rated Glasses": {
+      "ap_id": 7110311,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_018"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Ultra 3D Glasses",
+        "y": 358.99,
+        "basis": "User: Candle Wolf; tier3 inferred from complete master_part statistics identical to Ultra3D except id/name/sort_no"
+      }
+    },
+    "Progressive Ultra 3D Glasses W1": {
+      "ap_id": 7110312,
+      "faction": "candle_wolf",
+      "tiers": [
+        2,
+        3,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_019",
+        "PT_SPE_HEAD_119",
+        "PT_SPE_HEAD_020"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Ultra 3D Glasses W",
+        "y": 371.55,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Meijin Head 1": {
+      "ap_id": 7110313,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_021",
+        "PT_SPE_HEAD_121",
+        "PT_SPE_HEAD_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Meijin",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive DAIMON Glasses": {
+      "ap_id": 7110314,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_023"
+      ],
+      "source": {
+        "page": 5,
+        "row": "DAIMON Glasses",
+        "y": 396.67,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Happy Yuppie Glasses": {
+      "ap_id": 7110315,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_024"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Happy Yuppie Glasses",
+        "y": 409.24,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Uncle-D2 Head 1": {
+      "ap_id": 7110316,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_025",
+        "PT_SPE_HEAD_125",
+        "PT_SPE_HEAD_026"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Uncle-D2 Head",
+        "y": 421.8,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Momoko Yamada Head 1": {
+      "ap_id": 7110317,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_027",
+        "PT_SPE_HEAD_127",
+        "PT_SPE_HEAD_028"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Momoko Yamada",
+        "y": 296.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Direct Hell Cap 1": {
+      "ap_id": 7110318,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_HEAD_029",
+        "PT_SPE_HEAD_129",
+        "PT_SPE_HEAD_030"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Direct Hell",
+        "y": 292.4,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Reaper's Coat": {
+      "ap_id": 7110319,
+      "faction": "candle_wolf",
+      "tiers": [
+        3
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_001"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Reaper's Coat",
+        "y": 333.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Travis' Jacket 1": {
+      "ap_id": 7110320,
+      "faction": "dod_arms",
+      "tiers": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_015",
+        "PT_SPE_TOPS_115",
+        "PT_SPE_TOPS_016",
+        "PT_SPE_TOPS_116"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Travis",
+        "y": 242.15,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Meijin Armor 1": {
+      "ap_id": 7110321,
+      "faction": "milk",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_021",
+        "PT_SPE_TOPS_121",
+        "PT_SPE_TOPS_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Meijin",
+        "y": 145.42,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Momoko Yamada Body 1": {
+      "ap_id": 7110322,
+      "faction": "candle_wolf",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_027",
+        "PT_SPE_TOPS_127",
+        "PT_SPE_TOPS_028"
+      ],
+      "source": {
+        "page": 5,
+        "row": "Momoko Yamada",
+        "y": 296.17,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Direct Hell Jacket 1": {
+      "ap_id": 7110323,
+      "faction": "dod_arms",
+      "tiers": [
+        3,
+        4,
+        4
+      ],
+      "game_ids": [
+        "PT_SPE_TOPS_029",
+        "PT_SPE_TOPS_129",
+        "PT_SPE_TOPS_030"
+      ],
+      "source": {
+        "page": 4,
+        "row": "Direct Hell",
+        "y": 292.4,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pale Wind Pants": {
+      "ap_id": 7110324,
+      "faction": "milk",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_021"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Pale Wind",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Wind Pants": {
+      "ap_id": 7110325,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_SPO_BTM_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hell Wind",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pale Wind Head": {
+      "ap_id": 7110326,
+      "faction": "milk",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_021"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Pale Wind",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Wind Head": {
+      "ap_id": 7110327,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_SPO_HEAD_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hell Wind",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Pale Wind Body": {
+      "ap_id": 7110328,
+      "faction": "milk",
+      "tiers": [
+        5
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_021"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Pale Wind",
+        "y": 120.29,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    },
+    "Progressive Hell Wind Body": {
+      "ap_id": 7110329,
+      "faction": "milk",
+      "tiers": [
+        6
+      ],
+      "game_ids": [
+        "PT_SPO_TOPS_022"
+      ],
+      "source": {
+        "page": 6,
+        "row": "Hell Wind",
+        "y": 132.86,
+        "basis": "PDF row and progressive catalogue order"
+      }
+    }
+  }
+}

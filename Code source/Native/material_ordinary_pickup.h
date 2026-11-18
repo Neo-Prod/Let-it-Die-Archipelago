@@ -11,7 +11,7 @@ typedef struct R130Ordinary {
 static int r130_pickup_kind(const R6Ops*ops,uint64_t image,uint64_t manager,R130Ordinary*out){
  R130Ordinary s={0};uint64_t vt,record;uint32_t use;
  if(!out||!image||image>UINT64_MAX-0x2200000||!manager||manager>UINT64_MAX-R81_EXTENT||
- !r6_at(ops,manager,0,&vt,8)||vt!=image+0x20f8d60||
+ !r6_at(ops,manager,0,&vt,8)||vt!=image+0x20fcc90||
  !r6_at(ops,manager,0x92cc8,&s.slot,4)||s.slot<0||s.slot>=R81_COUNT)return -1;
  record=manager+0x74+(uint64_t)(unsigned)s.slot*R81_STRIDE;
  if(!r6_at(ops,record,0,&use,4)||!(use&1)||!r6_at(ops,record,4,&s.unique,4)||s.unique<0||
@@ -25,7 +25,7 @@ static int r130_pickup_kind(const R6Ops*ops,uint64_t image,uint64_t manager,R130
 static int r130_native_player(const R6Ops*ops,uint64_t image,uint64_t manager,uint64_t*out){
  uint64_t ui,player,vt;
  if(!out||!r6_at(ops,manager,0x68,&ui,8)||!ui||
- !r6_at(ops,ui,0x2d4c,&player,8)||!player||!r6_at(ops,player,0,&vt,8)||vt!=image+0x20ac950)return 0;
+ !r6_at(ops,ui,0x2d4c,&player,8)||!player||!r6_at(ops,player,0,&vt,8)||vt!=image+0x20b0190)return 0;
  *out=player;return 1;
 }
 static int r130_ordinary_matches(const R130Ordinary*t,const R6Ops*ops,uint64_t image,uint64_t manager,uint64_t player,uint8_t state){

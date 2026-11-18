@@ -207,7 +207,7 @@ class ProgressiveHPIncrease(Range):
     display_name = "Progressive HP Increase"
     range_start = 0
     range_end = 100000
-    default = 200
+    default = 300
 
 
 class ProgressiveSTMIncrease(Range):
@@ -290,7 +290,7 @@ class ScreamerCheckChance(Range):
     display_name = "Screamer Check Chance"
     range_start = 1
     range_end = 100
-    default = 25
+    default = 50
 
 
 class EnableDODArms(DefaultOnToggle):
@@ -319,16 +319,17 @@ class EnableMILK(DefaultOnToggle):
 
 class GroupArmorSets(Toggle):
     """Replace each complete head/body/legs armor set's three progressive
-    families with one progressive. Each receipt grants all three blueprints
+    families with one progressive. Each receipt grants all member blueprints
     of the next step. A four-step set needs four receipts instead of twelve.
-    Isolated pieces and weapons remain separate. Default: disabled.
+    Isolated pieces and weapons remain separate. Default: enabled.
     """
 
     display_name = "Group Armor Sets"
+    default = 1
 
 
 class MaximumEquipmentTier(Range):
-    """Maximum global equipment tier from the user tier tables (1 to 6).
+    """Maximum global equipment tier from the user tier tables (1 to 9).
 
     Each equipment remains a distinct progressive step. Two equipment types
     in the same tier both keep their own receipt. This is not the number of
@@ -337,8 +338,22 @@ class MaximumEquipmentTier(Range):
 
     display_name = "Maximum Equipment Tier"
     range_start = 1
-    range_end = 6
+    range_end = 9
     default = 6
+
+
+class EquipmentUpgradeSteps(Range):
+    """Extra upgrades before each evolution or improvement milestone.
+
+    0 keeps the PDF milestones only. 1 adds +4 before the next star rank;
+    2 adds +2 and +4; 4 adds +1,+2,+3,+4. Later milestones use the same
+    distribution before +5/+10/+15/+20. A terminal +4 consumes the last
+    step: Predator with 2 gives +0,+2,+4. Default: 0.
+    """
+    display_name = "Equipment Upgrade Steps"
+    range_start = 0
+    range_end = 4
+    default = 0
 
 
 class Goal(Choice):
@@ -428,9 +443,10 @@ class KillCoins50000Percentage(KillCoins2000Percentage):
 class ScreamerPity(Toggle):
     """Guarantee a Screamer check after ceil(100 / screamer_check_chance)
     eligible kills without a check. Any check resets the counter.
-    Counters persist separately for each ten-floor band. Default: disabled.
+    Counters persist separately for each ten-floor band. Default: enabled.
     """
     display_name = "Screamer Pity"
+    default = 1
 
 
 class ChestChecks(Range):
@@ -484,8 +500,18 @@ class FactionMetalChecks(Range):
     default = 1
 
 
+class ShopSanity(Toggle):
+    """Turn Momoka Kill Coin decals and each tower merchant's materials and
+    three fixed blueprint slots into Archipelago purchase locations.
+    Requires a matching ShopSanity native runtime.
+    """
+    display_name = "ShopSanity"
+    default = 1
+
+
 @dataclass
 class LetItDieOptions(PerGameCommonOptions):
+    shop_sanity: ShopSanity
     """All player-configurable LET IT DIE options."""
 
     starting_fighter_class: StartingFighterClass
@@ -533,6 +559,7 @@ class LetItDieOptions(PerGameCommonOptions):
     enable_candle_wolf: EnableCandleWolf
     enable_milk: EnableMILK
     maximum_equipment_tier: MaximumEquipmentTier
+    equipment_upgrade_steps: EquipmentUpgradeSteps
     group_armor_sets: GroupArmorSets
     goal: Goal
     scratch_checks: ScratchChecks

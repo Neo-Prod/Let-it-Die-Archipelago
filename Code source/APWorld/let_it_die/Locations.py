@@ -8,11 +8,11 @@ from dataclasses import dataclass
 from typing import Dict
 
 from BaseClasses import Location
+from .ScreamerIds import SCREAMER_BASE, SCREAMER_CAP, screamer_code
 
 GAME_NAME = "LET IT DIE"
 FIXED_LOCATION_COUNT = 574
-MAX_SCREAMER_CHECKS_PER_ZONE = 2500
-SCREAMER_BASE = 7206000
+MAX_SCREAMER_CHECKS_PER_ZONE = SCREAMER_CAP
 
 @dataclass(frozen=True)
 class LetItDieLocationData:
@@ -623,11 +623,10 @@ assert len(FIXED_LOCATIONS) == FIXED_LOCATION_COUNT
 SCREAMER_ZONES = ('01-10', '11-20', '21-30', '31-40')
 SCREAMER_LOCATIONS: Dict[str, LetItDieLocationData] = {}
 for zone_index, zone in enumerate(SCREAMER_ZONES):
-    offset = zone_index * MAX_SCREAMER_CHECKS_PER_ZONE
     for index in range(1, MAX_SCREAMER_CHECKS_PER_ZONE + 1):
         name = f'Screamer {zone} #{index:04d}'
         SCREAMER_LOCATIONS[name] = LetItDieLocationData(
-            SCREAMER_BASE + offset + index, 'screamer', zone, f'{zone}|{index}')
+            screamer_code(zone_index, index), 'screamer', zone, f'{zone}|{index}')
 
 ALL_DECLARED_LOCATIONS = {**FIXED_LOCATIONS, **SCREAMER_LOCATIONS}
 location_name_to_id = {name: data.code for name, data in ALL_DECLARED_LOCATIONS.items()}
@@ -689,7 +688,8 @@ def build_check_catalogue(world):
             for table in (ROOM_VISIT_LOCATIONS, HATER_LOCATIONS, MINIBOSS_LOCATIONS) for name, data in table.items()]
     quotas = {family: int(getattr(world.options, family.lower() + '_checks').value)
               for family in CheckCatalogue.FAMILIES}
-    return CheckCatalogue.build(rows, int(world.options.goal.value), world.generated_item_count, quotas,
+    shop_count = len(getattr(world, 'shop_locations', ()))
+    result = CheckCatalogue.build(rows, int(world.options.goal.value), max(0, world.generated_item_count - shop_count), quotas,
                                 include_visits=True, exclude_forcemen=world.hater_catalogue_version>=2,
                                 room_tubers=world.hater_catalogue_version>=3,
                                 chest_quotas={c:int(getattr(world.options,c.lower()+'_chest_checks').value)
@@ -701,6 +701,9 @@ def build_check_catalogue(world):
                                 if world.hater_catalogue_version>=5 else None,
                                 minimum_screamer_checks_per_band=int(world.options.minimum_screamer_checks_per_band.value)
                                 if getattr(world,'generation_schema',2)>=2 else 0)
+    result['item_count'] = world.generated_item_count
+    result['filler_count'] = max(0, len(result['checks']) + shop_count - world.generated_item_count)
+    return result
 
 
 # Reserve every possible stable material check ID; active quotas choose a subset.
@@ -712,3 +715,14 @@ if set(location_name_to_id.values()) & {d.code for d in MATERIAL_LOCATIONS.value
 ALL_DECLARED_LOCATIONS.update(MATERIAL_LOCATIONS)
 location_name_to_id.update({name:data.code for name,data in MATERIAL_LOCATIONS.items()})
 LOCATION_NAME_GROUPS['Materials']=set(MATERIAL_LOCATIONS)
+
+
+# These addresses are declared for AP/UT, activated only by shop_sanity.
+from .ShopCatalogue import build as build_shop_locations
+SHOP_LOCATIONS={row.name:LetItDieLocationData(row.code,'shop','Shops',row.kind+'|'+row.room)
+                for row in build_shop_locations(40)}
+if set(location_name_to_id.values()) & {row.code for row in SHOP_LOCATIONS.values()}:raise ValueError('Shop location ID collision')
+if set(location_name_to_id) & set(SHOP_LOCATIONS):raise ValueError('Shop location name collision')
+ALL_DECLARED_LOCATIONS.update(SHOP_LOCATIONS)
+location_name_to_id.update({name:row.code for name,row in SHOP_LOCATIONS.items()})
+LOCATION_NAME_GROUPS['ShopSanity']=set(SHOP_LOCATIONS)

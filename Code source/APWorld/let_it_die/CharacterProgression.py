@@ -55,8 +55,11 @@ def _digest(value: Any) -> str:
 class CharacterConfig:
     # Each tuple is (starting value, increase per receipt, quantity cap).
     tracks: tuple[tuple[int, int, int], ...]
+    equipment_steps: int | None = None
 
     def __post_init__(self) -> None:
+        if self.equipment_steps is not None and (type(self.equipment_steps) is not int or not 0 <= self.equipment_steps <= 4):
+            raise ReceiptError("Invalid equipment progression policy")
         if type(self.tracks) is not tuple or len(self.tracks) != 9:
             raise ReceiptError("Expected nine character tracks")
         for track in self.tracks:
@@ -80,7 +83,8 @@ class CharacterConfig:
                 tracks.append(tuple(_integer(slot_data[key], key) for key in keys))
             except KeyError as exc:
                 raise ReceiptError(f"Missing character configuration: {exc.args[0]}") from exc
-        return cls(tuple(tracks))
+        from .EquipmentProgression import steps_from_slot
+        return cls(tuple(tracks), steps_from_slot(slot_data))
 
     @property
     def fingerprint(self) -> str:

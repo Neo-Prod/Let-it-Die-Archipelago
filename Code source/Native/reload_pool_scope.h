@@ -31,8 +31,8 @@ static int lid_reload_pool_object(const LidReloadPoolBinding*b,const void*p){
 static int lid_reload_pool_window(const LidReloadPoolBinding*b){
     void*pool=0;
     if(!b||!b->initialized||b->poisoned||!b->window||!b->readable||
-       b->window(b->context)!=1||!b->readable((void*)(b->base+0x298ec78),8))return 0;
-    __builtin_memcpy(&pool,(void*)(b->base+0x298ec78),8);return pool==b->pool&&pool;
+       b->window(b->context)!=1||!b->readable((void*)(b->base+0x29cfce0),8))return 0;
+    __builtin_memcpy(&pool,(void*)(b->base+0x29cfce0),8);return pool==b->pool&&pool;
 }
 /* Result must be checked even after successful build. A cleanup failure
    poisons this binding and prevents repeated native frees or another scope. */

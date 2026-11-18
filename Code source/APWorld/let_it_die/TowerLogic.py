@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from . import Items
 from .ArmorSets import SETS
+from .EquipmentProgression import stages_for, option_steps, EquipmentStage
 from .EquipmentPool import _catalogue
 
 
@@ -82,7 +83,13 @@ class TowerLogic:
                 self.boss_routes[name] = index
 
         quantities = Items.get_equipment_quantities(world.options)
-        tiers = _catalogue()
+        legacy_equipment = bool(getattr(world.options, "_legacy_equipment", False))
+        tiers = _catalogue(legacy_equipment)
+        def stage_list(name):
+            if legacy_equipment:
+                entry = tiers[name]
+                return tuple(EquipmentStage(t, p, 1, 0) for t, p in zip(entry.get("tiers", []), entry.get("game_ids", [])))
+            return stages_for(name, option_steps(world.options))
         # Each tuple is (item name, received copies, slots granted, actual tier).
         self.equipment = []
         for name, item in Items.EQUIPMENT_ITEMS.items():
@@ -95,14 +102,14 @@ class TowerLogic:
                           if token in game_id), None))
             if slot is None:
                 raise ValueError(f'Unclassified equipment slot: {name}')
-            for copies, tier in enumerate(tiers[name]['tiers'][:count], 1):
-                self.equipment.append((name, copies, (slot,), tier))
+            for copies, stage in enumerate(stage_list(name)[:count], 1):
+                self.equipment.append((name, copies, (slot,), stage.tier))
         for spec in SETS:
             count = quantities.get(spec['name'], 0)
-            for copies, tier in enumerate(spec['tiers'][:count], 1):
-                self.equipment.append((spec['name'], copies, ('head', 'body', 'legs'), tier))
+            for copies, stage in enumerate(stage_list(spec['members'][0])[:count], 1):
+                self.equipment.append((spec['name'], copies, ('head', 'body', 'legs'), stage.tier))
         self.alternatives = {}
-        for tier in range(1, 7):
+        for tier in range(1, 10):
             for slot in ('weapon', 'head', 'body', 'legs', 'set'):
                 best = {}
                 for name, copies, slots, actual in self.equipment:
@@ -162,9 +169,21 @@ def restore_tracker_options(world):
     if type(version) is not int or version not in (1, 2, 3, 4, 5):
         raise ValueError('Unsupported LET IT DIE tracker catalogue version.')
     world.hater_catalogue_version = version
+    equipment_schema = tracker.get('equipment_progression_schema', 0)
+    if type(equipment_schema) is not int or equipment_schema not in (0, 2):
+        raise ValueError('Unsupported tracker equipment progression schema')
+    world.options._legacy_equipment = equipment_schema == 0
     options = tracker.get('options')
+    shop_version = tracker.get('shopsanity_version', 0)
+    if type(shop_version) is not int or shop_version not in (0,1):
+        raise ValueError('Unsupported ShopSanity tracker version.')
+    world.shop_schema = shop_version
     names = world.options_dataclass.__annotations__
     expected = set(names) - (CHEST_OPTION_NAMES if version < 4 else set()) - (MATERIAL_OPTION_NAMES if version < 5 else set())
+    if equipment_schema == 0:
+        expected.discard('equipment_upgrade_steps')
+    if not shop_version:
+        expected.discard('shop_sanity')
     if schema < 2:
         expected -= NEW_OPTION_NAMES
     if not isinstance(options, dict) or set(options) != expected:
@@ -176,8 +195,12 @@ def restore_tracker_options(world):
 
 def tracker_slot_data(world):
     return {'schema': world.generation_schema, 'catalogue_version': world.hater_catalogue_version,
+            **({'shopsanity_version':1} if world.shop_schema else {}),
+            **({} if getattr(world.options, '_legacy_equipment', False) else {'equipment_progression_schema':2}),
             'options': {name: getattr(world.options, name).value
                                   for name in world.options_dataclass.__annotations__
                                   if (world.hater_catalogue_version >= 4 or name not in CHEST_OPTION_NAMES)
                                   and (world.hater_catalogue_version >= 5 or name not in MATERIAL_OPTION_NAMES)
+                                  and (world.shop_schema or name!='shop_sanity')
+                                  and (not getattr(world.options, '_legacy_equipment', False) or name!='equipment_upgrade_steps')
                                   and (world.generation_schema >= 2 or name not in NEW_OPTION_NAMES)}}

@@ -19,11 +19,11 @@ static int r105_slot_owned(const R105Slot*s,const R105SlotOps*o){
 }
 static int r105_slot_install(R105Slot*s,const R105SlotOps*o,const R91Binding*b,uint32_t owner,uint64_t replacement){
  uint64_t current,observed;uint32_t old=0,ignored=0;
- if(!s||!o||!o->thread||!o->protect||!o->cas||!b||!b->image||b->image>UINT64_MAX-0x20f90d0||
- !owner||o->thread(o->context)!=owner||!replacement||b->entry[R91_ITEM_PROCESS]!=b->image+0x10b5f70)return 0;
- if(s->attempted)return s->owner==owner&&s->replacement==replacement&&s->address==b->image+0x20f90d0&&r105_slot_owned(s,o);
- if(!r6_copy(&o->memory,b->image+0x20f90d0,&current,8)||current!=b->entry[R91_ITEM_PROCESS]||replacement==current)return 0;
- s->owner=owner;s->address=b->image+0x20f90d0;s->replacement=replacement;s->attempted=1;
+ if(!s||!o||!o->thread||!o->protect||!o->cas||!b||!b->image||b->image>UINT64_MAX-0x20fd000||
+ !owner||o->thread(o->context)!=owner||!replacement||b->entry[R91_ITEM_PROCESS]!=b->image+0x10b5e40)return 0;
+ if(s->attempted)return s->owner==owner&&s->replacement==replacement&&s->address==b->image+0x20fd000&&r105_slot_owned(s,o);
+ if(!r6_copy(&o->memory,b->image+0x20fd000,&current,8)||current!=b->entry[R91_ITEM_PROCESS]||replacement==current)return 0;
+ s->owner=owner;s->address=b->image+0x20fd000;s->replacement=replacement;s->attempted=1;
  /* Dispatcher must acquire original even for foreign/reentrant calls. */
  __atomic_store_n(&s->original,current,__ATOMIC_RELEASE);
  if(!o->protect(o->context,s->address,8,4 /* PAGE_READWRITE */,&old))return 0;

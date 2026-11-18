@@ -10,6 +10,9 @@ typedef struct LidBlueprintCommitOps {
     int (*guard)(void*);
     int (*read_model)(void*,LidBlueprintNativeSnapshot*);
     int (*upsert)(void*,const LidBlueprintNativeRecord*);
+    int (*enhanced_guard)(void*);
+    int (*enhanced_upsert)(void*,const LidBlueprintNativeRecord*);
+    int (*archive)(void*,unsigned,unsigned);
 } LidBlueprintCommitOps;
 typedef struct LidBlueprintCommit {
     const LidBlueprintNativeSnapshot* before;

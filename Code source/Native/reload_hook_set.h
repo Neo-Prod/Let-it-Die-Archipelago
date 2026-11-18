@@ -47,7 +47,7 @@ static void lid_reload_jump(unsigned char*p,const void*to){
 }
 static int lid_reload_hook_profiles(uintptr_t base,int sha,const LidReloadPatchOps*o){
     unsigned i;
-    if(!base||base>UINTPTR_MAX-0xf8b1000||sha!=1||!o||!o->quiescent||!o->readable||
+    if(!base||base>UINTPTR_MAX-0xf8b6008||sha!=1||!o||!o->quiescent||!o->readable||
        !o->allocate||!o->free||!o->writable||!o->protect||!o->flush||o->quiescent(o->context)!=1)return 0;
     for(i=0;i<5;i++){
         const LidReloadNativeProfile*p=&lid_reload_native_profiles[i];

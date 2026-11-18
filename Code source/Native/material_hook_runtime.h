@@ -8,7 +8,7 @@ static void WINAPI checks_material_item_process(void*self);
 static int checks_material_bag_request_core(void*self,int index,uint64_t caller,int native_space,int*out){
  R108Host*h=&g_material_host;R104Snapshot snapshot;R81Layout layout;R81Sample sample;R99Capability request;
  uint64_t image=(uint64_t)(ULONG_PTR)g_checks_diag.exe;uint32_t owner=g_checks_diag.owner;char digest[65];
- if(!out||!image||caller!=image+0x10cd01e||index!=-1||!owner||!g_get_tid||g_get_tid()!=owner)return 0;
+ if(!out||!image||caller!=image+0x10ccbce||index!=-1||!owner||!g_get_tid||g_get_tid()!=owner)return 0;
  if(!r105_slot_owned(&g_material_input_slot,&g_material_input_ops))return 0; /* no pre-input guard => activation unavailable, never READY */
  if(!h->route.busy&&!h->pickup.busy&&r130_ordinary_matches(&g_material_input_gate.ordinary,&g_checks_ops,image,
   g_material_input_gate.ordinary.manager,(uint64_t)(ULONG_PTR)self,2))return 0; /* preserve actual native free slot/full menu */
@@ -23,9 +23,9 @@ static int checks_material_bag_request_core(void*self,int index,uint64_t caller,
  }
  uint64_t manager=snapshot.view.graph.manager.object;
  g_material_input_gate.material_stage=4;layout=h->layout;
- if(!r81_layout_valid(&layout)||layout.object_class!=snapshot.view.graph.manager.cls||layout.vtable!=image+0x20f8d60){
+ if(!r81_layout_valid(&layout)||layout.object_class!=snapshot.view.graph.manager.cls||layout.vtable!=image+0x20fcc90){
   int scoped=checks_chest_scope_begin(0);
-  int bound=r81_bind(&g_checks_ops,manager,image+0x20f8d60,&layout);
+  int bound=r81_bind(&g_checks_ops,manager,image+0x20fcc90,&layout);
   checks_chest_scope_end(0,scoped);
   if(!bound){*out=-1;return 1;}
  }
@@ -61,7 +61,7 @@ static int checks_material_bag_request_core(void*self,int index,uint64_t caller,
  g_material_input_gate.material_stage=12;*out=native_space;return 1; /* completion owned; preserve full menu/free slot */
 }
 static int checks_material_bag_request(void*self,int index,uint64_t caller,int native_space,int*out){
- if(caller!=(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x10cd01e)
+ if(caller!=(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x10ccbce)
   return checks_material_bag_request_core(self,index,caller,native_space,out);
  LID_PERF_BEGIN(pickup_bag_time);int result=checks_material_bag_request_core(self,index,caller,native_space,out);
  LID_PERF_END(pickup_bag_time,41,"pickup_bag_admission",result);return result;
@@ -79,7 +79,7 @@ static void WINAPI checks_material_item_process_core(void*self){
     !h->selected_drop.prepared&&!h->selected_drop.done&&!h->selected_drop.busy&&!h->selected_drop.fault&&
     !__atomic_load_n(&h->route.fence,__ATOMIC_ACQUIRE)){
   uint64_t vt;uint8_t state;uint32_t flags;
-  if(r6_at(&g_checks_ops,object,0,&vt,8)&&vt==(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20f8d60&&
+  if(r6_at(&g_checks_ops,object,0,&vt,8)&&vt==(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20fcc90&&
      r6_at(&g_checks_ops,object,0x92cc0,&state,1)&&(state==0||state==4)&&
      r6_at(&g_checks_ops,object,0x92cf8,&flags,4)&&!(flags&15))return;
  }
@@ -89,7 +89,7 @@ static void WINAPI checks_material_item_process_core(void*self){
     Final get/cancel/death events still take the entire checked path below. */
  if(tid==h->route.owner&&h->manager==object&&h->pickup.pending&&!h->route.busy&&!h->pickup.busy){
   uint64_t vt;uint8_t state;uint32_t flags;
-  if(r6_at(&g_checks_ops,object,0,&vt,8)&&vt==(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20f8d60&&
+  if(r6_at(&g_checks_ops,object,0,&vt,8)&&vt==(uint64_t)(ULONG_PTR)g_checks_diag.exe+0x20fcc90&&
    r6_at(&g_checks_ops,object,0x92cc0,&state,1)&&state==4&&r6_at(&g_checks_ops,object,0x92cf8,&flags,4)&&!(flags&15))return;
  }
  if(tid==g_material_input_slot.owner&&!h->route.busy&&!h->pickup.busy&&checks_material_callback_module(h)&&

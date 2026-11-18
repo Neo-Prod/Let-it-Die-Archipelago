@@ -6,6 +6,7 @@ import hashlib,json,os,tempfile
 from pathlib import Path
 from .CheckWire import Frame,Context,EVENT,FAULT,VISIT,CHEST,SIZE,receipt_ack,integer
 from .MaterialWire import decode_frame,MATERIAL
+from .ArchiveCompatibility import archived_check
 
 MAX_BYTES=32*1024*1024;MAX_RECEIVED=100000;MAX_OUTSTANDING=4096;MAX_BATCH=64
 def unique_object(pairs):
@@ -27,6 +28,7 @@ class DurableMaterialInbox:
     def __init__(self,directory,context:Context,catalogue_version=5):
         integer(catalogue_version,1,5)
         self._decode=lambda raw:decode_frame(raw,catalogue_version)
+        self._archive_decode=lambda raw:archived_check(raw,catalogue_version)
         context.validate();self.context=context;self.directory=Path(directory)
         self.path=self.directory/f'death_receipts_{context.nonce.hex()}.json'
         self.ack_path=self.directory/'death_client_received.bin'
@@ -47,7 +49,7 @@ class DurableMaterialInbox:
             if set(pending)!={str(i) for i in range(consumed+1,len(hashes)+1)}:raise ValueError('receipt holes')
             for seq,text in pending.items():
                 if type(text) is not str or len(text)!=SIZE*2:raise ValueError('receipt frame size')
-                data=bytes.fromhex(text);frame=self._decode(data)
+                data=bytes.fromhex(text);frame=self._archive_decode(data)
                 if frame.kind not in (EVENT,VISIT,CHEST,MATERIAL) or frame.context!=context or frame.sequence!=int(seq) or hashlib.sha256(data).hexdigest()!=hashes[int(seq)-1]:raise ValueError('receipt frame mismatch')
             self.state=state
     def _store(self,state):
@@ -83,7 +85,7 @@ class DurableMaterialInbox:
         if type(limit) is not int or not 1<=limit<=MAX_BATCH:raise ValueError('consumer limit')
         count=0
         while self.state['consumed']<self.received and count<limit:
-            seq=self.state['consumed']+1;frame=self._decode(bytes.fromhex(self.state['raw'][str(seq)]))
+            seq=self.state['consumed']+1;frame=self._archive_decode(bytes.fromhex(self.state['raw'][str(seq)]))
             callback(frame) # Must persist outbox outcome before returning; replay is possible.
             state=json.loads(json.dumps(self.state));state['consumed']=seq;del state['raw'][str(seq)];self._store(state);count+=1
         return count

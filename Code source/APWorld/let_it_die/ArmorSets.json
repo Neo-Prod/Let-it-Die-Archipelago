@@ -1341,6 +1341,26 @@
         6
       ],
       "faction": "milk"
+    },
+    {
+      "name": "Progressive Reaper's Set",
+      "ap_id": 7140067,
+      "members": [
+        "Progressive X-Ray Glasses (Model 1)",
+        "Progressive X-Ray Glasses (Model 2)",
+        "Progressive Reaper's Coat",
+        "Progressive Reaper's Pants"
+      ],
+      "member_ids": [
+        7110306,
+        7110307,
+        7110319,
+        7110301
+      ],
+      "tiers": [
+        4
+      ],
+      "faction": "candle_wolf"
     }
   ]
 }

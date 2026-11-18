@@ -71,7 +71,7 @@ static int r31_current(R31Rotation*s,const R31Identity*expected){
 static uint64_t r31_writer(R31Rotation*s,uintptr_t caller_rva,uint32_t uid,const uint16_t*explicit_template,unsigned char flag){
     R31Identity id;uint32_t tid;uint64_t result;
     if(!s||!s->initialized)return 0;
-    if((caller_rva!=0x111dee5&&caller_rva!=0x111e8a5)||
+    if((caller_rva!=0x111cad5&&caller_rva!=0x111d7c5)||
        __atomic_load_n(&s->fault,__ATOMIC_ACQUIRE)||!r31_binding(s,&id)||
        !(tid=s->ops.thread(s->ops.context)))
         return s->ops.writer(s->ops.context,uid,explicit_template,flag);
@@ -96,7 +96,7 @@ static uint64_t r34_writer_guard(R31Rotation*s,uintptr_t caller_rva,uint32_t uid
                                  unsigned char flag,int(*eligible)(void*)){
     R31Identity id;
     if(!s||!s->initialized)return 0;
-    if((caller_rva!=0x111dee5&&caller_rva!=0x111e8a5)||__atomic_load_n(&s->fault,__ATOMIC_ACQUIRE)||
+    if((caller_rva!=0x111cad5&&caller_rva!=0x111d7c5)||__atomic_load_n(&s->fault,__ATOMIC_ACQUIRE)||
        !r31_binding(s,&id)||!s->ops.thread(s->ops.context))
         return s->ops.writer(s->ops.context,uid,explicit_template,flag);
     if(__atomic_load_n(&s->owner,__ATOMIC_ACQUIRE)){
@@ -133,13 +133,13 @@ static void* r31_selector(R31Rotation*s,uintptr_t caller_rva,void*out){
     uint32_t tid,owner;int held=0;void*result;
     if(!s||!s->initialized)return 0;
     result=s->ops.selector(s->ops.context,out); /* exactly one on every path */
-    if(result!=out||!out||(caller_rva!=0x1360b31&&caller_rva!=0x12132ba)||
+    if(result!=out||!out||(caller_rva!=0x1362921&&caller_rva!=0x121372a)||
        __atomic_load_n(&s->fault,__ATOMIC_ACQUIRE)||!r31_binding(s,&id)||
        !(tid=s->ops.thread(s->ops.context)))return result;
     owner=__atomic_load_n(&s->owner,__ATOMIC_ACQUIRE);
-    if(owner==tid){if(caller_rva!=0x1360b31||!s->scoped)return result;}
+    if(owner==tid){if(caller_rva!=0x1362921||!s->scoped)return result;}
     else{
-        if(owner||caller_rva!=0x12132ba||!__atomic_load_n(&s->ready,__ATOMIC_ACQUIRE)||!r31_lock(s,tid))return result;
+        if(owner||caller_rva!=0x121372a||!__atomic_load_n(&s->ready,__ATOMIC_ACQUIRE)||!r31_lock(s,tid))return result;
         held=1;
     }
     if(!r31_same(&s->pin.identity,&id)){r31_fault(s,R31_FAULT_IDENTITY);goto done;}

@@ -42,7 +42,8 @@ static int progress_blueprint_attach(void){
     if(!g_progress_event_exe||!g_progress_native_ready||!g_blueprint_pair.initialized)return 0;
     g_blueprint_engine.exe=g_progress_event_exe;g_blueprint_engine.reserved=progress_blueprint_reserved;
     g_blueprint_engine.readable=progress_native_readable;g_blueprint_engine.executable=progress_blueprint_executable;
-    ops=(LidBlueprintCommitOps){&g_blueprint_engine,progress_blueprint_guard,lid_blueprint_engine_read,lid_blueprint_engine_upsert};
+    ops=(LidBlueprintCommitOps){&g_blueprint_engine,progress_blueprint_guard,lid_blueprint_engine_read,lid_blueprint_engine_upsert,
+        lid_blueprint_enhanced_guard,lid_blueprint_engine_upsert_enhanced,lid_blueprint_engine_archive_enhanced};
     if(!lid_blueprint_domain_init(&g_blueprint_domain,&g_progress_transaction,&g_blueprint_pair,
         g_blueprint_before,g_blueprint_after,32768,g_blueprint_semantic,32768,&ops,
         &g_blueprint_engine,lid_blueprint_engine_waiting,0,progress_blueprint_publish))return 0;

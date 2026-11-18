@@ -6,12 +6,13 @@ from .CheckWire import Frame,EVENT,VISIT,CHEST,SIZE,integer
 from .MaterialWire import decode_frame,MATERIAL
 from .MaterialInbox import DurableMaterialInbox
 from .CheckInbox import DurableInbox,MAX_BATCH
+from .ArchiveCompatibility import archived_check
 
 def old_batch_received(directory,current,batch,catalogue_version=4):
     integer(catalogue_version,1,5)
     if type(batch) is not bytes or not batch or len(batch)%SIZE or len(batch)>MAX_BATCH*SIZE:
         raise ValueError('batch size')
-    frames=[decode_frame(batch[i:i+SIZE],catalogue_version) for i in range(0,len(batch),SIZE)]
+    frames=[archived_check(batch[i:i+SIZE],catalogue_version) for i in range(0,len(batch),SIZE)]
     old=frames[0].context
     if old==current:return False
     if old.nonce==current.nonce or old.run!=current.run or old.config!=current.config:

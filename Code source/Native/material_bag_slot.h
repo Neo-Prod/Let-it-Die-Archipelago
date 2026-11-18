@@ -4,12 +4,12 @@
 #include <string.h>
 /* Read-only. Static provenance: CommonPawn GetBagItemNum RVA FA3500,
    GetBagSpace FA3640. This is NOT the serialized Chara bag (stride44). */
-enum {R113_STRIDE=0x718};
+enum {R113_STRIDE=0x71c};
 typedef struct R113Array {uint64_t data;int32_t num,max;} R113Array;
 typedef struct R113Slot {uint64_t player,image;R113Array array;int slot;unsigned occupied;uint8_t bytes[R113_STRIDE];} R113Slot;
 static int r113_array(const R6Ops*o,uint64_t player,uint64_t image,R113Array*out){
  uint64_t vt;R113Array a;
- if(!out||!image||image>UINT64_MAX-0x2200000||!r6_copy(o,player,&vt,8)||vt!=image+0x20ac950||!r6_at(o,player,0x3e58,&a,sizeof(a))||
+ if(!out||!image||image>UINT64_MAX-0x2200000||!r6_copy(o,player,&vt,8)||vt!=image+0x20b0190||!r6_at(o,player,0x3e78,&a,sizeof(a))||
  a.num<0||a.num>99||a.max<a.num||a.max>4096||(!a.data)!=(a.max==0)||a.data>UINT64_MAX-(uint64_t)a.max*R113_STRIDE)return 0;
  *out=a;return 1;
 }

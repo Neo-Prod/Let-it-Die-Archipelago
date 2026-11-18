@@ -21,22 +21,22 @@ static int lid_decal_engine_guard(void*context){
     LidDecalEngineAdapter*e=context;BYTE*repo;BYTE*vt;
     if(!e||!e->exe||e->verified_build!=1||!e->reserved||!e->current_userdata||!e->readable||!e->executable||
        e->reserved(e->owner)!=1||!e->userdata||e->current_userdata(e->owner)!=e->userdata)return 0;
-    if(!e->readable(e->exe+0x1349490,16)||!e->readable(e->exe+0x13bfc60,16)||
-       !e->executable(e->exe+0x1349490)||!e->executable(e->exe+0x13bfc60)||
-       !lid_wire_equal(e->exe+0x1349490,grant,16)||!lid_wire_equal(e->exe+0x13bfc60,project,16))return 0;
-    repo=e->exe+0x27e5c58;
-    if(!e->readable(repo,0x60)||lid_wire_r64(repo)!=(size_t)(e->exe+0x2190e30)||
-       !e->readable(e->exe+0x2190e30,8)||lid_wire_r64(e->exe+0x2190e30)!=(size_t)(e->exe+0x1395e10)||
-       !e->readable(e->exe+0x2190de0+0x38,8)||lid_wire_r64(e->exe+0x2190de0+0x38)!=(size_t)(e->exe+0x11ca300))return 0;
-    if(!e->readable(e->userdata,0x7c)||lid_wire_r64(e->userdata)!=(size_t)(e->exe+0x21f7ac0)||
+    if(!e->readable(e->exe+0x134b210,16)||!e->readable(e->exe+0x13c1aa0,16)||
+       !e->executable(e->exe+0x134b210)||!e->executable(e->exe+0x13c1aa0)||
+       !lid_wire_equal(e->exe+0x134b210,grant,16)||!lid_wire_equal(e->exe+0x13c1aa0,project,16))return 0;
+    repo=e->exe+0x27eac78;
+    if(!e->readable(repo,0x60)||lid_wire_r64(repo)!=(size_t)(e->exe+0x2195460)||
+       !e->readable(e->exe+0x2195460,8)||lid_wire_r64(e->exe+0x2195460)!=(size_t)(e->exe+0x13979a0)||
+       !e->readable(e->exe+0x2195410+0x38,8)||lid_wire_r64(e->exe+0x2195410+0x38)!=(size_t)(e->exe+0x126c7e0))return 0;
+    if(!e->readable(e->userdata,0x7c)||lid_wire_r64(e->userdata)!=(size_t)(e->exe+0x21fb700)||
        (BYTE*)(size_t)lid_wire_r64(e->userdata+0x74)!=e->payload||!e->payload||!e->readable(e->payload+0x32c,16))return 0;
-    vt=e->exe+0x21f7ac0;
-    return e->readable(vt+0x698,16)&&lid_wire_r64(vt+0x698)==(size_t)(e->exe+0x1571b70)&&
-        lid_wire_r64(vt+0x6a0)==(size_t)(e->exe+0x1571ab0);
+    vt=e->exe+0x21fb700;
+    return e->readable(vt+0x698,16)&&lid_wire_r64(vt+0x698)==(size_t)(e->exe+0x1573c10)&&
+        lid_wire_r64(vt+0x6a0)==(size_t)(e->exe+0x1573b50);
 }
 static int lid_decal_engine_stock(void*context,LidDecalSnapshot*out){
     LidDecalEngineAdapter*e=context;if(out)out->valid=0;
-    return out&&lid_decal_engine_guard(e)&&lid_decal_stock_read(out,e->exe+0x27e5c58,e->exe+0x2190e30,e->exe+0x2190de0,e->readable);
+    return out&&lid_decal_engine_guard(e)&&lid_decal_stock_read(out,e->exe+0x27eac78,e->exe+0x2195460,e->exe+0x2195410,e->readable);
 }
 static int lid_decal_engine_view(void*context,LidDecalSnapshot*out){
     LidDecalEngineAdapter*e=context;if(out)out->valid=0;
@@ -57,19 +57,19 @@ static int lid_decal_engine_grant_with(void*context,const unsigned*delta,LidDeca
     }
     k=0;for(i=0;i<208;i++){for(j=0;e->names[i][j];j++){}for(n=0;n<delta[i];n++)e->items[k++]=(LidDecalEngineString){e->names[i],j+1,j+1};}
     list=(LidDecalEngineArray){e->items,k,k};
-    return lid_decal_engine_guard(e)&&grant(e->exe+0x27e5c58,&list,0)==1;
+    return lid_decal_engine_guard(e)&&grant(e->exe+0x27eac78,&list,0)==1;
 }
 static int lid_decal_engine_grant(void*context,const unsigned*delta){
     LidDecalEngineAdapter*e=context;
-    return e&&e->exe&&lid_decal_engine_grant_with(e,delta,(LidDecalEngineGrant)(e->exe+0x1349490));
+    return e&&e->exe&&lid_decal_engine_grant_with(e,delta,(LidDecalEngineGrant)(e->exe+0x134b210));
 }
 static int lid_decal_engine_project_with(void*context,LidDecalEngineProject project){
     LidDecalEngineAdapter*e=context;
-    return project&&lid_decal_engine_guard(e)&&project(e->exe+0x27e5c58,e->payload+0x32c)==1;
+    return project&&lid_decal_engine_guard(e)&&project(e->exe+0x27eac78,e->payload+0x32c)==1;
 }
 static int lid_decal_engine_project(void*context){
     LidDecalEngineAdapter*e=context;
-    return e&&e->exe&&lid_decal_engine_project_with(e,(LidDecalEngineProject)(e->exe+0x13bfc60));
+    return e&&e->exe&&lid_decal_engine_project_with(e,(LidDecalEngineProject)(e->exe+0x13c1aa0));
 }
 static int lid_decal_engine_ops(LidDecalEngineAdapter*e,LidDecalCommitOps*out){
     if(!out||!lid_decal_engine_guard(e))return 0;

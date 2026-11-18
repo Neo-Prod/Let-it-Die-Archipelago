@@ -7,6 +7,7 @@ import tempfile
 from .CheckWire import Context
 from .KillCoinDelivery import next_grant, accept_ack, read_cursor, write_cursor, prefix_digest
 from .KillCoinWire import ACK, SIZE, decode
+from .ArchiveCompatibility import archived_coin
 
 GRANT_FILE = "kill_coin_grant.bin"
 ACK_FILE = "kill_coin_ack.bin"
@@ -118,7 +119,7 @@ async def watch_coins(ctx, log):
                     service = CoinService(directory, context)
                 state = service.step(snapshot)
                 if state == "applied":
-                    applied = decode(service.cursor.evidence)
+                    applied = archived_coin(service.cursor.evidence)
                     log(ctx.request.bridge_dir,
                         f"AP KC: applied index={applied.index} amount={applied.amount} "
                         f"wallet={applied.before}->{applied.after} status={applied.status}; "

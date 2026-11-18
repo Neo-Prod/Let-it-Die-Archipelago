@@ -18,7 +18,7 @@ from typing import Callable
 from .CharacterProgression import MAX_HISTORY, PROGRESSIVES, ReceiptJournal, ReceiptSnapshot
 from .RuntimeControl import RebuildControl
 
-GAME_SHA = "f33e91e6e8d58566bfabad8d01cd0486586a0d43fe1c58e65fc6485a417bddfd"
+GAME_SHA = "6cfadbba9da3e2f3b3a4463194d247a50d2537a3ad704174730a0bbf899e42ca"
 GAME_DIGEST = bytes.fromhex(GAME_SHA)
 MAGIC = b"LIDAPC01"
 OFFER, QUIESCED, TARGET, SAVED, GRANT = 1, 2, 3, 4, 5
@@ -157,6 +157,7 @@ class NativeTransport:
         if type(reload_source) is not bool:
             raise TransportError('Invalid reload source transport mode')
         self.blueprints = blueprints
+        self.equipment_steps = None
         self.reload_source = reload_source
         self.directory, self.pid, self.control = Path(directory), pid, control
         self.verify_game = verify_game
@@ -178,6 +179,7 @@ class NativeTransport:
     def step(self, journal: ReceiptJournal | None, history_ready: bool) -> str:
         if journal is None:
             return "receipt_unavailable"
+        self.equipment_steps = getattr(journal.config, "equipment_steps", None)
         try:
             offer = read_message(self.directory / OFFER_FILE)
         except FileNotFoundError:
@@ -226,7 +228,7 @@ class NativeTransport:
                              generation=generation, sequence=self.sequence + 1)
             if self.blueprints:
                 from .BlueprintPublication import publish_blueprint_target
-                publish_blueprint_target(self.directory, snapshot, target)
+                publish_blueprint_target(self.directory, snapshot, target, upgrade_steps=self.equipment_steps)
             else:
                 atomic_write(self.directory / TARGET_FILE, target.encode())
             self.sequence = target.sequence
@@ -260,7 +262,7 @@ class NativeTransport:
         if self.blueprints:
             from .BlueprintSavedReport import read_saved_report, write_saved_report
             try:
-                blueprint_report = read_saved_report(self.directory, snapshot, saved)
+                blueprint_report = read_saved_report(self.directory, snapshot, saved, upgrade_steps=self.equipment_steps)
             except FileNotFoundError:
                 return False
             from .DecalSavedReport import read_saved_report as read_decals, write_saved_report as write_decals

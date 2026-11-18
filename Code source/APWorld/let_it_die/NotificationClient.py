@@ -40,6 +40,32 @@ def item_message_text(context, packet):
     return context.rawjsontotextparser(deepcopy(data))
 
 
+def item_message_colored_text(context, packet):
+    """Same AP words, only item-name spans receive AP classification colors."""
+    plain = item_message_text(context, packet)
+    if plain is None:
+        return None
+    parts = []
+    visible = []
+    for node in packet['data']:
+        value = context.rawjsontotextparser([deepcopy(node)])
+        visible.append(value)
+        escaped = value.replace('\x1e', '\x1e\x1e')
+        if node.get('type') in ('item_id', 'item_name'):
+            item = packet.get('item')
+            fallback = getattr(item, 'flags', item[3] if isinstance(item, (tuple, list)) and len(item) == 4 else 0)
+            flags = node.get('flags', fallback)
+            if type(flags) is not int:
+                flags = 0
+            color = 1 if flags & 1 else 2 if flags & 2 else 3 if flags & 4 else 0
+            escaped = '\x1e' + str(color) + escaped + '\x1e4'
+        parts.append(escaped)
+    # Different parser context behavior cannot change the original AP message.
+    if ''.join(visible) != plain:
+        return plain.replace('\x1e', '\x1e\x1e')
+    return ''.join(parts)
+
+
 def atomic_write(path, data):
     # Runs on an asyncio executor worker, never on the game's owner thread.
     fd, name = tempfile.mkstemp(prefix='.notification-', suffix='.tmp', dir=path.parent)
@@ -126,7 +152,7 @@ async def watch_notifications(ctx, log):
 
 def capture_notification(ctx, packet, log):
     """Called after normal CommonContext logging. Failure cannot affect receipts."""
-    text = item_message_text(ctx, packet)
+    text = item_message_colored_text(ctx, packet)
     if text is None:
         return
     if type(text) is not str or not text or '\0' in text or len(text.encode('utf-16-le')) // 2 > MAX_UNITS:

@@ -8,6 +8,7 @@ from dataclasses import dataclass,replace
 from .CharacterTransport import Message,TARGET,SAVED
 from .BlueprintTransport import decode_blueprints,decode_blueprint_saved,BlueprintTransportError
 from .DecalProgression import COUNT,FRAME_SIZE,CATALOGUE,counts_for_target,payload_for_target
+from .ArchiveCompatibility import archived_decal
 
 class RecoveryRequired(ValueError):
     pass
@@ -24,6 +25,7 @@ class View:
 def _saved(raw,snapshot):
     if type(raw) is not bytes or len(raw)!=FRAME_SIZE:
         raise BlueprintTransportError('Invalid decal ledger size')
+    raw=archived_decal(raw)
     saved=Message.decode(raw[64:320])
     if saved.kind!=SAVED or saved.status!=1:
         raise BlueprintTransportError('Not a saved decal ledger')
@@ -48,6 +50,7 @@ def inspect(snapshot,ledger=None,pending=None):
     if pending is not None:
         if type(pending) is not bytes or len(pending)!=FRAME_SIZE:
             raise BlueprintTransportError('Invalid pending frame')
+        pending=archived_decal(pending)
         attempt=Message.decode(pending[64:320])
         if attempt.kind!=TARGET:
             raise BlueprintTransportError('Pending is not a TARGET')

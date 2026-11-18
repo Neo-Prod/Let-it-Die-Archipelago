@@ -30,8 +30,10 @@ def counts_for_target(snapshot: ReceiptSnapshot, target: Message) -> tuple[int, 
     return tuple(counter[item_id] for item_id, _ in FAMILIES)
 
 
-def payload_for_target(snapshot: ReceiptSnapshot, target: Message) -> bytes:
-    return encode_blueprints(target, counts_for_target(snapshot, target), CATALOGUE,
+def payload_for_target(snapshot: ReceiptSnapshot, target: Message, *, upgrade_steps: int | None = None) -> bytes:
+    from .EquipmentProgression import CATALOGUE_HEX as enhancement_hash
+    catalogue = CATALOGUE if upgrade_steps is None else bytes.fromhex(enhancement_hash)
+    return encode_blueprints(target, counts_for_target(snapshot, target), catalogue, upgrade_steps=upgrade_steps,
                              allow_sets=any(item[0] in SET_MEMBERS for item in snapshot.history))
 
 

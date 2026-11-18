@@ -49,23 +49,23 @@ static int r147_profile(BYTE*image){
  static const BYTE credit[16]={0x48,0x8b,0xc4,0x57,0x41,0x54,0x41,0x55,0x41,0x56,0x41,0x57,0x48,0x83,0xec,0x50};
  static const BYTE get[16]={0x40,0x53,0x48,0x83,0xec,0x20,0x48,0x8b,0x01,0x48,0x8b,0xd9,0xff,0x90,0x80,0x02};
  static const BYTE set[16]={0x48,0x89,0x5c,0x24,0x08,0x57,0x48,0x83,0xec,0x20,0x48,0x8b,0x01,0x8b,0xfa,0x48};
- static const BYTE bank_dirty[10]={0x8b,0x41,0x5c,0xc6,0x05,0xd6,0x01,0x54,0x0e,0x01};
- return image&&readable_range(image+0x132d630,16)&&!lid_memcmp(image+0x132d630,credit,16)&&
-  readable_range(image+0x1574ab0,16)&&!lid_memcmp(image+0x1574ab0,get,16)&&
-  readable_range(image+0x1582cc0,16)&&!lid_memcmp(image+0x1582cc0,set,16)&&
-  readable_range(image+0x13616b0,10)&&!lid_memcmp(image+0x13616b0,bank_dirty,10)&&executable_ptr(image,image+0x13616b0)&&
-  executable_ptr(image,image+0x132d630)&&executable_ptr(image,image+0x11ff550)&&
-  executable_ptr(image,image+0x11ca300)&&executable_ptr(image,image+0x110f110)&&executable_ptr(image,image+0x11ca160);
+ static const BYTE bank_dirty[10]={0x8b,0x41,0x5c,0xc6,0x05,0x66,0x32,0x54,0x0e,0x01};
+ return image&&readable_range(image+0x132e4f0,16)&&!lid_memcmp(image+0x132e4f0,credit,16)&&
+  readable_range(image+0x1576b50,16)&&!lid_memcmp(image+0x1576b50,get,16)&&
+  readable_range(image+0x1584d80,16)&&!lid_memcmp(image+0x1584d80,set,16)&&
+  readable_range(image+0x13634a0,10)&&!lid_memcmp(image+0x13634a0,bank_dirty,10)&&executable_ptr(image,image+0x13634a0)&&
+  executable_ptr(image,image+0x132e4f0)&&executable_ptr(image,image+0x11fee10)&&
+  executable_ptr(image,image+0x126c7e0)&&executable_ptr(image,image+0x110e560)&&executable_ptr(image,image+0x11c93e0);
 }
 static int r147_anchor(R144Wallet*w){
  if(!r144_anchor(w))return 0;
  if(!r147_profile(w->image))return R149_REFUSE(14);
- if(!readable_range(w->image+0xf8b0080,0x130))return R149_REFUSE(15);
- BYTE*user=w->image+0xf8b0080;void**vt=*(void***)w->userdata;void**server=*(void***)user;
+ if(!readable_range(w->image+0xf8b5088,0x130))return R149_REFUSE(15);
+ BYTE*user=w->image+0xf8b5088;void**vt=*(void***)w->userdata;void**server=*(void***)user;
  if(!server||!readable_range(server,0x40))return R149_REFUSE(16);
  R149_VALUE(dirty_rva,(unsigned long long)(ULONG_PTR)server[0x38/8]-(unsigned long long)(ULONG_PTR)w->image);
- if(server[0x38/8]!=w->image+0x13616b0)return R149_REFUSE(16);
- if(!readable_range(vt,0x2e8)||vt[0x2d8/8]!=w->image+0x1574ab0||vt[0x2e0/8]!=w->image+0x1582cc0)return R149_REFUSE(17);
+ if(server[0x38/8]!=w->image+0x13634a0)return R149_REFUSE(16);
+ if(!readable_range(vt,0x2e8)||vt[0x2d8/8]!=w->image+0x1576b50||vt[0x2e0/8]!=w->image+0x1584d80)return R149_REFUSE(17);
  if(*(int*)(user+8)<=0||!readable_range(w->userdata+0x74,8))return R149_REFUSE(18);
  BYTE*payload=*(BYTE**)(w->userdata+0x74);
  if(!payload||!readable_range(payload+0x254,4))return R149_REFUSE(19);
@@ -93,23 +93,23 @@ static int r147_ready(void*context){
 }
 static int r147_read(void*context,uint64_t*subject,int32_t*money){
  R144Wallet*w=context;if(!subject||!money||!r147_anchor(w))return 0;
- *subject=(uint64_t)(ULONG_PTR)(w->image+0xf8b0080);
+ *subject=(uint64_t)(ULONG_PTR)(w->image+0xf8b5088);
  *money=((R147SafeGet)(*(void***)w->userdata)[0x2d8/8])(w->userdata);return 1;
 }
 static void WINAPI r147_dirty(void){
  R147Hub*h=&g_coin_hub;h->dirty_failed=1;
  if(!h->job.active||__atomic_load_n(&h->job.completion,__ATOMIC_ACQUIRE)!=-1||
-    !h->image||!progress_native_writable(h->image+0xf8a1890,1))return;
- ((void(WINAPI*)(void))(h->image+0x11ca300))();h->dirty_failed=0;
+    !h->image||!progress_native_writable(h->image+0xf8a6710,1))return;
+ ((void(WINAPI*)(void))(h->image+0x126c7e0))();h->dirty_failed=0;
 }
 static BYTE WINAPI r147_save(void*runner,void*json){
  R147Hub*h=&g_coin_hub;if(h->dirty_failed||!h->job.active||runner!=h->job.runner)return 0;
- return ((BYTE(WINAPI*)(void*,void*))(h->image+0x110f110))(runner,json);
+ return ((BYTE(WINAPI*)(void*,void*))(h->image+0x110e560))(runner,json);
 }
 static BYTE WINAPI r147_start(void*runner,LidProgressSaveBox*box,const wchar_t*name){
  R147Hub*h=&g_coin_hub;
  if(!h->job.active||!h->lease.window||runner!=h->lease.view.save_runner||runner!=h->job.runner)return 0;
- if(!((BYTE(WINAPI*)(void*,LidProgressSaveBox*,const wchar_t*))(h->image+0x11ca160))(runner,box,name))return 0;
+ if(!((BYTE(WINAPI*)(void*,LidProgressSaveBox*,const wchar_t*))(h->image+0x11c93e0))(runner,box,name))return 0;
  return readable_range((BYTE*)runner+0x40,8)&&*(void**)((BYTE*)runner+0x40)!=0;
 }
 static int r147_add(void*context,uint64_t subject,uint32_t amount){
@@ -121,15 +121,15 @@ static int r147_add(void*context,uint64_t subject,uint32_t amount){
      if(!g_coin_diagnostic.reason)r149_refuse(24);
 #endif
      return 0;}
- int result=0;BYTE*user=w->image+0xf8b0080;
+ int result=0;BYTE*user=w->image+0xf8b5088;
  if(!r147_anchor(w)||*(int*)(user+0xc)!=before)goto done;
- int cap=((R147Capacity)(w->image+0x11ff550))(*(int*)(user+0x12c));
+ int cap=((R147Capacity)(w->image+0x11fee10))(*(int*)(user+0x12c));
  R149_VALUE(capacity,cap);
  if(cap<before||amount>(unsigned)(cap-before)){R149_REFUSE(25);goto done;}
  h->image=w->image;h->game=w->game;h->userdata=w->userdata;h->payload=*(BYTE**)(w->userdata+0x74);
  h->uid=*(unsigned*)(user+8);h->expected=before+(int)amount;h->saved=0;h->outcome=0;
  /* Native bank credit used by vanilla waiting-room deposits. */
- if(!((R147Credit)(w->image+0x132d630))(user,(int)amount,L"nolog",L"nolog",0)){
+ if(!((R147Credit)(w->image+0x132e4f0))(user,(int)amount,L"nolog",L"nolog",0)){
   R149_REFUSE(26);
   result=*(int*)(user+0xc)==before?0:-1;goto done;
  }
@@ -156,8 +156,8 @@ static int r147_poll(void*context){
  if(result==0){lid_progress_lease_leave_window(&h->lease);return 0;}
  if(!h->saved){
   h->outcome=result==1&&r144_policy(w)&&r147_anchor(w)&&w->userdata==h->userdata&&
-   *(BYTE**)(w->userdata+0x74)==h->payload&&*(unsigned*)(h->image+0xf8b0088)==h->uid&&
-   *(int*)(h->image+0xf8b008c)==h->expected?1:-1;
+   *(BYTE**)(w->userdata+0x74)==h->payload&&*(unsigned*)(h->image+0xf8b5090)==h->uid&&
+   *(int*)(h->image+0xf8b5094)==h->expected?1:-1;
   h->saved=1;
   if(h->outcome!=1)R149_REFUSE(30);
  }

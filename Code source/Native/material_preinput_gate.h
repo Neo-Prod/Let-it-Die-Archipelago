@@ -18,7 +18,7 @@ static uint32_t r121_preinput(R121InputGate*g,const R121InputOps*o,uint64_t self
  if(!o||!o->original)return 0;
  uint32_t native=o->original((void*)(uintptr_t)self);
  if(!g||!o->thread||!o->owner||o->thread(o->context)!=o->owner||!o->image||o->image>UINT64_MAX-0x2200000||
- self!=o->manager||caller!=o->image+0x10cced2)return native;
+ self!=o->manager||caller!=o->image+0x10cca82)return native;
  if(g->busy)return 0;
  memset(&g->ordinary,0,sizeof(g->ordinary));
  g->diagnostic=0;g->material_stage=0;

@@ -3,13 +3,14 @@ import ast,re
 from dataclasses import dataclass,asdict
 from pathlib import Path
 from .TuberRooms import witness_rooms
+from .ScreamerIds import SCREAMER_BASE, SCREAMER_CAP, screamer_code
 
 GOALS={10:'Max Sharp',20:'Jackson',30:'Crowley',40:'Taro Gunkanyama'}
 FAMILIES=('Scratch','Hovering','Bullet','Bone','Reversal','Treasure')
 DEFAULTS=dict(zip(FAMILIES,(20,5,10,3,1,1)))
 VERSION_GOALS=(10,20,30,30,40)
 PREFIX_BASE={'MET':0,'ARC':10,'AMS':20,'RFT':30}
-SCREAMER_BASE=7206000;SCREAMER_CAP=2500;TUBER_BASE=7300000;TUBER_CAP=1000
+TUBER_BASE=7300000;TUBER_CAP=1000
 CHEST_COLORS=('Red','Silver','Gold')
 CHEST_DEFAULTS=dict(zip(CHEST_COLORS,(30,15,3)))
 CHEST_BASE=7340000;CHEST_CAP=1000
@@ -94,7 +95,7 @@ def build(rows,goal,item_count,quotas=None,include_visits=False,exclude_forcemen
         if count>SCREAMER_CAP:raise ValueError('Screamer capacity')
         counts.append(count)
         for ordinal in range(1,count+1):
-            checks.append(Check(SCREAMER_BASE+zone*SCREAMER_CAP+ordinal,f'Screamer {zone*10+1:02d}-{zone*10+10:02d} #{ordinal:04d}','screamer',ordinal=ordinal,zone=zone))
+            checks.append(Check(screamer_code(zone,ordinal),f'Screamer {zone*10+1:02d}-{zone*10+10:02d} #{ordinal:04d}','screamer',ordinal=ordinal,zone=zone))
     codes=[c.code for c in checks]
     if len(codes)!=len(set(codes)) or any(c.code in reserved for c in checks if c.kind in ('tuber','screamer','chest','material')):raise ValueError('ID collision')
     if material_quotas is not None and len(checks)>50000:raise ValueError('Check catalogue exceeds client capacity')

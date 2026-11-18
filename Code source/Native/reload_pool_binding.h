@@ -8,7 +8,7 @@ typedef struct LidReloadAttachOverride {void*detour;void*trampoline;} LidReloadA
 static int lid_reload_attach_override_valid(uintptr_t base,int(*readable)(const void*,size_t),
     const LidReloadAttachOverride*owned){
     static const unsigned char original[16]={0x48,0x89,0x5c,0x24,0x10,0x48,0x89,0x6c,0x24,0x18,0x48,0x89,0x74,0x24,0x20,0x57};
-    const unsigned char*entry=(const unsigned char*)(base+0x26ad90);const unsigned char*tr;
+    const unsigned char*entry=(const unsigned char*)(base+0x26b350);const unsigned char*tr;
     void*target=0;size_t i;
     if(!base||!readable||!owned||!owned->detour||!owned->trampoline||
        owned->detour==(void*)entry||owned->trampoline==(void*)entry||owned->detour==owned->trampoline)return 0;
@@ -25,41 +25,41 @@ static int lid_reload_attach_override_valid(uintptr_t base,int(*readable)(const 
 static int lid_reload_pool_bind_ex(LidReloadPoolBinding*out,uintptr_t base,int exact_sha_verified,
     void*ctx,int(*window)(void*),int(*readable)(const void*,size_t),const LidReloadAttachOverride*owned){
     LidReloadPoolBinding b={0};void*pool=0;void*slot=0;size_t i;
-    if(!out||out->initialized||!base||base>UINTPTR_MAX-0xf8b1000||exact_sha_verified!=1||!window||!readable||window(ctx)!=1)return 0;
+    if(!out||out->initialized||!base||base>UINTPTR_MAX-0xf8b6008||exact_sha_verified!=1||!window||!readable||window(ctx)!=1)return 0;
     {static const unsigned char expected[]={0x4c,0x8b,0xdc,0x55,0x56,0x57,0x48,0x83,0xec,0x70,0x49,0xc7,0x43,0x98,0xfe,0xff};
-    const unsigned char*code=(const unsigned char*)(base+0xc2bae0);
+    const unsigned char*code=(const unsigned char*)(base+0xc2b7a0);
     if(!readable(code,sizeof(expected)))return 0;
     for(i=0;i<sizeof(expected);i++)if(code[i]!=expected[i])return 0;}
     {static const unsigned char expected[]={0x40,0x55,0x56,0x57,0x48,0x83,0xec,0x30,0x48,0xc7,0x44,0x24,0x20,0xfe,0xff,0xff};
-    const unsigned char*code=(const unsigned char*)(base+0xbf61d0);
+    const unsigned char*code=(const unsigned char*)(base+0xbf5f60);
     if(!readable(code,sizeof(expected)))return 0;
     for(i=0;i<sizeof(expected);i++)if(code[i]!=expected[i])return 0;}
     {static const unsigned char expected[]={0x48,0x89,0x5c,0x24,0x10,0x48,0x89,0x6c,0x24,0x18,0x48,0x89,0x74,0x24,0x20,0x57};
-    const unsigned char*code=(const unsigned char*)(base+0x26ad90);
+    const unsigned char*code=(const unsigned char*)(base+0x26b350);
     if(owned){if(!lid_reload_attach_override_valid(base,readable,owned))return 0;}
     else{if(!readable(code,sizeof(expected)))return 0;
     for(i=0;i<sizeof(expected);i++)if(code[i]!=expected[i])return 0;}}
     {static const unsigned char expected[]={0x40,0x55,0x57,0x41,0x56,0x48,0x8b,0xec,0x48,0x83,0xec,0x40,0x48,0xc7,0x45,0xe0};
-    const unsigned char*code=(const unsigned char*)(base+0x135aed0);
+    const unsigned char*code=(const unsigned char*)(base+0x135c810);
     if(!readable(code,sizeof(expected)))return 0;
     for(i=0;i<sizeof(expected);i++)if(code[i]!=expected[i])return 0;}
     {static const unsigned char expected[]={0x40,0x56,0x57,0x41,0x54,0x41,0x56,0x41,0x57,0x48,0x83,0xec,0x40,0x48,0xc7,0x44};
-    const unsigned char*code=(const unsigned char*)(base+0x11c0630);
+    const unsigned char*code=(const unsigned char*)(base+0x11be4d0);
     if(!readable(code,sizeof(expected)))return 0;
     for(i=0;i<sizeof(expected);i++)if(code[i]!=expected[i])return 0;}
-    if(!readable((void*)(base+0x298ec78),8)||!readable((void*)(base+0x1feaf40),8)||!readable((void*)(base+0x1feaf88),8)||!readable((void*)(base+0x1feafa0),8))return 0;
-    __builtin_memcpy(&pool,(void*)(base+0x298ec78),8);
-    if(!pool||!readable(pool,0xf0)||!readable((void*)(base+0xf8b0080),0x400))return 0;
-    __builtin_memcpy(&slot,(void*)(base+0x1feaf40),8);if(slot!=(void*)(base+0x26ad90))return 0;
-    __builtin_memcpy(&slot,(void*)(base+0x1feaf88),8);if(slot!=(void*)(base+0x257350))return 0;
-    __builtin_memcpy(&slot,(void*)(base+0x1feafa0),8);if(slot!=(void*)(base+0x246700))return 0;
-    b.base=base;b.pool=pool;b.soul_repository=(void*)(base+0xf8b0080);b.object_vtable=(void*)(base+0x1feac70);
+    if(!readable((void*)(base+0x29cfce0),8)||!readable((void*)(base+0x1fee540),8)||!readable((void*)(base+0x1fee588),8)||!readable((void*)(base+0x1fee5a0),8))return 0;
+    __builtin_memcpy(&pool,(void*)(base+0x29cfce0),8);
+    if(!pool||!readable(pool,0xf0)||!readable((void*)(base+0xf8b5088),0x400))return 0;
+    __builtin_memcpy(&slot,(void*)(base+0x1fee540),8);if(slot!=(void*)(base+0x26b350))return 0;
+    __builtin_memcpy(&slot,(void*)(base+0x1fee588),8);if(slot!=(void*)(base+0x257700))return 0;
+    __builtin_memcpy(&slot,(void*)(base+0x1fee5a0),8);if(slot!=(void*)(base+0x246c80))return 0;
+    b.base=base;b.pool=pool;b.soul_repository=(void*)(base+0xf8b5088);b.object_vtable=(void*)(base+0x1fee270);
     b.context=ctx;b.window=window;b.readable=readable;
-    b.call.release=(int(*)(void*,void*))(base+0xc2bae0);
-    b.call.allocate=(void*(*)(void*))(base+0xbf61d0);
-    b.call.attach=(void(*)(void*,const LidReloadPoolString*,void*))(owned?(uintptr_t)owned->trampoline:base+0x26ad90);
-    b.call.soul=(unsigned char(*)(void*,void**))(base+0x135aed0);
-    b.call.bodyuser=(unsigned char(*)(void**))(base+0x11c0630);
+    b.call.release=(int(*)(void*,void*))(base+0xc2b7a0);
+    b.call.allocate=(void*(*)(void*))(base+0xbf5f60);
+    b.call.attach=(void(*)(void*,const LidReloadPoolString*,void*))(owned?(uintptr_t)owned->trampoline:base+0x26b350);
+    b.call.soul=(unsigned char(*)(void*,void**))(base+0x135c810);
+    b.call.bodyuser=(unsigned char(*)(void**))(base+0x11be4d0);
     b.initialized=1;*out=b;return 1;}
 static int lid_reload_pool_bind(LidReloadPoolBinding*out,uintptr_t base,int exact_sha_verified,
     void*ctx,int(*window)(void*),int(*readable)(const void*,size_t)){

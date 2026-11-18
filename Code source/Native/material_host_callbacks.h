@@ -218,13 +218,13 @@ static int r117_admit_space(R108Host*h,int native_space,uint64_t caller,uint64_t
    cannot be rebound. Caller supplies actual metadata/module validated fields. */
 static int r108_bind_callbacks(R108Host*h,uint64_t manager,const R103Fields*fields,const R81Layout*layout,const R91Binding*binding){
  if(!r108_owner(h)||!h->ops.memory.copy||!h->ops.memory.name_is||!h->ops.module_verified||!h->ops.active_snapshot||
- !h->ops.engine_game||!h->ops.can_write||!h->ops.store||!manager||manager>UINT64_MAX-R81_EXTENT||!fields||!layout||!binding||!r81_layout_valid(layout)||!binding->image||binding->image>UINT64_MAX-0x1005c000ull||
+ !h->ops.engine_game||!h->ops.can_write||!h->ops.store||!manager||manager>UINT64_MAX-R81_EXTENT||!fields||!layout||!binding||!r81_layout_valid(layout)||!binding->image||binding->image>UINT64_MAX-0x1005f000ull||
  h->route.busy||h->pickup.busy||h->pickup.pending||h->pickup.fault||h->pickup.receipt.fault||h->selected_drop.prepared||h->selected_drop.receipt.invoked)return 0;
  R81Layout candidate=*layout;
  R92Ops commit={0};commit.drop_prepare=r115_drop_prepare;commit.drop_finish=r115_drop_finish;
  commit.memory=h->ops.memory;commit.context=h;commit.thread=r108_thread;commit.current_game=r108_current_game;commit.writable=r108_writable;commit.write=r108_write;
  commit.enqueue=r108_enqueue;commit.binding=*binding;commit.fields=fields->graph;commit.layout=&candidate;commit.owner=h->route.owner;
- R93Ops transaction={commit,manager,binding->image+0x10cd01e,r108_snapshot,r108_engine_current};
+ R93Ops transaction={commit,manager,binding->image+0x10ccbce,r108_snapshot,r108_engine_current};
  if(!r93_ops(&transaction))return 0;
  h->manager=manager;h->engine_fields=*fields;h->layout=candidate;h->binding=*binding;
  transaction.commit.layout=&h->layout;h->transaction=transaction;

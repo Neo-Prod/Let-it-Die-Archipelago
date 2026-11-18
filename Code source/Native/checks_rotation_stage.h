@@ -128,21 +128,21 @@ static int r33_context(const R33Ops*o,const R31Pin*p){
 }
 static int r33_stage(const R33Ops*o,uintptr_t base,uintptr_t stage,const R31Pin*pin,unsigned serial,R33Result*out){
     if(!out)return 0;*out=(R33Result){0};out->status=R33_CONTEXT;
-    if(!o||!o->read||!o->thread||!o->window||!o->identity||!base||base>UINTPTR_MAX-0xf8b1000||!stage||stage>UINTPTR_MAX-0x5d0||
+    if(!o||!o->read||!o->thread||!o->window||!o->identity||!base||base>UINTPTR_MAX-0xf8b6008||!stage||stage>UINTPTR_MAX-0x5d0||
        !serial||!r33_pin_valid(pin)||!r33_context(o,pin))return 0;
     R33Reader c={o,out};uintptr_t vt,repo,params;R33Array a,b,r,s,u,v,units;
     out->status=R33_READ;
     if(!r33_read(&c,stage,&vt,8))return 0;
-    if(vt!=base+0x21c3350){out->status=R33_SHAPE;return 0;}
+    if(vt!=base+0x21c7820){out->status=R33_SHAPE;return 0;}
     if(!r33_at(&c,stage,0x5b0,&repo,8)||!r33_at(&c,stage,0x5a0,&params,8))return 0;
     if(!repo||repo>UINTPTR_MAX-0x38||!params||params>UINTPTR_MAX-24){out->status=R33_SHAPE;return 0;}
     if(!r33_read(&c,repo,&vt,8))return 0;
-    if(vt!=base+0x220a9c8){out->status=R33_SHAPE;return 0;}
+    if(vt!=base+0x220e5d8){out->status=R33_SHAPE;return 0;}
     if(!r33_read(&c,params,&vt,8))return 0;
-    if(vt!=base+0x220a9d0){out->status=R33_SHAPE;return 0;}
+    if(vt!=base+0x220e5e0){out->status=R33_SHAPE;return 0;}
     out->status=R33_LABEL;uint16_t term[256];unsigned n;
-    if(!r33_ascii(&c,base+0xf8b018c,"4HMA")||!r33_ascii(&c,stage+0x550,"4HMA")||!r33_ascii(&c,stage+0x5c0,"4HMA")||
-       !r33_ascii(&c,repo+8,"4HMA")||!r33_string(&c,base+0xf8b019c,term,&n)||n+1!=pin->length||__builtin_memcmp(term,pin->term,pin->length*2))return 0;
+    if(!r33_ascii(&c,base+0xf8b5194,"4HMA")||!r33_ascii(&c,stage+0x550,"4HMA")||!r33_ascii(&c,stage+0x5c0,"4HMA")||
+       !r33_ascii(&c,repo+8,"4HMA")||!r33_string(&c,base+0xf8b51a4,term,&n)||n+1!=pin->length||__builtin_memcmp(term,pin->term,pin->length*2))return 0;
     out->status=R33_TOPOLOGY;
     if(!r33_array(&c,stage+0x560,108,&a)||!r33_array(&c,repo+24,108,&b)||a.num!=b.num||!r33_topology(&c,&a)||!r33_topology(&c,&b))return 0;
     out->status=R33_COPY;
