@@ -15,8 +15,6 @@ LET IT DIE/
 
 Copy **`let_it_die.apworld`** into Archipelago's **`custom_worlds`** folder, then restart Archipelago Launcher. Copy **`LetItDie.yaml`** into the **`Players`** folder used for generation. Set your slot name and options, then generate and host your Archipelago game.
 
-Archipelago must already be installed. The in-game button looks for its launcher in `C:\Archipelago`, `D:\Archipelago`, another drive-root `Archipelago` folder, or `C:\ProgramData\Archipelago`.
-
 ## 2. Back up your existing save
 
 With the game closed, open the `Savedata` folder inside the LET IT DIE installation folder. Your save is inside a profile subfolder:
