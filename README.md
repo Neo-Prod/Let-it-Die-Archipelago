@@ -46,12 +46,6 @@ Launch LET IT DIE again. From the **title menu**, use the **Archipelago connecti
 
 Wait for the connection confirmation, then start the game normally. You can now play your Archipelago run.
 
-## Updating an existing AP run
-
-Merge the new `Archipelago` folder with your installation. **Do not delete `Archipelago/slots` or repeat the fresh-save procedure when continuing an existing AP run.**
-
-This release fixes reconnecting to an existing AP save. Removing the 12 Hater checks from Forcemen rooms requires a new generation; their room visit checks remain available.
-
 ## Included files and requirements
 
 Only the `Archipelago` folder, `dinput8.dll`, `let_it_die.apworld` and `LetItDie.yaml` are needed for the mod installation, in addition to LET IT DIE and Archipelago themselves. Universal Tracker is optional and installed separately.
