@@ -13,8 +13,6 @@ LET IT DIE/
         LetItDieArchipelago.dll
 ```
 
-Keep the name `dinput8.dll`. Do not rename it to `dinput.dll`.
-
 Copy **`let_it_die.apworld`** into Archipelago's **`custom_worlds`** folder, then restart Archipelago Launcher. Copy **`LetItDie.yaml`** into the **`Players`** folder used for generation. Set your slot name and options, then generate and host your Archipelago game.
 
 Archipelago must already be installed. The in-game button looks for its launcher in `C:\Archipelago`, `D:\Archipelago`, another drive-root `Archipelago` folder, or `C:\ProgramData\Archipelago`.
