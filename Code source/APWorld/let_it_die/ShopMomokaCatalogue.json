@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "game_sha256": "f33e91e6e8d58566bfabad8d01cd0486586a0d43fe1c58e65fc6485a417bddfd",
+  "source": {
+    "master_skill_sha256": "30d77498df229cac8807a7db2897c8676e680a4c9bcb061a098ab242a64c24c9",
+    "package_sha256": {
+      "Common_FLAG.upk": "802849a4c5a865569f59b57298488df9701462a7a7ed208df0f71036c998e035",
+      "Arcade_Start_GRP_KIS.upk": "1c811d56bd21d7f9174ad59de71be3307c4eb38183608aec46582eda00ccab2f",
+      "Amusement_Start_GRP_KIS.upk": "49de8f022fd49de1aeaf8c59219f74d7a4616e0a35503e801191613385329d03",
+      "Amusement_Start_GRP_KIS_PAX.upk": "e49a969b25cc05b4781d4c6fb9e51074a8e9d8eb622199bd87875d9647026791",
+      "Rooftop_Start_GRP_KIS.upk": "49171ebcedb0ab05e9bbade0d2aa3c41f015a67a0c7074bb1d97ee3f47a2c081"
+    },
+    "confidence": "CONFIRMED_STATICALLY_NOT_IN_GAME",
+    "unlock_evidence": "Research/Indexes/ShopSanity_R249/unlock_kismet_forward_graphs.json; start_unit_floor_join.json",
+    "policy": "Permanent platform0 KC offers before selected goal; GAME_CLEAR and dated offers excluded; native runtime price remains authoritative"
+  },
+  "rows": [
+    {
+      "offer": 0,
+      "code": 7500001,
+      "name": "Momoka KC - SKL_ARRNG_STATUP_DIY",
+      "native_skill": "SKL_ARRNG_STATUP_DIY",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 6000
+    },
+    {
+      "offer": 1,
+      "code": 7500002,
+      "name": "Momoka KC - SKL_ARRNG_STATUP_FAN",
+      "native_skill": "SKL_ARRNG_STATUP_FAN",
+      "unlock_flag": "KGF_AMS_FIRST_MATINEE",
+      "unlock_floor": 21,
+      "unlock_room": "21F AKAMI",
+      "price_kc": 6000
+    },
+    {
+      "offer": 2,
+      "code": 7500003,
+      "name": "Momoka KC - SKL_ARRNG_STATUP_MIL",
+      "native_skill": "SKL_ARRNG_STATUP_MIL",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 6000
+    },
+    {
+      "offer": 3,
+      "code": 7500004,
+      "name": "Momoka KC - SKL_ARRNG_STATUP_SPO",
+      "native_skill": "SKL_ARRNG_STATUP_SPO",
+      "unlock_flag": "KGF_RFT_FIRST_TIME",
+      "unlock_floor": 31,
+      "unlock_room": "31F OBARA",
+      "price_kc": 6000
+    },
+    {
+      "offer": 4,
+      "code": 7500005,
+      "name": "Momoka KC - SKL_ATKDEFUP_HPLOW_01",
+      "native_skill": "SKL_ATKDEFUP_HPLOW_01",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 4000
+    },
+    {
+      "offer": 5,
+      "code": 7500006,
+      "name": "Momoka KC - SKL_ATKDEFUP_HPMAX_01",
+      "native_skill": "SKL_ATKDEFUP_HPMAX_01",
+      "unlock_flag": "KGF_RFT_FIRST_TIME",
+      "unlock_floor": 31,
+      "unlock_room": "31F OBARA",
+      "price_kc": 5800
+    },
+    {
+      "offer": 6,
+      "code": 7500007,
+      "name": "Momoka KC - SKL_ATKUP_01",
+      "native_skill": "SKL_ATKUP_01",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 7000
+    },
+    {
+      "offer": 7,
+      "code": 7500008,
+      "name": "Momoka KC - SKL_CRIUP_01",
+      "native_skill": "SKL_CRIUP_01",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 5500
+    },
+    {
+      "offer": 8,
+      "code": 7500009,
+      "name": "Momoka KC - SKL_DEATH_PROOF",
+      "native_skill": "SKL_DEATH_PROOF",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 11000
+    },
+    {
+      "offer": 9,
+      "code": 7500010,
+      "name": "Momoka KC - SKL_DECELEC_01",
+      "native_skill": "SKL_DECELEC_01",
+      "unlock_flag": "KGF_RFT_FIRST_TIME",
+      "unlock_floor": 31,
+      "unlock_room": "31F OBARA",
+      "price_kc": 10000
+    },
+    {
+      "offer": 10,
+      "code": 7500011,
+      "name": "Momoka KC - SKL_DECFIRE_01",
+      "native_skill": "SKL_DECFIRE_01",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 10000
+    },
+    {
+      "offer": 11,
+      "code": 7500012,
+      "name": "Momoka KC - SKL_DEFUP_01",
+      "native_skill": "SKL_DEFUP_01",
+      "unlock_flag": "KGF_AMS_FIRST_MATINEE",
+      "unlock_floor": 21,
+      "unlock_room": "21F AKAMI",
+      "price_kc": 7000
+    },
+    {
+      "offer": 12,
+      "code": 7500013,
+      "name": "Momoka KC - SKL_DISCOUNT_DEX",
+      "native_skill": "SKL_DISCOUNT_DEX",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 13,
+      "code": 7500014,
+      "name": "Momoka KC - SKL_DISCOUNT_HP",
+      "native_skill": "SKL_DISCOUNT_HP",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 14,
+      "code": 7500015,
+      "name": "Momoka KC - SKL_DISCOUNT_LUK",
+      "native_skill": "SKL_DISCOUNT_LUK",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 15,
+      "code": 7500016,
+      "name": "Momoka KC - SKL_DISCOUNT_STM",
+      "native_skill": "SKL_DISCOUNT_STM",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 16,
+      "code": 7500017,
+      "name": "Momoka KC - SKL_DISCOUNT_STR",
+      "native_skill": "SKL_DISCOUNT_STR",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 17,
+      "code": 7500018,
+      "name": "Momoka KC - SKL_DISCOUNT_VIT",
+      "native_skill": "SKL_DISCOUNT_VIT",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 5000
+    },
+    {
+      "offer": 18,
+      "code": 7500019,
+      "name": "Momoka KC - SKL_DODGEUP_01",
+      "native_skill": "SKL_DODGEUP_01",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 4500
+    },
+    {
+      "offer": 19,
+      "code": 7500020,
+      "name": "Momoka KC - SKL_DRAIN_02",
+      "native_skill": "SKL_DRAIN_02",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 7500
+    },
+    {
+      "offer": 20,
+      "code": 7500021,
+      "name": "Momoka KC - SKL_HPUP_01",
+      "native_skill": "SKL_HPUP_01",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 6000
+    },
+    {
+      "offer": 21,
+      "code": 7500022,
+      "name": "Momoka KC - SKL_LESDMG_FALLING_01",
+      "native_skill": "SKL_LESDMG_FALLING_01",
+      "unlock_flag": "KGF_FIRST_PLAY",
+      "unlock_floor": 1,
+      "unlock_room": "Waiting Room",
+      "price_kc": 6200
+    },
+    {
+      "offer": 22,
+      "code": 7500023,
+      "name": "Momoka KC - SKL_LESDMG_STEALTH_01",
+      "native_skill": "SKL_LESDMG_STEALTH_01",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 8000
+    },
+    {
+      "offer": 23,
+      "code": 7500024,
+      "name": "Momoka KC - SKL_RGSPDUP_01",
+      "native_skill": "SKL_RGSPDUP_01",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 6000
+    },
+    {
+      "offer": 24,
+      "code": 7500025,
+      "name": "Momoka KC - SKL_SPDUP_01",
+      "native_skill": "SKL_SPDUP_01",
+      "unlock_flag": "KGF_ARC_FIRSTTIME",
+      "unlock_floor": 11,
+      "unlock_room": "11F MAKA-TSUTSUMI",
+      "price_kc": 10500
+    },
+    {
+      "offer": 25,
+      "code": 7500026,
+      "name": "Momoka KC - SKL_STMNUP_01",
+      "native_skill": "SKL_STMNUP_01",
+      "unlock_flag": "KGF_AMS_FIRST_MATINEE",
+      "unlock_floor": 21,
+      "unlock_room": "21F AKAMI",
+      "price_kc": 6800
+    }
+  ]
+}

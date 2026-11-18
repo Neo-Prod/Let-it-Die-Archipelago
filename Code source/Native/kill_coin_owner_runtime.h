@@ -26,10 +26,10 @@ static int r144_anchor(R144Wallet*w){
  static const BYTE get_prefix[10]={0x48,0x89,0x5c,0x24,0x08,0x57,0x48,0x83,0xec,0x20};
  if(!w||!w->image||!w->game||!w->userdata||!w->body||w->index<0||w->index>=64||
     progress_native_game(w->image)!=w->game||!readable_range(w->game+0x1428,8)||*(BYTE**)(w->game+0x1428)!=w->userdata||
-    !readable_range(w->userdata,0x7c)||*(void**)w->userdata!=w->image+0x21f7ac0||!readable_range(w->body,0x54))return R149_REFUSE(40);
+    !readable_range(w->userdata,0x7c)||*(void**)w->userdata!=w->image+0x21fb700||!readable_range(w->body,0x54))return R149_REFUSE(40);
  void**vt=*(void***)w->userdata;
- if(!readable_range(vt,0x1138)||vt[0x2f8/8]!=w->image+0x156c5c0||vt[0x308/8]!=w->image+0x155fde0||
-    vt[0x530/8]!=w->image+0x15651a0||vt[0x1130/8]!=w->image+0x1568a70||
+ if(!readable_range(vt,0x1138)||vt[0x2f8/8]!=w->image+0x156e660||vt[0x308/8]!=w->image+0x1561e80||
+    vt[0x530/8]!=w->image+0x1567240||vt[0x1130/8]!=w->image+0x156ab10||
     !executable_ptr(w->image,vt[0x280/8])||!executable_ptr(w->image,vt[0x2f8/8])||!executable_ptr(w->image,vt[0x308/8])||
     !executable_ptr(w->image,vt[0x530/8])||!executable_ptr(w->image,vt[0x1130/8]))return R149_REFUSE(41);
  if(!readable_range(vt[0x308/8],15)||!readable_range(vt[0x2f8/8],10)||

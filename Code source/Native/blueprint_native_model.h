@@ -14,7 +14,7 @@ typedef struct LidBlueprintNativeSnapshot {
     size_t capacity,count,known;
     unsigned valid;
 } LidBlueprintNativeSnapshot;
-typedef struct LidBlueprintNameIndex {unsigned sorted[976],initialized;} LidBlueprintNameIndex;
+typedef struct LidBlueprintNameIndex {unsigned sorted[LID_BLUEPRINT_PART_COUNT],initialized;} LidBlueprintNameIndex;
 static unsigned lid_bp_ascii_fold(unsigned c){return c>='a'&&c<='z'?c-32:c;}
 static int lid_bp_ascii_compare(const char* a,const char* b){
     while(*a&&lid_bp_ascii_fold((unsigned char)*a)==lid_bp_ascii_fold((unsigned char)*b)){a++;b++;}
@@ -23,7 +23,7 @@ static int lid_bp_ascii_compare(const char* a,const char* b){
 static void lid_bp_name_index_init(LidBlueprintNameIndex* index){
     unsigned i,j,key;
     if(index->initialized)return;
-    for(i=0;i<976;i++){
+    for(i=0;i<LID_BLUEPRINT_PART_COUNT;i++){
         key=i;j=i;
         while(j&&lid_bp_ascii_compare(lid_blueprint_parts[index->sorted[j-1]],lid_blueprint_parts[key])>0){
             index->sorted[j]=index->sorted[j-1];j--;
@@ -37,7 +37,7 @@ static int lid_bp_utf_ascii_compare(const unsigned short* a,const char* b){
     return (int)lid_bp_ascii_fold(*a)-(int)lid_bp_ascii_fold((unsigned char)*b);
 }
 static unsigned lid_bp_part_index(const LidBlueprintNameIndex* index,const unsigned short* ptid){
-    unsigned low=0,high=976,middle;int cmp;
+    unsigned low=0,high=LID_BLUEPRINT_PART_COUNT,middle;int cmp;
     while(low<high){middle=low+(high-low)/2;cmp=lid_bp_utf_ascii_compare(ptid,lid_blueprint_parts[index->sorted[middle]]);
         if(!cmp)return index->sorted[middle];if(cmp<0)high=middle;else low=middle+1;}
     return LID_BLUEPRINT_PART_COUNT;
@@ -135,7 +135,7 @@ static int lid_blueprint_native_alias_state(const LidBlueprintNativeSnapshot* sn
     if(present)lid_wire_zero(present,count);
     if(!snapshot||snapshot->valid!=1||snapshot->known>snapshot->count||snapshot->count>snapshot->capacity||
        snapshot->count>LID_BLUEPRINT_MAX_ROWS||(!snapshot->records&&snapshot->count))return 0;
-    for(i=snapshot->known;i<snapshot->count;i++){
+    for(i=0;i<snapshot->count;i++){
         const LidBlueprintNativeRecord* r=snapshot->records+i;
         low=0;high=LID_BLUEPRINT_ALIAS_COUNT;
         while(low<high){middle=low+(high-low)/2;cmp=lid_bp_utf_ascii_compare(r->ptid,lid_blueprint_aliases[middle].ptid);

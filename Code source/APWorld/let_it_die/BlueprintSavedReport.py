@@ -20,7 +20,7 @@ SAVED_FILE = 'blueprint_native_saved.bin'
 APPLIED_FILE = 'blueprint_applied.json'
 
 
-def validate_saved_report(snapshot: ReceiptSnapshot, saved: Message, raw: bytes) -> dict:
+def validate_saved_report(snapshot: ReceiptSnapshot, saved: Message, raw: bytes, *, upgrade_steps: int | None = None) -> dict:
     if not isinstance(snapshot, ReceiptSnapshot) or not isinstance(saved, Message):
         raise BlueprintTransportError('Invalid receipt snapshot/save report')
     saved.validate()
@@ -29,20 +29,22 @@ def validate_saved_report(snapshot: ReceiptSnapshot, saved: Message, raw: bytes)
     prefix = ReceiptSnapshot(snapshot.identity, snapshot.config, snapshot.history[:saved.history_length])
     target = replace(saved, kind=TARGET, status=0)
     expected = counts_for_target(prefix, target)
-    counts = decode_blueprint_saved(raw, target, bytes.fromhex(CATALOGUE_HEX), len(FAMILIES))
+    from .EquipmentProgression import CATALOGUE_HEX as enhancement_hash
+    catalogue = CATALOGUE_HEX if upgrade_steps is None else enhancement_hash
+    counts = decode_blueprint_saved(raw, target, bytes.fromhex(catalogue), len(FAMILIES), upgrade_steps=upgrade_steps)
     if counts != expected:
         raise BlueprintTransportError('Saved blueprint counts differ from receipt prefix')
     return {'schema': 1, 'status': 'native_save_reported', 'scope': 'blueprint_progressives_only',
             'identity': prefix.identity, 'config': prefix.config,
-            'catalogue': CATALOGUE_HEX, 'receipt_generation': prefix.generation,
+            'catalogue': catalogue, 'receipt_generation': prefix.generation,
             'history_length': len(prefix.history), 'item_ids': [item_id for item_id, _ in FAMILIES],
             'counts': counts, 'game_sha256': GAME_SHA}
 
 
-def read_saved_report(directory: Path, snapshot: ReceiptSnapshot, saved: Message) -> dict:
+def read_saved_report(directory: Path, snapshot: ReceiptSnapshot, saved: Message, *, upgrade_steps: int | None = None) -> dict:
     with (Path(directory) / SAVED_FILE).open('rb') as stream:
         raw = stream.read(320 + 4 * len(FAMILIES) + 1)
-    return validate_saved_report(snapshot, saved, raw)
+    return validate_saved_report(snapshot, saved, raw, upgrade_steps=upgrade_steps)
 
 
 def write_saved_report(directory: Path, report: dict) -> None:

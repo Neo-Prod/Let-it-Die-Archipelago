@@ -5,7 +5,7 @@ from typing import Any, Mapping
 from BaseClasses import Tutorial, ItemClassification
 from worlds.AutoWorld import WebWorld, World
 
-from . import Items, Locations, Regions, Rules
+from . import Items, Locations, Regions, Rules, ShopCatalogue, EquipmentProgression
 from .Items import LetItDieItem
 from .Locations import LetItDieLocation
 from .Options import LetItDieOptions
@@ -41,6 +41,7 @@ class LetItDieWorld(World):
     ut_can_gen_without_yaml = True
     hater_catalogue_version = 5
     generation_schema = 2
+    shop_schema = 1
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
@@ -80,7 +81,10 @@ class LetItDieWorld(World):
             + len(Items.PREMIUM_DECAL_ITEMS)
         )
 
+        self.shop_locations = ShopCatalogue.build(int(self.options.goal.value)) if self.options.shop_sanity.value else ()
         self.check_catalogue = Locations.build_check_catalogue(self)
+        if len(self.check_catalogue['checks']) + len(self.shop_locations) > 50000:
+            raise ValueError('Combined LET IT DIE check catalogue exceeds client capacity.')
         self.tower_logic = TowerLogic(self)
         self.tower_logic.validate_pool()
 
@@ -127,7 +131,7 @@ class LetItDieWorld(World):
         for name in Items.PREMIUM_DECAL_ITEMS:
             pool.append(self.create_item(name))
 
-        randomized_location_count = len(self.check_catalogue['checks'])
+        randomized_location_count = len(self.check_catalogue['checks']) + len(self.shop_locations)
 
         while len(pool) < randomized_location_count:
             pool.append(self.create_item(self.get_filler_item_name()))
@@ -160,6 +164,8 @@ class LetItDieWorld(World):
             "enable_candle_wolf": bool(self.options.enable_candle_wolf.value),
             "enable_milk": bool(self.options.enable_milk.value),
             "maximum_equipment_tier": int(self.options.maximum_equipment_tier.value),
+            "equipment_upgrade_steps": int(self.options.equipment_upgrade_steps.value),
+            "equipment_progression": EquipmentProgression.slot_policy(self.options),
             "group_armor_sets": bool(self.options.group_armor_sets.value),
             "starting_fighter_class": self.options.starting_fighter_class.current_key,
             "starting_fighter_grade": int(self.options.starting_fighter_grade.value),
@@ -200,10 +206,11 @@ class LetItDieWorld(World):
             "screamer_check_chance": int(self.options.screamer_check_chance.value),
             "screamer_pity": bool(self.options.screamer_pity.value),
 
-            "fixed_location_count": self.check_catalogue['fixed_count'],
+            "fixed_location_count": self.check_catalogue['fixed_count'] + len(self.shop_locations),
             "generated_item_count": self.generated_item_count,
             "screamer_location_count": sum(self.check_catalogue['screamer_counts']),
             "goal": int(self.options.goal.value),
+            **(ShopCatalogue.slot_packets(int(self.options.goal.value)) if self.shop_locations else {}),
             "checks": {
                 "schema": 2,
                 "required_rotation": "4HMA",

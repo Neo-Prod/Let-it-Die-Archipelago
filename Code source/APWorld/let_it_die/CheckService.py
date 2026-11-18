@@ -12,6 +12,7 @@ from .CheckSessions import SlotSession
 from .CheckOutbox import CheckOutbox,Location,Death
 from .CheckStaleBatch import old_batch_received
 from .MaterialCapabilityState import MaterialCapabilityState
+from .ShopCatalogue import validate as validate_shops
 
 def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False)
 def id_set(values):
@@ -30,6 +31,17 @@ class CheckConfig:
     fingerprint:str
     pity:bool=False
     catalogue_version:int=1
+    shop_offers:tuple=()
+    tower_offers:tuple=()
+
+    @property
+    def momoka_ids(self):return frozenset(offer.location for offer in self.shop_offers)
+    @property
+    def tower_shop_ids(self):return frozenset(offer.code for offer in self.tower_offers)
+    @property
+    def shop_ids(self):return self.momoka_ids|self.tower_shop_ids
+    @property
+    def all_ids(self):return self.ids|self.shop_ids
 
 def validate_catalogue(slot_data,checked,missing):
     if type(slot_data) is not dict:raise ValueError('slot data')
@@ -49,6 +61,9 @@ def validate_catalogue(slot_data,checked,missing):
     goal=CheckCatalogue.integer(packet['goal_floor'],10,40)
     if type(slot_data.get('goal')) is not int or slot_data['goal']!=goal:raise ValueError('goal mismatch')
     item_count=CheckCatalogue.integer(slot_data.get('generated_item_count'),0,1000000)
+    shop_offers,tower_offers=validate_shops(slot_data,goal)
+    shop_ids=frozenset(offer.location for offer in shop_offers)|frozenset(offer.code for offer in tower_offers)
+    shop_count=len(shop_offers)+len(tower_offers)
     chance=CheckCatalogue.integer(slot_data.get('screamer_check_chance'),1,100)
     pity=slot_data.get('screamer_pity',False)
     if type(pity) is not bool:raise ValueError('pity must be boolean')
@@ -69,23 +84,27 @@ def validate_catalogue(slot_data,checked,missing):
         minimum=CheckCatalogue.integer(packet['minimum_screamer_checks_per_band'],0,CheckCatalogue.SCREAMER_CAP)
         generation_options=tracker.get('options')
         if type(generation_options) is not dict or type(generation_options.get('minimum_screamer_checks_per_band')) is not int or generation_options['minimum_screamer_checks_per_band']!=minimum:raise ValueError('Screamer minimum option/catalogue mismatch')
-    expected=CheckCatalogue.build(rows,goal,item_count,packet['tuber_checks_per_version'],
+    expected=CheckCatalogue.build(rows,goal,max(0,item_count-shop_count),packet['tuber_checks_per_version'],
         include_visits=packet['schema']==2,exclude_forcemen=version>=2,room_tubers=version>=3,
         chest_quotas=packet['chest_checks_per_band'] if version>=4 else None,
         material_quotas=packet['material_checks_per_type'] if version>=5 else None,
         minimum_screamer_checks_per_band=minimum)
     if type(packet['locations']) is not list or len(packet['locations'])>50000:raise ValueError('catalogue capacity')
     if canonical(packet['locations'])!=canonical(expected['checks']) or packet['goal_name']!=expected['goal_name']:raise ValueError('catalogue differs from local definitions')
-    for key,value in (('fixed_location_count',expected['fixed_count']),('screamer_location_count',sum(expected['screamer_counts']))):
+    for key,value in (('fixed_location_count',expected['fixed_count']+shop_count),('screamer_location_count',sum(expected['screamer_counts']))):
         if CheckCatalogue.integer(slot_data.get(key),0,50000)!=value:raise ValueError('catalogue count mismatch')
     names=Location.__dataclass_fields__
     locations=tuple(Location(**{k:v for k,v in check.items() if k in names}) for check in expected['checks'])
     ids=frozenset(loc.code for loc in locations);done=id_set(checked);todo=id_set(missing)
-    if done&todo or done|todo!=ids:raise ValueError('server locations differ from active catalogue')
+    if ids&shop_ids:raise ValueError('shop/combat location collision')
+    if len(ids|shop_ids)>50000:raise ValueError('combined check catalogue capacity')
+    if done&todo or done|todo!=ids|shop_ids:raise ValueError('server locations differ from active catalogue')
     descriptor={'checks':packet,'chance':chance}
     if packet['schema']==2:descriptor['pity']=pity
+    if shop_offers:descriptor['shops']=slot_data['shops']
+    if tower_offers:descriptor['tower_shops']=slot_data['tower_shops']
     fingerprint=hashlib.sha256(canonical(descriptor).encode()).hexdigest()
-    return CheckConfig(goal,chance,locations,ids,fingerprint,pity,version)
+    return CheckConfig(goal,chance,locations,ids,fingerprint,pity,version,shop_offers,tower_offers)
 
 class CheckService:
     def __init__(self,directory,context:Context,config:CheckConfig):

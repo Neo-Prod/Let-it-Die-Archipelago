@@ -20,20 +20,20 @@ static int lid_blueprint_engine_guard(void* context){
     LidBlueprintEngineAdapter* engine=context;BYTE* repo;
     if(!engine||engine->verified_build!=1||!engine->exe||!engine->reserved||!engine->readable||!engine->executable||
        engine->reserved(engine->owner)!=1)return 0;
-    repo=engine->exe+0x27e3000;
-    if(!engine->readable(engine->exe+0x12fb880,18)||!engine->executable(engine->exe+0x12fb880)||
-       !lid_wire_equal(engine->exe+0x12fb880,prefix,18)||!engine->readable(repo,0x60)||
-       (const void*)(size_t)lid_wire_r64(repo)!=engine->exe+0x2167760||
-       !engine->readable(engine->exe+0x2167760,8)||
-       (const void*)(size_t)lid_wire_r64(engine->exe+0x2167760)!=engine->exe+0x12fa7a0)return 0;
+    repo=engine->exe+0x27e8010;
+    if(!engine->readable(engine->exe+0x12fbbe0,18)||!engine->executable(engine->exe+0x12fbbe0)||
+       !lid_wire_equal(engine->exe+0x12fbbe0,prefix,18)||!engine->readable(repo,0x60)||
+       (const void*)(size_t)lid_wire_r64(repo)!=engine->exe+0x216bd40||
+       !engine->readable(engine->exe+0x216bd40,8)||
+       (const void*)(size_t)lid_wire_r64(engine->exe+0x216bd40)!=engine->exe+0x12fab00)return 0;
     return 1;
 }
 static int lid_blueprint_engine_read(void* context,LidBlueprintNativeSnapshot* out){
     LidBlueprintEngineAdapter* engine=context;
     if(out){out->valid=0;out->count=out->known=0;}
     if(!out||!lid_blueprint_engine_guard(engine))return 0;
-    return lid_blueprint_native_read(out,&engine->names,engine->exe+0x27e3000,
-        engine->exe+0x2167760,engine->exe+0x2167700,engine->readable);
+    return lid_blueprint_native_read(out,&engine->names,engine->exe+0x27e8010,
+        engine->exe+0x216bd40,engine->exe+0x216bce0,engine->readable);
 }
 static int lid_blueprint_engine_apply_with(void* context,const LidBlueprintNativeRecord* desired,
                                           LidBlueprintEngineUpsert upsert){
@@ -41,7 +41,7 @@ static int lid_blueprint_engine_apply_with(void* context,const LidBlueprintNativ
     LidBlueprintNativeRecord expected;LidBlueprintAction action;
     /* Also used by isolated ABI tests; production wrapper below always binds
        the verified RVA, never a function pointer received from AP/files. */
-    if(!desired||!upsert||!lid_blueprint_engine_guard(engine)||desired->state.part>=976||
+    if(!desired||!upsert||!lid_blueprint_engine_guard(engine)||desired->state.part>=LID_BLUEPRINT_PART_COUNT||
        (desired->state.level!=1&&desired->state.level!=2))return 0;
     action.row=desired->state;action.replaces_existing=0;
     lid_bp_expected_action(&expected,&action);
@@ -57,10 +57,11 @@ static int lid_blueprint_engine_apply_with(void* context,const LidBlueprintNativ
 static int lid_blueprint_engine_upsert(void* context,const LidBlueprintNativeRecord* desired){
     LidBlueprintEngineAdapter* engine=context;
     if(!engine||!engine->exe)return 0;
-    return lid_blueprint_engine_apply_with(engine,desired,(LidBlueprintEngineUpsert)(engine->exe+0x12fb880));
+    return lid_blueprint_engine_apply_with(engine,desired,(LidBlueprintEngineUpsert)(engine->exe+0x12fbbe0));
 }
 static int lid_blueprint_engine_ops(LidBlueprintEngineAdapter* engine,LidBlueprintCommitOps* out){
     if(!out||!lid_blueprint_engine_guard(engine))return 0;
     *out=(LidBlueprintCommitOps){engine,lid_blueprint_engine_guard,lid_blueprint_engine_read,lid_blueprint_engine_upsert};return 1;
 }
+#include "blueprint_enhancement_engine.h"
 #endif

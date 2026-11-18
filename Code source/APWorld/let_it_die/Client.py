@@ -252,7 +252,16 @@ def prepare_local_slot(
 
     if not created:
         # Update only this slot's dedicated master copy; retain its save.
+        from .MasterCompatibility import migrate_master_item
+        migrate_master_item(ap_masters, slot_directory=slot_dir,
+            source_db=request.game_root / "BrgGame" / "Content" / "masters.db")
         apply_level_up_xp_cost(ap_masters)
+
+    # ShopSanity edits only the dedicated master copy before overlay handoff.
+    # Reused slots follow the same idempotent data policy; save/network intact.
+    from .ShopMasterPatch import apply_shop_master_policy
+    apply_shop_master_policy(ap_masters, slot_directory=slot_dir,
+        source_db=request.game_root / "BrgGame" / "Content" / "masters.db", slot_data=slot_data)
 
     write_slot_metadata(identity, metadata)
 

@@ -115,7 +115,7 @@ static int lid_character_apply_prepare(LidCharacterApplication* batch,const LidC
         if(!lid_game_bag_entry_empty(entry,ctx)&&j+1>batch->bag_storage_target)batch->bag_storage_target=j+1;
     }
     for(i=0;i<view->pawn_slots->num;i++)
-        if((*((BYTE*)view->pawn_slots->data+(size_t)i*0x718)&1)&&i+1>batch->bag_storage_target)batch->bag_storage_target=i+1;
+        if((*((BYTE*)view->pawn_slots->data+(size_t)i*0x71c)&1)&&i+1>batch->bag_storage_target)batch->bag_storage_target=i+1;
     if(!lid_game_bag_pawn_tail_empty(view->pawn_slots,batch->bag_storage_target,ops->readable)||
        ops->events_supported(ops->context,view)!=1)return 0;
     batch->original_pawn=*view->pawn_slots;

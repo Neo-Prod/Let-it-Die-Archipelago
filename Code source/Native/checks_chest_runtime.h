@@ -46,7 +46,7 @@ static void checks_chest_scope_end(void*unused,int acquired){
 }
 static void WINAPI checks_chest_dispatch(void*object,void*function,void*params,void*result){
     R74Ops ops={g_checks_ops,0,checks_chest_thread,checks_chest_stamp,checks_chest_scope_begin,checks_chest_scope_end,
-                &g_checks_delivery.queue,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x20971b0)};
+                &g_checks_delivery.queue,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x209a890)};
     r74_observe(&g_checks_chest,&ops,object,function,params,result);
 }
 static int checks_chest_protect(void*unused,void*slot,size_t size,uint32_t mode,uint32_t*old){
@@ -82,8 +82,8 @@ static void checks_chest_boundary(DWORD owner){
     if(
        !__atomic_load_n(&g_checks_diag.armed,__ATOMIC_ACQUIRE)||!checks_session()||!g_checks_diag.exe)return;
     g_checks_chest_attempted=1;g_checks_chest.owner=owner;
-    BYTE*exe=g_checks_diag.exe;R74Dispatch expected=(R74Dispatch)(exe+0x3bf4c0);
-    R74Dispatch*slot=(R74Dispatch*)(exe+0x20973c8);
+    BYTE*exe=g_checks_diag.exe;R74Dispatch expected=(R74Dispatch)(exe+0x3c0500);
+    R74Dispatch*slot=(R74Dispatch*)(exe+0x209aaa8);
     if(!executable_ptr(exe,(void*)expected)||
        !r74_patch(&g_checks_chest,&g_checks_ops,checks_chest_protect,0,slot,expected,(R74Dispatch)checks_chest_dispatch)){
         log_ascii("AP CHESTS R74: Box observer installation refused; original dispatch preserved.");return;

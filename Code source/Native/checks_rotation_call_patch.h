@@ -3,9 +3,9 @@
 #include "checks_rotation_patch.h"
 /* The shared selector is NEVER patched. Only the writer's entry and its
    known CALL instruction are changed, under an externally held idle lease. */
-#define R32_WRITER_RVA ((uintptr_t)0x1360950)
-#define R32_CALL_RVA ((uintptr_t)0x1360b2c)
-#define R32_SELECTOR_RVA ((uintptr_t)0x114ac90)
+#define R32_WRITER_RVA ((uintptr_t)0x1362740)
+#define R32_CALL_RVA ((uintptr_t)0x136291c)
+#define R32_SELECTOR_RVA ((uintptr_t)0x1143710)
 typedef struct R32Region {uintptr_t base;size_t size;int free;} R32Region;
 typedef struct R32NearOps {
     void*context;int(*query)(void*,uintptr_t,R32Region*);
@@ -72,8 +72,8 @@ static int r32_call_rollback(R32CallPatchSet*s,const R32CallPatchOps*ops){
     s->state=good?R31_PATCH_FAILED:R31_PATCH_POISONED;return good;
 }
 static int r32_call_install(R32CallPatchSet*s,uintptr_t base,int sha,void*const detours[2],const R32CallPatchOps*ops){
-    static const unsigned char expected_call[]={0xe8,0x5f,0xa1,0xde,0xff};
-    if(!s||s->state!=R31_PATCH_EMPTY||!ops||!base||base>UINTPTR_MAX-0x1361000||sha!=1||!detours||!detours[0]||!detours[1])return 0;
+    static const unsigned char expected_call[]={0xe8,0xef,0x0d,0xde,0xff};
+    if(!s||s->state!=R31_PATCH_EMPTY||!ops||!base||base>UINTPTR_MAX-0x1363000||sha!=1||!detours||!detours[0]||!detours[1])return 0;
     const R31PatchOps*o=&ops->memory;
     if(!o->quiet||!o->readable||!o->allocate||!o->release||!o->writable||!o->protect||!o->flush||o->quiet(o->context)!=1)return 0;
     unsigned char*entry=(unsigned char*)(base+R32_WRITER_RVA),*call=(unsigned char*)(base+R32_CALL_RVA);

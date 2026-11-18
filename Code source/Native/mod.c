@@ -1729,7 +1729,7 @@ static void v076_get_active_capacity_levels(int*skill_level,int*bag_level,int*ra
     if(rage_level)*rage_level=rage;
 }
 
-/* Uses LET IT DIE's own native TArray<int> grow helper (RVA 0x5BC890) to
+/* Uses LET IT DIE's own native TArray<int> grow helper (RVA 0x79e820) to
    resize the skill-slot list exactly as GetBodyDetail itself does.  Shrinking
    only changes Num; growing is delegated to the game's allocator/reallocator. */
 static int v076_set_skill_slot_array(void*out_detail,int desired){
@@ -1743,7 +1743,7 @@ static int v076_set_skill_slot_array(void*out_detail,int desired){
     if(desired>a->num){
         exe=lid_find_module_ascii("BrgGame-Steam.exe");
         if(!exe)return 0;
-        add_items=(NativeIntArrayAddFn)((BYTE*)exe+0x5BC890);
+        add_items=(NativeIntArrayAddFn)((BYTE*)exe+0x79e820);
         if(!executable_ptr(exe,(void*)add_items))return 0;
         delta=desired-a->num;
         add_items(a,delta);
@@ -1866,7 +1866,7 @@ static void* v076_find_database_object(void){
     StaticFindObjectFn find_object;
     unsigned i;
     if(!exe)return 0;
-    find_object=(StaticFindObjectFn)((BYTE*)exe+0x16D230);
+    find_object=(StaticFindObjectFn)((BYTE*)exe+0x16cc00);
     if(!executable_ptr(exe,(void*)find_object))return 0;
     for(i=0;i<sizeof(names)/sizeof(names[0]);i++){
         void*object=find_object(0,(void*)(LONG_PTR)-1,names[i],0);
@@ -1938,11 +1938,11 @@ static int r61_install_level_xp_hook(void){
         return 0;
     }
     vt=g_v076_database_vtable;
-    if(vt!=(void**)(exe+0x20AFFC0)||!readable_range(vt,0x368)){
+    if(vt!=(void**)(exe+0x20b3840)||!readable_range(vt,0x368)){
         r62_level_xp_report(2,"AP LEVEL XP R62: refused; database table identity/readability mismatch.");
         return 0;
     }
-    if(vt[0x360/sizeof(void*)]!=(void*)(exe+0xFD2A80)||!executable_ptr(exe,vt[0x360/sizeof(void*)])){
+    if(vt[0x360/sizeof(void*)]!=(void*)(exe+0xfd3580)||!executable_ptr(exe,vt[0x360/sizeof(void*)])){
         r62_level_xp_report(4,"AP LEVEL XP R62: refused; original GetBodyLvlExp target mismatch.");
         return 0;
     }
@@ -1985,8 +1985,8 @@ static int r75_install_level_bloodnium_hook(void){
     if(!g_v076_body_detail_hook_ready||!g_v076_database_vtable){
         r75_level_bloodnium_report(1,"AP LEVEL BLOODNIUM R75: waiting for verified BodyDetail database table.");return 0;
     }
-    void**vt=g_v076_database_vtable;void*expected=exe+0xfd2990;
-    if(vt!=(void**)(exe+0x20affc0)||!readable_range(vt,0x370)||
+    void**vt=g_v076_database_vtable;void*expected=exe+0xfd3490;
+    if(vt!=(void**)(exe+0x20b3840)||!readable_range(vt,0x370)||
        __atomic_load_n(&vt[0x368/sizeof(void*)],__ATOMIC_ACQUIRE)!=expected||!executable_ptr(exe,expected)||
        !readable_range(expected,16)||lid_memcmp(expected,signature,16)||!g_win.VirtualProtect){
         r75_level_bloodnium_report(2,"AP LEVEL BLOODNIUM R75: refused; verified table/getter signature mismatch.");return 0;
@@ -2316,17 +2316,17 @@ static int result_status_and_slot(const wchar_t*path,char*slot_key,size_t slot_c
 static int copy_file_direct(const wchar_t*src,const wchar_t*dst){HANDLE in_h,out_h;DWORD got=0,wrote=0,off;if(!g_win.CreateFileW||!g_win.ReadFile||!g_win.WriteFile||!g_win.CloseHandle)return 0;in_h=g_win.CreateFileW(src,GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);if(in_h==INVALID_HANDLE_VALUE)return 0;out_h=g_win.CreateFileW(dst,GENERIC_WRITE,FILE_SHARE_READ,0,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,0);if(out_h==INVALID_HANDLE_VALUE){g_win.CloseHandle(in_h);return 0;}for(;;){got=0;if(!g_win.ReadFile(in_h,g_release_copy_buffer,sizeof(g_release_copy_buffer),&got,0)){g_win.CloseHandle(out_h);g_win.CloseHandle(in_h);return 0;}if(!got)break;off=0;while(off<got){wrote=0;if(!g_win.WriteFile(out_h,g_release_copy_buffer+off,got-off,&wrote,0)||!wrote){g_win.CloseHandle(out_h);g_win.CloseHandle(in_h);return 0;}off+=wrote;}}g_win.CloseHandle(out_h);g_win.CloseHandle(in_h);return 1;}
 static int build_release_paths(void){game_dir(g_release_save_path,1000);lid_wappend(g_release_save_path,1000,L"\\Archipelago\\slots\\");if(!append_ascii_wide(g_release_save_path,1000,g_release_slot_key))return 0;lid_wappend(g_release_save_path,1000,L"\\brggame.sav");lid_memcpy(g_release_backup_path,g_release_save_path,(lid_wcslen(g_release_save_path)+1)*sizeof(wchar_t));lid_wappend(g_release_backup_path,1000,L".releasebak");return 1;}
 /* Finds the live BrgUserData object in all UE3 packages; used only after AP authentication. */
-static void* find_live_brg_userdata(void){void*exe=lid_find_module_ascii("BrgGame-Steam.exe");StaticFindObjectFn find_object;DWORD i;if(!exe)return 0;find_object=(StaticFindObjectFn)((BYTE*)exe+0x16D230);if(!executable_ptr(exe,(void*)find_object))return 0;for(i=0;i<16;i++){wchar_t name[64];void*object;void**vt;NativeUserDataBool is_loaded;lid_memcpy(name,L"BrgUserData_",(lid_wcslen(L"BrgUserData_")+1)*sizeof(wchar_t));append_dec_w(name,64,i);object=find_object(0,(void*)(LONG_PTR)-1,name,0);if(!object)continue;if(!readable_range(object,sizeof(void*)))continue;vt=*(void***)object;if(!vt||!readable_range(vt,0x290))continue;is_loaded=(NativeUserDataBool)vt[0x270/sizeof(void*)];if(!is_loaded||!executable_ptr(exe,(void*)is_loaded))continue;if(is_loaded(object)>0)return object;}return 0;}
+static void* find_live_brg_userdata(void){void*exe=lid_find_module_ascii("BrgGame-Steam.exe");StaticFindObjectFn find_object;DWORD i;if(!exe)return 0;find_object=(StaticFindObjectFn)((BYTE*)exe+0x16cc00);if(!executable_ptr(exe,(void*)find_object))return 0;for(i=0;i<16;i++){wchar_t name[64];void*object;void**vt;NativeUserDataBool is_loaded;lid_memcpy(name,L"BrgUserData_",(lid_wcslen(L"BrgUserData_")+1)*sizeof(wchar_t));append_dec_w(name,64,i);object=find_object(0,(void*)(LONG_PTR)-1,name,0);if(!object)continue;if(!readable_range(object,sizeof(void*)))continue;vt=*(void***)object;if(!vt||!readable_range(vt,0x290))continue;is_loaded=(NativeUserDataBool)vt[0x270/sizeof(void*)];if(!is_loaded||!executable_ptr(exe,(void*)is_loaded))continue;if(is_loaded(object)>0)return object;}return 0;}
 
 
 
 /* V0.82 fixes the Death Bag list at the exact native source used by the live
    Death Bag menu.  Static analysis of BrgGame-Steam.exe proves this chain:
      BrgUIMenu_DeathBag::TickASync
-       -> BrgUIMenuPart_ItemSelect::AddUnitForDeathBag (RVA 0x14BA450)
+       -> BrgUIMenuPart_ItemSelect::AddUnitForDeathBag (RVA 0x14bb3e0)
        -> AddUnitFromDeathBag
        -> ABrgCommonPawn_CustomCharaNative::GetPossessionItem (vtable +0x8C0)
-   The GetPossessionItem call returns a TArray whose elements are 0x728 bytes;
+   The GetPossessionItem call returns a TArray whose elements are 0x72c bytes;
    AddUnitFromDeathBag creates one visible UI cell for every element in that
    array.  V0.82 therefore trims only that returned UI list to the YAML/AP
    Death Bag capacity, using LET IT DIE's own TArray remove/destructor helper. */
@@ -2377,21 +2377,21 @@ static int progress_reload_delivery_ready(void);
 static int r45_bag_player_scope(void*self){
     BYTE*exe=lid_find_module_ascii("BrgGame-Steam.exe");BYTE*pawn;
     if(!exe||!self||!g_ap_mode_active||!g_v074_cfg.valid||
-       !readable_range(self,8)||*(void**)self!=exe+0x20ac950||
+       !readable_range(self,8)||*(void**)self!=exe+0x20b0190||
        !readable_range((BYTE*)self+0x284,8))return 0;
     pawn=*(BYTE**)((BYTE*)self+0x284);
-    return pawn&&readable_range(pawn,8)&&*(void**)pawn==exe+0x21b9730&&
+    return pawn&&readable_range(pawn,8)&&*(void**)pawn==exe+0x21bdc70&&
         readable_range(pawn+0x17f8,8)&&*(void**)(pawn+0x17f8)==self;
 }
 /* A preserved overflow is not extra capacity: only expose existing objects
    so the player can remove them. No writes or borrowed retained entries. */
 static int r40_bag_occupied_floor(void*self){
     RawArray a;int floor=0;
-    if(!self||!readable_range((BYTE*)self+0x3e58,sizeof(a)))return -1;
-    lid_memcpy(&a,(BYTE*)self+0x3e58,sizeof(a));
+    if(!self||!readable_range((BYTE*)self+0x3e78,sizeof(a)))return -1;
+    lid_memcpy(&a,(BYTE*)self+0x3e78,sizeof(a));
     if(a.num<0||a.num>99||a.max<a.num||a.max>4096||(!a.data)!=(a.max==0)||
-       (a.num&&!readable_range(a.data,(size_t)a.num*0x718)))return -1;
-    for(int i=0;i<a.num;i++)if(*((BYTE*)a.data+(size_t)i*0x718)&1)floor=i+1;
+       (a.num&&!readable_range(a.data,(size_t)a.num*0x71c)))return -1;
+    for(int i=0;i<a.num;i++)if(*((BYTE*)a.data+(size_t)i*0x71c)&1)floor=i+1;
     return floor;
 }
 #if LID_MATERIAL_CAPABILITY_ENABLED && LID_CHECKS_DELIVERY_ENABLED && LID_CHECKS_DIAGNOSTIC_ENABLED
@@ -2434,21 +2434,21 @@ static int checks_material_early_install(void*);
 static int r40_install_bag_space_guard(void*common){
     BYTE*exe=lid_find_module_ascii("BrgGame-Steam.exe");void**vt;void*previous=0;int size_changed=0;
     if(!exe||!common||!readable_range(common,8))return 0;vt=*(void***)common;
-    if(vt!=(void**)(exe+0x20ac950)||!readable_range(vt,0x8e0))return 0;
-    if((vt[0x8c8/8]!=exe+0xfa3600&&vt[0x8c8/8]!=(void*)r45_get_bag_size)||
-       (vt[0x8d8/8]!=exe+0xfa3640&&vt[0x8d8/8]!=(void*)r40_get_bag_space))return 0;
+    if(vt!=(void**)(exe+0x20b0190)||!readable_range(vt,0x8e0))return 0;
+    if((vt[0x8c8/8]!=exe+0xfa3ac0&&vt[0x8c8/8]!=(void*)r45_get_bag_size)||
+       (vt[0x8d8/8]!=exe+0xfa3b00&&vt[0x8d8/8]!=(void*)r40_get_bag_space))return 0;
     if(vt[0x8c8/8]==(void*)r45_get_bag_size&&vt[0x8d8/8]==(void*)r40_get_bag_space)
         return g_r45_bag_size_original&&g_r40_bag_space_original;
-    if(!executable_ptr(exe,exe+0xfa3600)||!executable_ptr(exe,exe+0xfa3640))return 0;
-    __atomic_store_n(&g_r45_bag_size_original,(R40BagSpaceFn)(exe+0xfa3600),__ATOMIC_RELEASE);
-    __atomic_store_n(&g_r40_bag_space_original,(R40BagSpaceFn)(exe+0xfa3640),__ATOMIC_RELEASE);
+    if(!executable_ptr(exe,exe+0xfa3ac0)||!executable_ptr(exe,exe+0xfa3b00))return 0;
+    __atomic_store_n(&g_r45_bag_size_original,(R40BagSpaceFn)(exe+0xfa3ac0),__ATOMIC_RELEASE);
+    __atomic_store_n(&g_r40_bag_space_original,(R40BagSpaceFn)(exe+0xfa3b00),__ATOMIC_RELEASE);
     if(vt[0x8c8/8]!=(void*)r45_get_bag_size){
         if(!v076_write_vtable_slot(&vt[0x8c8/8],(void*)r45_get_bag_size,&previous))return 0;
         size_changed=1;
     }
     if(vt[0x8d8/8]!=(void*)r40_get_bag_space&&
        !v076_write_vtable_slot(&vt[0x8d8/8],(void*)r40_get_bag_space,&previous)){
-        if(size_changed)v076_write_vtable_slot(&vt[0x8c8/8],exe+0xfa3600,&previous);
+        if(size_changed)v076_write_vtable_slot(&vt[0x8c8/8],exe+0xfa3ac0,&previous);
         return 0;
     }
 #if LID_MATERIAL_CAPABILITY_ENABLED && LID_CHECKS_DELIVERY_ENABLED && LID_CHECKS_DIAGNOSTIC_ENABLED
@@ -2457,8 +2457,8 @@ static int r40_install_bag_space_guard(void*common){
     log_ascii("AP DEATH BAG R45: player-owned size and free-slot guards ready for hub and tower; existing objects preserved.");
     return 1;
 }
-/* Trims the exact 0x728-byte possession/UI entry array produced for the live
-   Death Bag menu.  The native remove helper at RVA 0xFB8610 invokes the proper
+/* Trims the exact 0x72c-byte possession/UI entry array produced for the live
+   Death Bag menu.  The native remove helper at RVA 0xfb8cf0 invokes the proper
    destructors for every discarded entry and updates TArray::Num itself. */
 static void WINAPI v082_pawn_get_possession_item(void*self,RawArray*out_items,
                                                   int a,int b,int c,int d,int e){
@@ -2486,7 +2486,7 @@ static void WINAPI v082_pawn_get_possession_item(void*self,RawArray*out_items,
 
     exe=lid_find_module_ascii("BrgGame-Steam.exe");
     if(!exe)return;
-    remove_entries=(V082RemovePossessionEntriesFn)((BYTE*)exe+0xFB8610);
+    remove_entries=(V082RemovePossessionEntriesFn)((BYTE*)exe+0xfb8cf0);
     if(!executable_ptr(exe,(void*)remove_entries))return;
     remove_entries(out_items,target,before-target);
 
@@ -2554,12 +2554,12 @@ static int v082_install_add_unit_for_deathbag_hook(void){
     };
     if(g_v082_add_unit_hook_ready)return 1;
     if(!g_ap_mode_active||!g_v074_cfg.valid||!exe)return 0;
-    target=(BYTE*)exe+0x14BA450;
+    target=(BYTE*)exe+0x14bb3e0;
     if(!executable_ptr(exe,target))return 0;
     if(!hook_install(&h_v082_add_unit_for_deathbag,target,(void*)v082_add_unit_for_deathbag,prefix,sizeof(prefix)))return 0;
     g_v082_add_unit_for_deathbag_original=(V082AddUnitForDeathBagFn)h_v082_add_unit_for_deathbag.trampoline;
     g_v082_add_unit_hook_ready=1;
-    log_ascii("V0.82 DEATH BAG: exact ItemSelect::AddUnitForDeathBag RVA 0x14BA450 hook installed.");
+    log_ascii("V0.82 DEATH BAG: exact ItemSelect::AddUnitForDeathBag RVA 0x14bb3e0 hook installed.");
     return 1;
 }
 
@@ -2584,7 +2584,7 @@ static int R157_READ_NAME(rage_player_objects)(void*exe,BYTE**out_pawn,BYTE**out
     BYTE*engine;BYTE*world;BYTE*actors;BYTE*first;BYTE*game;BYTE*pawn;BYTE*common;
     void**vt;
     if(!exe||!out_pawn||!out_common)return 0;
-    engine=*(BYTE**)((BYTE*)exe+0x29709F0);
+    engine=*(BYTE**)((BYTE*)exe+0x29759f0);
     if(!engine||!readable_range(engine+0x80,sizeof(void*)))return 0;
     world=*(BYTE**)(engine+0x80);
     if(!world||!readable_range(world+0x60,sizeof(void*)))return 0;
@@ -2595,12 +2595,12 @@ static int R157_READ_NAME(rage_player_objects)(void*exe,BYTE**out_pawn,BYTE**out
     game=*(BYTE**)(first+0x714);
     if(!game||!readable_range(game,0x8c4))return 0;
     vt=*(void***)game;
-    if(!vt||!readable_range(vt,0x888)||vt[0x880/sizeof(void*)]!=(BYTE*)exe+0x10B36A0)return 0;
+    if(!vt||!readable_range(vt,0x888)||vt[0x880/sizeof(void*)]!=(BYTE*)exe+0x10b35a0)return 0;
     pawn=*(BYTE**)(game+0x8bc);
     if(!pawn||!readable_range(pawn+0x17f8,sizeof(void*)))return 0;
     common=*(BYTE**)(pawn+0x17f8);
     if(!common||!readable_range(common,0x29c))return 0;
-    if(*(void**)common!=(BYTE*)exe+0x20AC950||*(BYTE**)(common+0x284)!=pawn)return 0;
+    if(*(void**)common!=(BYTE*)exe+0x20b0190||*(BYTE**)(common+0x284)!=pawn)return 0;
     if(!v074_skill_fstring_matches(common+0x294,"BAL"))return 0;
     *out_pawn=pawn;*out_common=common;
     return 1;
@@ -2667,7 +2667,7 @@ static void WINAPI rage_get_body_status(void*out,void*levels,RawFString*type,int
 static int rage_install_body_status_hook(void*exe){
     static const BYTE prefix[]={0x48,0x8b,0xc4,0x57,0x41,0x56,0x41,0x57,
                                0x48,0x81,0xec,0x30,0x01,0x00,0x00};
-    BYTE*target=(BYTE*)exe+0xFA29E0;
+    BYTE*target=(BYTE*)exe+0xfa2ea0;
     if(g_rage_body_status_ready)return 1;
     if(!exe||!executable_ptr(exe,target))return 0;
     if(!hook_install(&h_rage_body_status,target,(void*)rage_get_body_status,prefix,sizeof(prefix))){
@@ -2679,7 +2679,7 @@ static int rage_install_body_status_hook(void*exe){
     }
     g_rage_body_status_original=(NativeRageBodyStatusFn)h_rage_body_status.trampoline;
     g_rage_body_status_ready=1;
-    log_ascii("AP RAGE: player GetBodyStatus capacity hook installed at RVA 0xFA29E0.");
+    log_ascii("AP RAGE: player GetBodyStatus capacity hook installed at RVA 0xfa2ea0.");
     return 1;
 }
 
@@ -2735,11 +2735,11 @@ static int progress_event_name_is(void* object,const char* wanted){
     BYTE* entry;BYTE** names;int index,count;size_t i;int wide;
     LID_PERF_DETAIL(1,1);
     if(!g_progress_event_exe||!object||!wanted||!readable_range(object,0x50)||
-       !readable_range(g_progress_event_exe+0x295ad18,12))return 0;
+       !readable_range(g_progress_event_exe+0x295fd18,12))return 0;
     index=*(int*)((BYTE*)object+0x48);
     if(*(unsigned*)((BYTE*)object+0x4c))return 0;
-    names=*(BYTE***)(g_progress_event_exe+0x295ad18);
-    count=*(int*)(g_progress_event_exe+0x295ad20);
+    names=*(BYTE***)(g_progress_event_exe+0x295fd18);
+    count=*(int*)(g_progress_event_exe+0x295fd20);
     if(index<0||count<=0||count>2000000||index>=count||!names||
        !readable_range(names+index,sizeof(void*)))return 0;
     entry=names[index];
@@ -2839,8 +2839,8 @@ static int progress_prepare_host(void){
 static int progress_probe_hub_ready(void* module){
     BYTE* exe=module;BYTE* engine;BYTE* world;BYTE* actors;BYTE* first;BYTE* game;BYTE* stage;void** vt;
     BYTE (WINAPI *is_hub)(void*);
-    if(!exe||!readable_range(exe+0x29709f0,8))return -1;
-    engine=*(BYTE**)(exe+0x29709f0);
+    if(!exe||!readable_range(exe+0x29759f0,8))return -1;
+    engine=*(BYTE**)(exe+0x29759f0);
     if(!engine||!readable_range(engine+0x80,8))return -1;
     world=*(BYTE**)(engine+0x80);
     if(!world||!readable_range(world+0x60,8))return -1;
@@ -2851,12 +2851,12 @@ static int progress_probe_hub_ready(void* module){
     game=*(BYTE**)(first+0x714);
     if(!game||!readable_range(game,0x13f0))return -1;
     vt=*(void***)game;
-    if(!vt||!readable_range(vt,0xaa0)||vt[0xa98/8]!=exe+0x10b5d80)return -1;
+    if(!vt||!readable_range(vt,0xaa0)||vt[0xa98/8]!=exe+0x10b5c50)return -1;
     if(!(*(unsigned*)(game+0x844)&0x08000000u))return 0;
     stage=*(BYTE**)(game+0x13e8);
-    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=exe+0x21c3350)return -1;
+    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=exe+0x21c7820)return -1;
     vt=*(void***)stage;
-    if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=exe+0x1433900)return -1;
+    if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=exe+0x1434a40)return -1;
     is_hub=(BYTE (WINAPI *)(void*))vt[0x3d0/8];
     if(!is_hub(stage))return 0;
     g_progress_event_exe=exe;
@@ -2905,13 +2905,13 @@ static int r21_install_current_chara_hook(BYTE*exe,void*userdata){
     void**vt;
     if(!exe||!userdata||!readable_range(userdata,sizeof(void*)))return 0;
     vt=*(void***)userdata;
-    if(vt!=(void**)(exe+0x21f7ac0)||!readable_range(vt,0x1138)||
-       vt[0x1130/8]!=exe+0x1568a70)return 0;
+    if(vt!=(void**)(exe+0x21fb700)||!readable_range(vt,0x1138)||
+       vt[0x1130/8]!=exe+0x156ab10)return 0;
     if(g_r21_get_chara_slot){
         if(vt+0x510/8!=g_r21_get_chara_slot||*g_r21_get_chara_slot!=(void*)r21_get_chara)return 0;
         g_r21_userdata=userdata;return 1;
     }
-    if(vt[0x510/8]!=exe+0x1567890)return 0;
+    if(vt[0x510/8]!=exe+0x1569930)return 0;
     g_r21_get_current_body=(NativeUserDataPtr)vt[0x1130/8];
     g_r21_userdata=userdata;
     /* v076 publishes the original before changing the slot protection/write. */
@@ -2937,6 +2937,12 @@ static void checks_load_decode_end(void);
 #ifndef LID_SHOP_FEATURE_ENABLED
 #define LID_SHOP_FEATURE_ENABLED 0
 #endif
+#ifndef LID_MOMOKA_DIAGNOSTIC_ENABLED
+#define LID_MOMOKA_DIAGNOSTIC_ENABLED 0
+#endif
+#if LID_MOMOKA_DIAGNOSTIC_ENABLED
+#include "momoka_diagnostic_runtime.h"
+#endif
 #if LID_SHOP_FEATURE_ENABLED
 #include "shop_runtime_driver.h"
 #endif
@@ -2945,7 +2951,7 @@ static int progress_reload_attach_override(BYTE*exe,LidReloadAttachOverride*out)
 #if LID_SHOP_FEATURE_ENABLED
     Hook*h=&shop_hooks[0];unsigned state=(unsigned)__atomic_load_n(&shop_install_state,__ATOMIC_ACQUIRE);
     if(state){
-        if(state!=1||!out||shop_exe!=exe||h->target!=exe+0x26ad90||h->size!=16||
+        if(state!=1||!out||shop_exe!=exe||h->target!=exe+0x26b350||h->size!=16||
            !h->trampoline||(void*)shop_original_set!=h->trampoline||
            !readable_range(h->trampoline,30)||lid_memcmp(h->original,h->trampoline,16))return -1;
         out->detour=(void*)shop_set_object;out->trampoline=h->trampoline;return 1;
@@ -3039,6 +3045,7 @@ static void checks_chest_boundary(DWORD owner);
 #include "progression_entry_driver.h"
 #include "kill_coin_owner_runtime.h"
 #include "notification_native.h"
+#include "shop_momoka_runtime.h"
 static void v070_sync_runtime_character_impl(int is_title){
     void*exe;
     void*userdata;
@@ -3067,6 +3074,11 @@ static void v070_sync_runtime_character_impl(int is_title){
     /* Create only: the legacy watcher remains free to acquire its mutex.
        Acquiring ownership / stopping it is deferred until the full host. */
     progress_prime_runtime();
+#if LID_SHOP_PURCHASE_ENABLED
+    shop_momoka_runtime_tick((BYTE*)exe);
+#elif LID_MOMOKA_DIAGNOSTIC_ENABLED
+    momoka_probe_tick((BYTE*)exe);
+#endif
 #if LID_SHOP_FEATURE_ENABLED
     if(!shop_install_state)shop_driver_install(exe);
 #endif
@@ -3305,7 +3317,7 @@ static int install_savedata_dir_hook(void){
     };
     if(h_savedata_dir.target)return 1;
     if(!exe)return 0;
-    target=(BYTE*)exe+0x1102730;
+    target=(BYTE*)exe+0x1101f90;
     if(!hook_install(&h_savedata_dir,target,(void*)hk_savedata_dir,prefix,sizeof(prefix)))return 0;
     g_savedata_dir_original=(NativeSavedataDirFn)h_savedata_dir.trampoline;
     return 1;

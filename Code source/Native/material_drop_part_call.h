@@ -7,11 +7,11 @@
 typedef struct R111DropOps {R6Ops memory;void*context;uint32_t owner;uint64_t image;uint32_t(*thread)(void*);int(*permit)(void*,uint64_t,int);} R111DropOps;
 typedef struct R111DropReceipt {unsigned invoked;uint64_t player,function,actor;int slot;} R111DropReceipt;
 enum {R111_REFUSED=0,R111_SENT=1,R111_ALREADY_SENT=2};
-static const uint8_t r111_dispatch_prefix[32]={0x48,0x89,0x5c,0x24,0x08,0x48,0x89,0x6c,0x24,0x10,0x48,0x89,0x74,0x24,0x18,0x57,0x48,0x83,0xec,0x20,0x48,0x8b,0xd9,0x48,0x8b,0x0d,0x12,0x15,0x5b,0x02,0x49,0x8b};
+static const uint8_t r111_dispatch_prefix[32]={0x48,0x89,0x5c,0x24,0x08,0x48,0x89,0x6c,0x24,0x10,0x48,0x89,0x74,0x24,0x18,0x57,0x48,0x83,0xec,0x20,0x48,0x8b,0xd9,0x48,0x8b,0x0d,0xd2,0x54,0x5b,0x02,0x49,0x8b};
 static int r111_dispatch(const R111DropOps*o,uint64_t player,uint64_t*out){
  uint64_t vt,target;uint8_t bytes[32];
- if(!o||!out||!o->image||o->image>UINT64_MAX-0x2200000||!r6_copy(&o->memory,player,&vt,8)||vt!=o->image+0x20ac950||
- !r6_at(&o->memory,vt,0x218,&target,8)||target!=o->image+0x3bf4c0||!r6_copy(&o->memory,target,bytes,32)||memcmp(bytes,r111_dispatch_prefix,32))return 0;
+ if(!o||!out||!o->image||o->image>UINT64_MAX-0x2200000||!r6_copy(&o->memory,player,&vt,8)||vt!=o->image+0x20b0190||
+ !r6_at(&o->memory,vt,0x218,&target,8)||target!=o->image+0x3c0500||!r6_copy(&o->memory,target,bytes,32)||memcmp(bytes,r111_dispatch_prefix,32))return 0;
  *out=target;return 1;
 }
 static int r111_same_signature(const R111DropSignature*a,const R111DropSignature*b){

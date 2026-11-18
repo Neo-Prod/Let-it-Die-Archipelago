@@ -45,7 +45,7 @@ static unsigned long long shop_binding_session(void* context){
        !__atomic_load_n(&g_ap_mode_active,__ATOMIC_ACQUIRE)||
        !__atomic_load_n(&g_savedata_route_active,__ATOMIC_ACQUIRE)||!g_v074_cfg.valid||
        b->exe!=g_progress_event_exe||progress_native_game(b->exe)!=b->game||
-       !readable_range(b->exe+0xf8b0088,4)||*(int*)(b->exe+0xf8b0088)!=b->uid)return 0;
+       !readable_range(b->exe+0xf8b5090,4)||*(int*)(b->exe+0xf8b5090)!=b->uid)return 0;
     for(i=0;i<21;i++)if(b->slot[i]!=g_release_slot_key[i])return 0;
     return b->serial;
 }
@@ -77,18 +77,18 @@ static int shop_binding_init(LidShopNativeBinding* b,BYTE* exe,unsigned long lon
     tid=g_get_tid();
     if(!tid||tid!=__atomic_load_n(&g_hub_events.owner,__ATOMIC_ACQUIRE)||
        !g_ap_mode_active||!g_savedata_route_active||!g_v074_cfg.valid||
-       !(game=progress_native_game(exe))||!readable_range(exe+0xf8b0088,4)||
-       !executable_ptr(exe,exe+0xe80e50)||!executable_ptr(exe,exe+0xe1d720)||
-       !readable_range(exe+0xe80e50,sizeof(decoder))||!readable_range(exe+0xe1d720,sizeof(destructor))||
-       lid_memcmp(exe+0xe80e50,decoder,sizeof(decoder))||lid_memcmp(exe+0xe1d720,destructor,sizeof(destructor)))return 0;
+       !(game=progress_native_game(exe))||!readable_range(exe+0xf8b5090,4)||
+       !executable_ptr(exe,exe+0xe80f00)||!executable_ptr(exe,exe+0xe1da30)||
+       !readable_range(exe+0xe80f00,sizeof(decoder))||!readable_range(exe+0xe1da30,sizeof(destructor))||
+       lid_memcmp(exe+0xe80f00,decoder,sizeof(decoder))||lid_memcmp(exe+0xe1da30,destructor,sizeof(destructor)))return 0;
     for(i=0;i<20;i++){
         char c=g_release_slot_key[i];if(!((c>='0'&&c<='9')||(c>='a'&&c<='f')))return 0;
         b->slot[i]=c;
     }
     if(g_release_slot_key[20])return 0;
-    b->slot[20]=0;b->exe=exe;b->game=game;b->uid=*(int*)(exe+0xf8b0088);
+    b->slot[20]=0;b->exe=exe;b->game=game;b->uid=*(int*)(exe+0xf8b5090);
     b->serial=serial;b->game_thread=tid;b->busy=0;b->poisoned=0;
-    b->decode=(LidShopNativeDecode)(exe+0xe80e50);b->release=(LidShopNativeRelease)(exe+0xe1d720);
+    b->decode=(LidShopNativeDecode)(exe+0xe80f00);b->release=(LidShopNativeRelease)(exe+0xe1da30);
     b->valid=1;return shop_binding_session(b)!=0;
 }
 static LidShopHistoryAdapterOps shop_binding_ops(LidShopNativeBinding* b){
@@ -113,9 +113,9 @@ static int shop_binding_active_panel(LidShopNativeBinding* b,LidShopContext* sho
     if(!lid_shop_cache_view(&b->panel_cache,b->game,&g_progress_event_ops,&view))return 0;
     /* Only native location predicate on the already identified game thread. */
     stage=*(BYTE**)(b->game+0x13e8);
-    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=b->exe+0x21c3350)return 0;
+    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=b->exe+0x21c7820)return 0;
     vt=*(void***)stage;
-    if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=b->exe+0x1433900)return 0;
+    if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=b->exe+0x1434a40)return 0;
     is_hub=(BYTE (WINAPI *)(void*))vt[0x3d0/8];if(!is_hub(stage))return 0;
     shop->shop=view.shop;shop->item_select=view.panel;return 1;
 }

@@ -32,6 +32,12 @@ def create_regions(world) -> None:
                   if (check['kind']=='tuber' and world.hater_catalogue_version>=3) or check['kind'] in ('chest','material')
                   else regions[check['zone']])
         parent.add_locations({check['name']: check['code']}, world.location_type)
+    for shop in getattr(world, 'shop_locations', ()):
+        parent=regions['Waiting Room'] if shop.kind=='momoka_kc' else regions[shop.room]
+        parent.add_locations({shop.name:shop.code},world.location_type)
+        if shop.kind=='momoka_kc' and shop.room!='Waiting Room':
+            unlock=regions[shop.room]
+            parent.locations[-1].access_rule=lambda state, unlock=unlock: unlock.can_reach(state)
     world.goal_location_name = f"{catalogue['goal_floor']}F - Defeat {catalogue['goal_name']}"
     parent = regions[logic.routes[-1].bosses[0]]
     goal = world.location_type(world.player, world.goal_location_name, None, parent)

@@ -4,7 +4,7 @@ import hashlib,re,struct
 from .CheckMapIds import physical_floor
 
 SIZE=1024;EVENT=1;ACK=2;FAULT=3;VISIT=4;CHEST=5;MAGIC=b'LIDKIL01'
-GAME=bytes.fromhex('f33e91e6e8d58566bfabad8d01cd0486586a0d43fe1c58e65fc6485a417bddfd')
+GAME=bytes.fromhex('6cfadbba9da3e2f3b3a4463194d247a50d2537a3ad704174730a0bbf899e42ca')
 CLASS_NAMES=('BrgPawn_CustomCharaAI','BrgPawn_CustomCharaAIZombie','BrgPawn_NormalEnemyBase','BrgPawn_Scratch','BrgPawn_Hovering','BrgPawn_Turret','BrgPawn_Bone','BrgPawn_Reversal','BrgPawn_Treasure','BrgPawn_MiddleBossHunk','BrgPawn_MiddleBossJindie','BrgPawn_MiddleBossGoto09','BrgPawn_MiddleBossU10','BrgPawn_BossMax','BrgPawn_BossJackson','BrgPawn_BossCrowley','BrgPawn_BossGunkan','BrgPawn_MiddleBossU10Tail','BrgPawn_Jackal','BrgPawn_FourForcemenBase')
 def integer(v,lo,hi):
     if type(v) is not int or not lo<=v<=hi:raise ValueError('integer range/type')

@@ -38,7 +38,7 @@ static const wchar_t*WINAPI r42_reader_path_detour(void){
     typedef const wchar_t*(WINAPI*Fn)(void);
     uintptr_t caller=(uintptr_t)__builtin_return_address(0);
     const wchar_t*original=((Fn)g_reload_decode.calls.originals[5])();
-    if(caller!=g_reload_decode.exe+0x1107eb8||!r37_native_scope())return original;
+    if(caller!=g_reload_decode.exe+0x11076d8||!r37_native_scope())return original;
     LidReloadBoundSource*s=&g_reload_runtime.source;LidReloadSourceHold*h=&s->hold;
     g_r42_path.calls++;g_r42_path.expected_size=h->proof.file_size;
     /* This one reader passes the returned path to BOTH FileSize (FindFirstFileW)
@@ -54,7 +54,7 @@ static const wchar_t*WINAPI r42_reader_path_detour(void){
 static int WINAPI r37_size_detour(void*array,int added){
     typedef int(WINAPI*Fn)(void*,int);uintptr_t caller=(uintptr_t)__builtin_return_address(0);
     int result=((Fn)g_reload_decode.calls.originals[0])(array,added);
-    if(caller==g_reload_decode.exe+0x1107f0d&&r37_native_scope()){
+    if(caller==g_reload_decode.exe+0x110772d&&r37_native_scope()){
         g_r42_path.allocated_size=(unsigned)added;
         r37_sized(&g_reload_decode.trace,progress_reload_thread(0),r37_native_read,0,(uintptr_t)array,added,result);
     }
@@ -64,7 +64,7 @@ static uint64_t WINAPI r37_decompress_detour(unsigned flags,void*out,unsigned un
     typedef uint64_t(WINAPI*Fn)(unsigned,void*,unsigned,const void*,unsigned,unsigned);
     uintptr_t caller=(uintptr_t)__builtin_return_address(0);
     const void*selected=input;int scope=r37_native_scope();
-    if(caller==g_reload_decode.exe+0x110859f&&scope){
+    if(caller==g_reload_decode.exe+0x1107dbf&&scope){
         LidReloadSourceHold*hold=&g_reload_runtime.source.hold;
         if(flags!=1||sixth||!hold->active||hold->closed||hold->poisoned||
            !hold->bytes||hold->bytes_size!=hold->proof.file_size||
@@ -78,21 +78,21 @@ static uint64_t WINAPI r37_decompress_detour(unsigned flags,void*out,unsigned un
         }
     }
     uint64_t result=((Fn)g_reload_decode.calls.originals[1])(flags,out,unpacked,selected,packed,sixth);
-    if(caller==g_reload_decode.exe+0x110859f&&scope&&!result)g_reload_verified_chunks.native_failures++;
-    if((caller==g_reload_decode.exe+0x11082d8||caller==g_reload_decode.exe+0x110859f)&&r37_native_scope())
+    if(caller==g_reload_decode.exe+0x1107dbf&&scope&&!result)g_reload_verified_chunks.native_failures++;
+    if((caller==g_reload_decode.exe+0x1107af8||caller==g_reload_decode.exe+0x1107dbf)&&r37_native_scope())
         r37_decoded(&g_reload_decode.trace,progress_reload_thread(0),flags,unpacked,packed,sixth,
-          caller==g_reload_decode.exe+0x110859f?2:1,result);
+          caller==g_reload_decode.exe+0x1107dbf?2:1,result);
     return result;
 }
 static void*WINAPI r37_input_free_detour(void*pointer,size_t size,size_t alignment){
     typedef void*(WINAPI*Fn)(void*,size_t,size_t);uintptr_t caller=(uintptr_t)__builtin_return_address(0);
-    if(caller==g_reload_decode.exe+0x1108657&&r37_native_scope())
+    if(caller==g_reload_decode.exe+0x1107e77&&r37_native_scope())
         r37_before_free(&g_reload_decode.trace,progress_reload_thread(0),r37_native_read,0,(uintptr_t)pointer,size);
     return ((Fn)g_reload_decode.calls.originals[3])(pointer,size,alignment);
 }
 static void*WINAPI r37_parser_detour(void*string){
     typedef void*(WINAPI*Fn)(void*);uintptr_t caller=(uintptr_t)__builtin_return_address(0);int observed=0;
-    if(caller==g_reload_decode.exe+0x1108874&&r37_native_scope()){
+    if(caller==g_reload_decode.exe+0x1108094&&r37_native_scope()){
         r37_parse_input(&g_reload_decode.trace,progress_reload_thread(0),r37_native_read,0,(uintptr_t)string);observed=1;
     }
     void*result=((Fn)g_reload_decode.calls.originals[4])(string);

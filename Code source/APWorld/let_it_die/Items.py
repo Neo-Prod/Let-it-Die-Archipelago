@@ -674,6 +674,7 @@ ARMOR_SET_ITEMS = {
     'Progressive Direct Hell Set': LetItDieItemData(7140064, ItemClassification.useful, "armor_set", default_quantity=3),
     'Progressive Pale Wind Set': LetItDieItemData(7140065, ItemClassification.useful, "armor_set", default_quantity=1),
     'Progressive Hell Wind Set': LetItDieItemData(7140066, ItemClassification.useful, "armor_set", default_quantity=1),
+    "Progressive Reaper's Set": LetItDieItemData(7140067, ItemClassification.useful, "armor_set", default_quantity=1),
 }
 # END R24 ARMOR SET ITEMS
 
@@ -703,6 +704,8 @@ def get_equipment_quantities(options):
     if bool(getattr(getattr(options, "group_armor_sets", None), "value", False)):
         from .ArmorSets import SETS
         for spec in SETS:
+            if getattr(options, "_legacy_equipment", False) and spec["ap_id"] == 7140067:
+                continue
             values = [quantities.pop(name) for name in spec["members"]]
             if len(set(values)) != 1:
                 raise ValueError(f"Armor set members have incompatible limits: {spec['name']}")

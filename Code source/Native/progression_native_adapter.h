@@ -33,31 +33,31 @@ static void* WINAPI progress_native_allocate(size_t size){return g_tbb_malloc?g_
 static void WINAPI progress_native_release(void* p){if(p&&g_tbb_free)g_tbb_free(p);}
 static BYTE* progress_native_game(BYTE* exe){
     BYTE* engine;BYTE* world;BYTE* actors;BYTE* first;BYTE* game;void** vt;
-    if(!exe||!readable_range(exe+0x29709f0,8))return 0;
-    engine=*(BYTE**)(exe+0x29709f0);if(!engine||!readable_range(engine+0x80,8))return 0;
+    if(!exe||!readable_range(exe+0x29759f0,8))return 0;
+    engine=*(BYTE**)(exe+0x29759f0);if(!engine||!readable_range(engine+0x80,8))return 0;
     world=*(BYTE**)(engine+0x80);if(!world||!readable_range(world+0x60,8))return 0;
     actors=*(BYTE**)(world+0x60);if(!actors||!readable_range(actors,8))return 0;
     first=*(BYTE**)actors;if(!first||!readable_range(first+0x714,8))return 0;
     game=*(BYTE**)(first+0x714);if(!game||!readable_range(game,0x1430))return 0;
     vt=*(void***)game;
-    if(!vt||!readable_range(vt,0xaa0)||vt[0xa98/8]!=exe+0x10b5d80||vt[0x880/8]!=exe+0x10b36a0)return 0;
+    if(!vt||!readable_range(vt,0xaa0)||vt[0xa98/8]!=exe+0x10b5c50||vt[0x880/8]!=exe+0x10b35a0)return 0;
     return game;
 }
 static int progress_native_gate_view(LidProgressGateView* out,int query_ready){
     LidProgressGateView current={0};BYTE* exe=g_progress_event_exe;BYTE* game;BYTE* stage;
     BYTE (WINAPI *is_hub)(void*);void** vt;
     if(!out||!g_progress_native_ready||!(game=progress_native_game(exe))||
-       !readable_range(exe+0xf8a0390,8)||!readable_range(exe+0xf8a0490,8))return 0;
+       !readable_range(exe+0xf8a5390,8)||!readable_range(exe+0xf8a5490,8))return 0;
     current.generation=game;current.manager=*(void**)(game+0x7e8);
     /* Inline global objects, not pointers: their first words ARE vtables.
        Confirmed in live R14 memory; the read-only reader used this layout. */
-    current.request_runner=exe+0xf8a0390;current.save_runner=exe+0xf8a0490;
-    current.manager_vtable=exe+0x210a2e0;current.runner_vtable=exe+0x212a498;
+    current.request_runner=exe+0xf8a5390;current.save_runner=exe+0xf8a5490;
+    current.manager_vtable=exe+0x210e040;current.runner_vtable=exe+0x212e0e8;
     if(!lid_progress_gate_view_valid(&current,&g_progress_gate_ops))return 0;
     current.game_started=lid_progress_game_started(game,progress_native_readable);
     stage=*(BYTE**)(game+0x13e8);
-    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=exe+0x21c3350)return 0;
-    vt=*(void***)stage;if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=exe+0x1433900)return 0;
+    if(!stage||!readable_range(stage,0x58)||*(void**)stage!=exe+0x21c7820)return 0;
+    vt=*(void***)stage;if(!readable_range(vt,0x3d8)||vt[0x3d0/8]!=exe+0x1434a40)return 0;
     is_hub=(BYTE (WINAPI *)(void*))vt[0x3d0/8];
     /* Location/readiness predicates only for beginning a mutation. Completion
        and the pre-reload wait need identity, not another hub query. */
@@ -97,7 +97,7 @@ static int progress_native_character(LidCharacterView* out){
     int index,num,capacity;NativeUserDataBool valid;NativeUserDataNoArg get_index;NativeUserDataPtr get_body;
     if(!out||!progress_native_window(0)||!(game=progress_native_game(exe)))return 0;
     userdata=*(BYTE**)(game+0x1428);
-    if(!userdata||!readable_range(userdata,0x7c)||*(void**)userdata!=exe+0x21f7ac0)return 0;
+    if(!userdata||!readable_range(userdata,0x7c)||*(void**)userdata!=exe+0x21fb700)return 0;
     vt=*(void***)userdata;if(!readable_range(vt,0x1138))return 0;
     valid=(NativeUserDataBool)vt[0x280/8];get_index=(NativeUserDataNoArg)vt[0x530/8];get_body=(NativeUserDataPtr)vt[0x1130/8];
     if(!executable_ptr(exe,(void*)valid)||!executable_ptr(exe,(void*)get_index)||!executable_ptr(exe,(void*)get_body)||!valid(userdata))return 0;
@@ -107,17 +107,17 @@ static int progress_native_character(LidCharacterView* out){
     if(index<0||num<=0||num>capacity||capacity>64||index>=num||!records||!readable_range(records,(size_t)num*0x220))return 0;
     current.chara=records+(size_t)index*0x220;current.body=body;current.cid=(LidBagString*)current.chara;
     if(!rage_player_objects(exe,&pawn,&common)||!(current.common_grade=progress_native_grade(common))||
-       !readable_range(common+0x3e58,sizeof(LidBagArray))||!readable_range(exe+0xf8b0088,4))return 0;
-    roots.body_repository=exe+0x27ddf50;roots.bag_repository=exe+0x27e4db8;
-    roots.body_repository_vtable=exe+0x212bc30;roots.body_group_vtable=exe+0x212bb80;roots.body_row_vtable=exe+0x212bb30;
-    roots.bag_repository_vtable=exe+0x2186cc0;roots.bag_group_vtable=exe+0x2186c50;roots.bag_row_vtable=exe+0x2186ba0;
-    roots.uid=*(int*)(exe+0xf8b0088);roots.cid=current.cid;roots.readable=progress_native_readable;
+       !readable_range(common+0x3e78,sizeof(LidBagArray))||!readable_range(exe+0xf8b5090,4))return 0;
+    roots.body_repository=exe+0x27e2f48;roots.bag_repository=exe+0x27e9dc8;
+    roots.body_repository_vtable=exe+0x21301d0;roots.body_group_vtable=exe+0x2130120;roots.body_row_vtable=exe+0x21300d0;
+    roots.bag_repository_vtable=exe+0x218b2e0;roots.bag_group_vtable=exe+0x218b270;roots.bag_row_vtable=exe+0x218b1c0;
+    roots.uid=*(int*)(exe+0xf8b5090);roots.cid=current.cid;roots.readable=progress_native_readable;
     LID_PERF_BEGIN(models_time);
     int models_result=lid_character_models_resolve(&current.models,&roots);
     LID_PERF_END(models_time,37,"native_character_models",models_result);
     if(models_result!=1)return 0;
     current.generation=game;current.userdata=userdata;current.pawn=pawn;current.common=common;
-    current.pawn_slots=(LidBagArray*)(common+0x3e58);*out=current;return 1;
+    current.pawn_slots=(LidBagArray*)(common+0x3e78);*out=current;return 1;
 }
 static int progress_native_current(void* context,const LidCharacterView* expected){
     LidCharacterView current;(void)context;
@@ -158,7 +158,7 @@ static int progress_native_recalculate(void* context,const LidCharacterView* vie
     return lid_event_call(view->common,LID_EVENT_VOID,&g_progress_event_ops,0)==1;
 }
 static void WINAPI progress_native_dirty(void){
-    BYTE* flag=g_progress_event_exe?g_progress_event_exe+0xf8a1890:0;
+    BYTE* flag=g_progress_event_exe?g_progress_event_exe+0xf8a6710:0;
     if(!g_progress_save_job.active||__atomic_load_n(&g_progress_save_job.completion,__ATOMIC_ACQUIRE)!=-1||
        !flag||!progress_native_writable(flag,1)){__atomic_store_n(&g_progress_dirty_failed,1,__ATOMIC_RELEASE);return;}
     *(volatile BYTE*)flag=1;__atomic_store_n(&g_progress_dirty_failed,0,__ATOMIC_RELEASE);
@@ -168,13 +168,13 @@ static BYTE WINAPI progress_native_save(void* runner,void* json){
     if(__atomic_load_n(&g_progress_dirty_failed,__ATOMIC_ACQUIRE)||!g_progress_event_exe||
        !g_progress_save_job.active||runner!=g_progress_save_job.runner||
        __atomic_load_n(&g_progress_save_job.completion,__ATOMIC_ACQUIRE)!=-1)return 0;
-    save=(BYTE (WINAPI *)(void*,void*))(g_progress_event_exe+0x110f110);return save(runner,json);
+    save=(BYTE (WINAPI *)(void*,void*))(g_progress_event_exe+0x110e560);return save(runner,json);
 }
 static BYTE WINAPI progress_native_start(void* runner,LidProgressSaveBox* box,const wchar_t* name){
     BYTE (WINAPI *start)(void*,LidProgressSaveBox*,const wchar_t*);
     if(!g_progress_event_exe||!g_progress_save_job.active||runner!=g_progress_save_job.runner||
        !progress_native_window(0)||runner!=g_progress_apply_lease.view.save_runner)return 0;
-    start=(BYTE (WINAPI *)(void*,LidProgressSaveBox*,const wchar_t*))(g_progress_event_exe+0x11ca160);
+    start=(BYTE (WINAPI *)(void*,LidProgressSaveBox*,const wchar_t*))(g_progress_event_exe+0x11c93e0);
     if(!start(runner,box,name))return 0;
     /* Start returns1 even if its factory returned no thread. We still hold
        runner+18, so a normal completed thread cannot clear+40 under us. */
@@ -226,7 +226,7 @@ static int progress_init_native_adapter(void){
     LidCharacterTransactionOps transaction_ops={0,progress_transaction_gate,progress_transaction_character};
     if(g_progress_native_ready)return 1;
     if(!exe||!g_tbb_malloc||!g_tbb_free||!g_progress_runtime_mutex.ops.thread_id||
-       !executable_ptr(exe,exe+0x110f110)||!executable_ptr(exe,exe+0x11ca160))return 0;
+       !executable_ptr(exe,exe+0x110e560)||!executable_ptr(exe,exe+0x11c93e0))return 0;
     kernel=lid_find_module_ascii("kernel32.dll");if(!kernel)return 0;
     g_progress_gate_ops.readable=progress_native_readable;g_progress_gate_ops.thread_id=g_progress_runtime_mutex.ops.thread_id;
     g_progress_gate_ops.try_enter=(BOOL (WINAPI *)(void*))lid_get_export(kernel,"TryEnterCriticalSection");
@@ -238,7 +238,7 @@ static int progress_init_native_adapter(void){
     g_progress_native_ready=1;
     if(!lid_transaction_init(&g_progress_transaction,&g_progress_host,&g_progress_apply_lease,&g_progress_save_job,
         &g_progress_application,&g_progress_config,&g_progress_gate_ops,&g_progress_apply_ops,
-        exe+0x2186b50,&transaction_ops,10)){g_progress_native_ready=0;return 0;}
+        exe+0x218b170,&transaction_ops,10)){g_progress_native_ready=0;return 0;}
 #if LID_BLUEPRINT_DELIVERY_ENABLED
     if(!progress_blueprint_attach()){g_progress_native_ready=0;return 0;}
 #endif

@@ -38,6 +38,14 @@ static LidShopNativeCoordinatorContext shop_native_context;
 static LidShopCoordinatorOps shop_ops;
 static ShopSetObject shop_original_set;
 static ShopHandler shop_original_handler;
+#if LID_SHOP_PURCHASE_ENABLED
+#include "shop_tower_handler_route.h"
+static unsigned long long WINAPI shop_handler_forward(void*self,void*response,void*root){
+    return lid_thr_call(shop_original_handler,self,response,root);
+}
+#else
+#define shop_handler_forward shop_original_handler
+#endif
 static ShopPurchase shop_original_purchase;
 static ShopGetter shop_original_getter;
 static ShopPanel shop_original_panel;
@@ -103,7 +111,7 @@ static void* shop_array_from_root(void* root){
     RawFString name;void** vt;
     if(!shop_binding_json_class(root)||!readable_range(root,sizeof(void*)))return 0;
     vt=*(void***)root;
-    if(!readable_range(vt,0x260)||vt[0x258/8]!=shop_exe+0x251b30)return 0;
+    if(!readable_range(vt,0x260)||vt[0x258/8]!=shop_exe+0x251f50)return 0;
     name.data=L"shophistory";name.num=name.max=12;
     return ((void*(WINAPI*)(void*,RawFString*))vt[0x258/8])(root,&name);
 }
@@ -112,7 +120,7 @@ static void WINAPI shop_set_object(void* self,RawFString* key,void* value){
     ShopDriverFrame* capture=0;ShopDriverFrame* previous;
     /* Capture the script producer ONLY. A native transport decoder can call
        SetObject again: that must not taint the saved origin as UNKNOWN. */
-    if(__builtin_return_address(0)==shop_exe+0x49927e&&shop_history_key(key)&&shop_bind()){
+    if(__builtin_return_address(0)==shop_exe+0x49993e&&shop_history_key(key)&&shop_bind()){
         if(!shop_binding_json_source(&shop_binding,value,&json)){
             __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);
         }else if(json.count){
@@ -137,18 +145,18 @@ static void WINAPI shop_set_object(void* self,RawFString* key,void* value){
 }
 static unsigned long long WINAPI shop_handler(void* self,void* response,void* root){
     ShopDriverFrame* frame;ShopDriverFrame* previous;LidShopHistorySource json={0};void* array;unsigned long long result;
-    if(!__atomic_load_n(&shop_binding_ready,__ATOMIC_ACQUIRE))return shop_original_handler(self,response,root);
+    if(!__atomic_load_n(&shop_binding_ready,__ATOMIC_ACQUIRE))return shop_handler_forward(self,response,root);
     if(!shop_binding_session(&shop_binding)){
-        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_original_handler(self,response,root);
+        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_handler_forward(self,response,root);
     }
     previous=shop_frame();
-    if(previous&&previous->depth>=8){__atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_original_handler(self,response,root);}
+    if(previous&&previous->depth>=8){__atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_handler_forward(self,response,root);}
     if(!g_tbb_malloc||!g_tbb_free||!(frame=g_tbb_malloc(sizeof(*frame)))){
-        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_original_handler(self,response,root);
+        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);return shop_handler_forward(self,response,root);
     }
     lid_memset(frame,0,sizeof(*frame));frame->previous=previous;frame->depth=previous?previous->depth+1:1;frame->scope.permission.closed=1;
     if(!shop_frame_set(frame)){
-        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);g_tbb_free(frame);return shop_original_handler(self,response,root);
+        __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);g_tbb_free(frame);return shop_handler_forward(self,response,root);
     }
     array=shop_array_from_root(root);
     if(array&&shop_binding_json_source(&shop_binding,array,&json)&&json.count&&frame->depth==1){
@@ -160,7 +168,7 @@ static unsigned long long WINAPI shop_handler(void* self,void* response,void* ro
         }
         else __atomic_store_n(&shop_binding.poisoned,1,__ATOMIC_RELEASE);
     }
-    result=shop_original_handler(self,response,root);
+    result=shop_handler_forward(self,response,root);
     lid_shop_coord_end(&frame->scope);
     if(shop_frame_set(previous)){
         if(frame->key)g_tbb_free(frame->key);g_tbb_free(frame);
@@ -171,7 +179,7 @@ static unsigned long long WINAPI shop_purchase(int uid,const wchar_t* ptid,int l
     void* caller=__builtin_return_address(0);ShopDriverFrame* f=shop_frame();unsigned long long result;int selected=0;
     if(f){
         f->purchase_depth++;
-        if(f->depth==1&&f->purchase_depth==1&&flag==0&&caller==shop_exe+0x116833a&&uid==shop_binding.uid&&
+        if(f->depth==1&&f->purchase_depth==1&&flag==0&&caller==shop_exe+0x115e0df&&uid==shop_binding.uid&&
            shop_binding_session(&shop_binding)&&shop_copy_id(ptid,f->id,&f->id_units))
             selected=lid_shop_coord_purchase(&f->scope,f->id,f->id_units,level);
         if(selected)shop_once(64,"AP SHOP R20: expected buy_part row selected before native resource checks.");
@@ -186,10 +194,10 @@ static void* WINAPI shop_getter(void* output,const wchar_t* ptid,void* type){
     if(!lid_shop_price_site((unsigned long long)(ULONG_PTR)caller-(unsigned long long)(ULONG_PTR)shop_exe)||type||result!=output||!(f=shop_frame())||f->depth!=1||
        f->purchase_depth!=1||!f->scope.purchase_active||!shop_copy_id(ptid,id,&units)||units!=f->id_units)return result;
     for(i=0;i<units;i++)if(id[i]!=f->id[i])return result;
-    if(readable_range(output,0x340)&&*(void**)output==shop_exe+0x210d4b0&&
+    if(readable_range(output,0x340)&&*(void**)output==shop_exe+0x2111238&&
        progress_native_writable((BYTE*)output+0x17c,8)&&
        lid_shop_coord_price(&shop_coordinator,&shop_ops,1,&f->scope,output,0x340)){
-        if(caller==shop_exe+0x1309bde)
+        if(caller==shop_exe+0x130a3be)
             shop_once(4,"AP SHOP R20: required-money preflight set to zero on detached row.");
         else shop_once(32,"AP SHOP R20: final money debit set to zero on detached row.");
     }
@@ -208,7 +216,7 @@ static unsigned long long WINAPI shop_initial(void* output,unsigned long long a,
     if(__atomic_load_n(&shop_install_state,__ATOMIC_ACQUIRE)==1&&g_ap_mode_active&&g_savedata_route_active&&g_v074_cfg.valid&&
        readable_range(array,16)&&progress_native_writable(array,16)&&array->num>=0&&array->num<=array->max&&array->max<=4096&&
        (!array->num||readable_range(array->data,(size_t)array->num*16))){
-        ((void(WINAPI*)(void*,int))(shop_exe+0xa378f0))(output,0);
+        ((void(WINAPI*)(void*,int))(shop_exe+0x7d3f30))(output,0);
         shop_once(16,"AP SHOP R20: vanilla initial-plan collector suppressed for AP; existing research records untouched.");return 1;
     }
     return shop_original_initial(output,a,b,c);
@@ -221,7 +229,7 @@ static int shop_driver_install(BYTE* exe){
         {0x40,0x55,0x56,0x57,0x48,0x8d,0x6c,0x24,0x80,0x48,0x81,0xec,0x80,0x01,0x00,0x00},
         {0x48,0x89,0x54,0x24,0x10,0x55,0x56,0x57,0x41,0x56,0x41,0x57,0x48,0x81,0xec,0xa0,0x05,0x00,0x00},
         {0x40,0x57,0x48,0x83,0xec,0x40,0x48,0xc7,0x44,0x24,0x20,0xfe,0xff,0xff,0xff,0x48,0x89,0x5c,0x24,0x50}};
-    static const unsigned rvas[6]={0x26ad90,0x1167730,0x1319030,0x12ceac0,0x14ba5a0,0x130cba0};
+    static const unsigned rvas[6]={0x26b350,0x115d510,0x1319770,0x12ce380,0x14bb530,0x130d3b0};
     static const unsigned sizes[6]={16,16,19,16,19,20};
     void* detours[6]={(void*)shop_set_object,(void*)shop_handler,(void*)shop_purchase,(void*)shop_getter,(void*)shop_panel,(void*)shop_initial};
     void* kernel;ShopAddVeh add_veh;unsigned i,j,patched=0;DWORD old,ignored,protections[6];
@@ -236,10 +244,10 @@ static int shop_driver_install(BYTE* exe){
     add_veh=(ShopAddVeh)lid_get_export(kernel,"AddVectoredExceptionHandler");
     if(!shop_tls_alloc||!shop_tls_get_api||!shop_tls_set_api||!shop_set_error||!add_veh)goto fail;
     for(i=0;i<6;i++)if(!readable_range(exe+rvas[i],sizes[i])||lid_memcmp(exe+rvas[i],prefixes[i],sizes[i]))goto fail;
-    if(!executable_ptr(exe,exe+0xa378f0)||!readable_range(exe+0x1168335,5)||!readable_range(exe+0x134f389,5)||
-       lid_memcmp(exe+0x1168335,"\xe8\xf6\x0c\x1b\x00",5)||lid_memcmp(exe+0x134f389,"\xe8\x32\xf7\xf7\xff",5))goto fail;
-    if(!readable_range(exe+0x499278,6)||lid_memcmp(exe+0x499278,"\xff\x90\xd0\x02\x00\x00",6))goto fail;
-    if(!readable_range(exe+0x1309bd9,5)||lid_memcmp(exe+0x1309bd9,"\xe8\xe2\x4e\xfc\xff",5))goto fail;
+    if(!executable_ptr(exe,exe+0x7d3f30)||!readable_range(exe+0x115e0da,5)||!readable_range(exe+0x13511a9,5)||
+       lid_memcmp(exe+0x115e0da,"\xe8\x91\xb6\x1b\x00",5)||lid_memcmp(exe+0x13511a9,"\xe8\xd2\xd1\xf7\xff",5))goto fail;
+    if(!readable_range(exe+0x499938,6)||lid_memcmp(exe+0x499938,"\xff\x90\xd0\x02\x00\x00",6))goto fail;
+    if(!readable_range(exe+0x130a3b9,5)||lid_memcmp(exe+0x130a3b9,"\xe8\xc2\x3f\xfc\xff",5))goto fail;
     shop_tls_index=shop_tls_alloc();if(shop_tls_index==0xffffffffu)goto fail;
     shop_exe=exe;
     for(i=0;i<6;i++){

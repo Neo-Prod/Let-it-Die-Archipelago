@@ -37,7 +37,12 @@
     "-DLID_MATERIAL_PICKUP_OPTIMIZED_ENABLED=1",
     "-DLID_CHARACTER_PROFILE_ENABLED=1",
     "-DLID_NOTIFICATIONS_ENABLED=1",
-    "-DLID_CHARACTER_READ_OPTIMIZED_ENABLED=1"
+    "-DLID_CHARACTER_READ_OPTIMIZED_ENABLED=1",
+    "-DLID_MOMOKA_DIAGNOSTIC_ENABLED=1",
+    "-DLID_SHOP_CATALOGUE_ENABLED=1",
+    "-DLID_SHOP_PURCHASE_ENABLED=1",
+    "-DLID_MOMOKA_DISPATCH_SEH_ENABLED=1",
+    "-DLID_SHOP_EXEC_SEH_ENABLED=1"
   ],
   "fast_flags": [
     "-target",
@@ -64,5 +69,10 @@
     "-mno-stack-arg-probe",
     "-ffunction-sections",
     "-fdata-sections"
+  ],
+  "native_extra_flags": [
+    "-fms-extensions",
+    "-fexceptions",
+    "-fasync-exceptions"
   ]
 }

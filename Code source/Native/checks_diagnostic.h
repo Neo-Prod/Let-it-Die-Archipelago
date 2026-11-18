@@ -44,8 +44,8 @@ static void checks_object_name(uint64_t object,char out[96]){
     uint64_t names,entry;int32_t index,count;unsigned char wide;uint32_t number;
     if(!r6_at(&g_checks_ops,object,0x48,&index,4)||index<0||
        !r6_at(&g_checks_ops,object,0x4c,&number,4)||number||
-       !r6_at(&g_checks_ops,(uint64_t)(ULONG_PTR)g_checks_diag.exe,0x295ad18,&names,8)||
-       !r6_at(&g_checks_ops,(uint64_t)(ULONG_PTR)g_checks_diag.exe,0x295ad20,&count,4)||
+       !r6_at(&g_checks_ops,(uint64_t)(ULONG_PTR)g_checks_diag.exe,0x295fd18,&names,8)||
+       !r6_at(&g_checks_ops,(uint64_t)(ULONG_PTR)g_checks_diag.exe,0x295fd20,&count,4)||
        count<=0||count>2000000||index>=count||!names||
        !r6_at(&g_checks_ops,names,(uint32_t)index*8,&entry,8)||!r6_at(&g_checks_ops,entry,8,&wide,1))return;
     for(unsigned i=0;i<96;i++){
@@ -66,8 +66,8 @@ static int checks_bind(uint64_t pawn,R6Layout*layout,uint64_t*node){
 #if LID_REFLECTION_READ_SCOPE_ENABLED
     acquired=lid_read_scope_begin(&g_reflection_read_scope,g_get_tid);
 #endif
-    result=r6_bind(&g_checks_ops,pawn,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21b9730),layout)&&
-      r7_bind_death_function(&g_checks_ops,pawn,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21b9730),node);
+    result=r6_bind(&g_checks_ops,pawn,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21bdc70),layout)&&
+      r7_bind_death_function(&g_checks_ops,pawn,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21bdc70),node);
 #if LID_REFLECTION_READ_SCOPE_ENABLED
     lid_read_scope_end(&g_reflection_read_scope,g_get_tid,acquired);
 #endif
@@ -136,7 +136,7 @@ static void checks_map(char out[3][64]){
     static const unsigned offset[3]={0x5c0,0x5d0,0x5e0};BYTE*game;uint64_t stage,vt;
     if(!(game=progress_native_game(g_checks_diag.exe))||
        !r6_at(&g_checks_ops,(uint64_t)(ULONG_PTR)game,0x13e8,&stage,8)||
-       !r6_at(&g_checks_ops,stage,0,&vt,8)||vt!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21c3350))return;
+       !r6_at(&g_checks_ops,stage,0,&vt,8)||vt!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21c7820))return;
     for(unsigned i=0;i<3;i++){
         RawFString str,again;wchar_t text[64];
         if(!r6_at(&g_checks_ops,stage,offset[i],&str,sizeof(str))||!str.data||str.num<1||str.num>64||str.max<str.num||
@@ -186,7 +186,7 @@ static void checks_delivery_record(const ChecksRecord*r,const ChecksClass*c,cons
     if(c->tuber_family){lid_memcpy(observation.name,r->tuber.name.text,sizeof(observation.name));lid_memcpy(observation.label,r->tuber.label.text,sizeof(observation.label));}
     if(revision!=r35_revision(&g_checks_rotation_proof)||serial!=__atomic_load_n(&g_hub_entry_signal.serial,__ATOMIC_ACQUIRE)||
        !checks_delivery_rotation_ready(g_checks_diag.owner))return;
-    (void)r26_capture_observed(&g_checks_delivery,&g_progress_host,g_checks_diag.owner,&observation,g_checks_diag.node,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xfedd22));
+    (void)r26_capture_observed(&g_checks_delivery,&g_progress_host,g_checks_diag.owner,&observation,g_checks_diag.node,(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xff3902));
 }
 #endif
 /* No instrumentation, allocation or logging may be added to this leaf thunk.
@@ -204,7 +204,7 @@ __attribute__((noinline,used)) static void WINAPI checks_diag_health_observed(vo
         __atomic_fetch_add(&g_checks_diag.foreign,1,__ATOMIC_RELAXED);original(pawn,value);return;
     }
     if(g_checks_diag.busy){g_checks_diag.reentrant++;original(pawn,value);return;}
-    if(origin!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xfedd22)){g_checks_diag.other_origin++;original(pawn,value);return;}
+    if(origin!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xff3902)){g_checks_diag.other_origin++;original(pawn,value);return;}
     if(!checks_session()){original(pawn,value);return;}
 #if LID_CHECKS_DELIVERY_ENABLED
     uint64_t proof_revision=r35_revision(&g_checks_rotation_proof);
@@ -215,7 +215,7 @@ __attribute__((noinline,used)) static void WINAPI checks_diag_health_observed(vo
     if(g_checks_diag.count==128){g_checks_diag.overflow++;goto forward;}
 #endif
     if(!r7_call_context(&g_checks_ops,frame,(uint64_t)(ULONG_PTR)pawn,origin,
-       (uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xfedd22),g_checks_diag.node,&ctx)){
+       (uint64_t)(ULONG_PTR)(g_checks_diag.exe+0xff3902),g_checks_diag.node,&ctx)){
         g_checks_diag.failed_context++;goto forward;
     }
     cls=checks_class((uint64_t)(ULONG_PTR)pawn);
@@ -250,8 +250,8 @@ __attribute__((naked,noinline,used)) static void WINAPI checks_diag_health_thunk
 }
 static int checks_install(void){
     static const BYTE expected[16]={0x44,0x8b,0x81,0xd0,3,0,0,0x89,0x91,0xcc,3,0,0,0x41,0x3b,0xd0};
-    BYTE*target=g_checks_diag.exe+0x14244f0;
-    ChecksHealthFn*slot=(ChecksHealthFn*)(g_checks_diag.exe+0x21b9730+0xb98);
+    BYTE*target=g_checks_diag.exe+0x1425b60;
+    ChecksHealthFn*slot=(ChecksHealthFn*)(g_checks_diag.exe+0x21bdc70+0xb98);
     ChecksHealthFn prior=(ChecksHealthFn)target;DWORD old=0,ignored=0;
     if(((ULONG_PTR)slot&7)||!readable_range(target,16)||lid_memcmp(target,expected,16)||
        !readable_range(slot,8)||__atomic_load_n(slot,__ATOMIC_ACQUIRE)!=prior||!g_win.VirtualProtect)return 0;
@@ -307,7 +307,7 @@ static void checks_flush(void){
         checks_log_number(line,&pos," argument=",(unsigned)r->argument);checks_log_number(line,&pos," hp_before=",(unsigned)r->before.health);
         checks_log_number(line,&pos," hp_after=",(unsigned)r->after.health);checks_log_number(line,&pos," hp_max=",(unsigned)r->before.max_health);log_ascii(line);
         pos=0;append_ascii(line,700,&pos,"AP CHECKS R12 CONTEXT");checks_log_number(line,&pos," seq=",i);
-        append_ascii(line,700,&pos," origin_rva=0xFEDD22 function=BrgPawn_Base.SetDeath node=");
+        append_ascii(line,700,&pos," origin_rva=0xff3902 function=BrgPawn_Base.SetDeath node=");
         append_hex64(line,700,&pos,(ULONG_PTR)g_checks_diag.node);
         append_ascii(line,700,&pos," damage=");append_ascii(line,700,&pos,r->damage);
         append_ascii(line,700,&pos," template=");append_ascii(line,700,&pos,r->map[0]);
@@ -370,8 +370,8 @@ static void checks_diagnostic_boundary(int status){
     }
     append_ascii(line,700,&pos,"AP CHECKS R12 INIT class=");append_ascii(line,700,&pos,name);
     append_ascii(line,700,&pos," vtable=");append_hex64(line,700,&pos,(ULONG_PTR)vt);
-    append_ascii(line,700,&pos," expected=");append_hex64(line,700,&pos,(ULONG_PTR)(g_checks_diag.exe+0x21b9730));log_ascii(line);
-    if(vt!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21b9730)){
+    append_ascii(line,700,&pos," expected=");append_hex64(line,700,&pos,(ULONG_PTR)(g_checks_diag.exe+0x21bdc70));log_ascii(line);
+    if(vt!=(uint64_t)(ULONG_PTR)(g_checks_diag.exe+0x21bdc70)){
         log_ascii("AP CHECKS R12: init refused stage=pawn_vtable_match; observer disabled.");return;
     }
     int fields_ok,acquired=0;

@@ -3,6 +3,7 @@
 /* Candidate pure companion codec. Include progression_wire.h first.
    Not connected to mod.c. Host must bind TARGET/session and pin both domains
    before mutation. No I/O, allocations, hooks, gameplay calls or save proofs. */
+#include "blueprint_enhancement_catalog.h"
 #define LID_BLUEPRINT_HEADER 64u
 #define LID_BLUEPRINT_COUNTS 320u
 #define LID_BLUEPRINT_MAX_SIZE 4096u
@@ -44,18 +45,34 @@ static int lid_blueprint_frame_decode(unsigned* counts,size_t count,LidWireMessa
     LidWireMessage parsed;unsigned long long stats=0,plans=0;unsigned version;size_t i;
     if(!counts||!target||!raw||!expected_target||!lid_blueprint_shape(count,catalogue)||
        size!=320+4*count||!lid_wire_equal(raw,lid_blueprint_magic,8)||
-       (lid_wire_r32(raw+8)!=1&&lid_wire_r32(raw+8)!=2)||
+       (lid_wire_r32(raw+8)!=1&&lid_wire_r32(raw+8)!=2&&lid_wire_r32(raw+8)!=3)||
        lid_wire_r32(raw+12)!=64||lid_wire_r32(raw+16)!=count||
-       !lid_wire_equal(raw+20,catalogue,32)||lid_wire_nonzero(raw+56,8)||
+       !lid_wire_equal(raw+20,lid_wire_r32(raw+8)==3?lid_enhancement_catalogue_hash:catalogue,32)||
+       (lid_wire_r32(raw+8)==3?(lid_wire_r32(raw+56)>4||lid_wire_r32(raw+60)!=2):lid_wire_nonzero(raw+56,8))||
        lid_wire_r32(raw+52)!=lid_blueprint_checksum(raw,size)||
        !lid_wire_equal(raw+64,expected_target,256)||!lid_wire_decode(&parsed,raw+64,256)||
        parsed.kind!=kind)return 0;
     for(i=0;i<9;i++)stats+=parsed.counts[i];
     for(i=0;i<count;i++){unsigned value=lid_wire_r32(raw+320+4*i);if(value>100000)return 0;plans+=value;}
-    version=lid_blueprint_budget(stats,plans,parsed.history_length);
+    version=lid_wire_r32(raw+8)==3?((stats<=parsed.history_length&&plans<=4*(parsed.history_length-stats))?3u:0u):lid_blueprint_budget(stats,plans,parsed.history_length);
     if(!version||lid_wire_r32(raw+8)!=version)return 0;
     for(i=0;i<count;i++)counts[i]=lid_wire_r32(raw+320+4*i);
     *target=parsed;return 1;
+}
+/* V3 explicit upgrade policy; independent from unchanged character config. */
+static int lid_blueprint_encode_enhanced(BYTE*out,size_t size,const LidWireMessage*target,
+                                        const unsigned*counts,size_t count,unsigned steps,unsigned kind){
+    BYTE character[256];unsigned long long stats=0,plans=0;size_t i;
+    if(!out||!counts||steps>4||!lid_blueprint_shape(count,lid_enhancement_catalogue_hash)||
+       size!=320+4*count||!lid_wire_valid(target)||target->kind!=kind||!lid_wire_encode(character,256,target))return 0;
+    for(i=0;i<9;i++)stats+=target->counts[i];
+    for(i=0;i<count;i++){if(counts[i]>100000)return 0;plans+=counts[i];}
+    if(stats>target->history_length||plans>4*(target->history_length-stats))return 0;
+    lid_wire_zero(out,size);lid_wire_copy(out,lid_blueprint_magic,8);lid_wire_w32(out+8,3);
+    lid_wire_w32(out+12,64);lid_wire_w32(out+16,(unsigned)count);lid_wire_copy(out+20,lid_enhancement_catalogue_hash,32);
+    lid_wire_w32(out+56,steps);lid_wire_w32(out+60,2);lid_wire_copy(out+64,character,256);
+    for(i=0;i<count;i++)lid_wire_w32(out+320+4*i,counts[i]);
+    lid_wire_w32(out+52,lid_blueprint_checksum(out,size));return 1;
 }
 static int lid_blueprint_encode(BYTE* out,size_t size,const LidWireMessage* target,
                                 const unsigned* counts,size_t count,const BYTE* catalogue){

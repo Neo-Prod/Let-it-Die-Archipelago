@@ -26,7 +26,7 @@ typedef struct R92Receipt {unsigned busy,accepted,phase,fault;R112DropPlan drop_
 static int r92_view_graph(const R92Ops*o,const R82Event*e,uint64_t game,R92View*out){
  R92View v={0};uint64_t stage;
  if(!r87_identity(&o->memory,game,"BrgGameInfoNative",0,&v.game)||
- !r6_at(&o->memory,game,0x13e8,&stage,8)||!r87_identity(&o->memory,stage,"BrgStageManager",o->binding.image+0x21c3350,&v.stage)||
+ !r6_at(&o->memory,game,0x13e8,&stage,8)||!r87_identity(&o->memory,stage,"BrgStageManager",o->binding.image+0x21c7820,&v.stage)||
  !r87_graph(&o->memory,e->sample.manager,e->stamp.player,o->binding.image,&o->fields,&v.graph))return 0;
  *out=v;return 1;
 }

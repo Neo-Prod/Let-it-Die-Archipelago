@@ -196,8 +196,8 @@ static int lid_game_bag_pawn_tail_empty(const LidBagArray* array,int target,
     if(!array||!readable||target<1||target>=100||!readable(array,sizeof(*array)))return 0;
     if(array->num<0||array->num>99||array->capacity<array->num||array->capacity>4096)return 0;
     if((!array->data)!=(array->capacity==0))return 0;
-    if(array->num&&!readable(array->data,(size_t)array->num*0x718))return 0;
-    for(i=target;i<array->num;i++)if(*((BYTE*)array->data+(size_t)i*0x718)&1)return 0;
+    if(array->num&&!readable(array->data,(size_t)array->num*0x71c))return 0;
+    for(i=target;i<array->num;i++)if(*((BYTE*)array->data+(size_t)i*0x71c)&1)return 0;
     return 1;
 }
 

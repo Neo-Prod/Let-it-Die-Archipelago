@@ -1,17 +1,18 @@
-# LET IT DIE Archipelago - Version 1.11
-# Includes all 54 game options and all 11 common Archipelago options.
+# LET IT DIE Archipelago - Version 1.2
+# Includes all 56 game options and all 11 common Archipelago options.
 # Set name to your slot name. The values below are the default settings.
 # Goal: max_sharp (10F), jackson (20F), crowley (30F), taro_gunkanyama (40F).
 # Goal requirements: 15/35/80/150 character progressives and weapon/armor tiers 2/3/4/5.
 # The nine character progressive categories are added together for these requirements.
-# maximum_equipment_tier uses catalogue tiers 1..6, not native star rarity.
-# group_armor_sets=true: each receipt grants head/body/legs from the same set.
+# maximum_equipment_tier uses catalogue tiers 1..9, not native star rarity.
+# group_armor_sets=true: each receipt grants all pieces from the same set.
+# Reaper includes both X-Ray Glasses, the coat and the pants.
 # If false, pieces from three different families can satisfy the armor requirements.
 # screamer_pity=true: guarantee a check after ceil(100 / screamer_check_chance) eligible kills.
 # YAML changes apply to a NEW generation.
 
 name: Player{number}
-description: LET IT DIE Archipelago Version 1.11 - complete configuration
+description: LET IT DIE Archipelago Version 1.2 - complete default configuration
 game: LET IT DIE
 LET IT DIE:
 
@@ -139,7 +140,7 @@ LET IT DIE:
 
   # HP gained for each Progressive HP item.
   # Range: 0..100000
-  progressive_hp_increase: 200
+  progressive_hp_increase: 300
 
   # STM gained for each Progressive STM item.
   # Range: 0..10000
@@ -176,12 +177,12 @@ LET IT DIE:
   # Percent chance for an eligible Screamer kill to complete the next
   # pending Screamer location in the current 10-floor zone.
   # Range: 1..100
-  screamer_check_chance: 25
+  screamer_check_chance: 50
 
   # Guarantee a Screamer check after ceil(100 / screamer_check_chance)
   # eligible kills without a check. Any check resets the counter.
-  # Counters persist separately for each ten-floor band. Default: disabled.
-  screamer_pity: false
+  # Counters persist separately for each ten-floor band. Default: enabled.
+  screamer_pity: true
 
   # Minimum Screamer check locations in each ten-floor band (0..2500).
   # Extra locations are filled with KC items. Chance and pity still apply.
@@ -204,19 +205,24 @@ LET IT DIE:
   # Include M.I.L.K. weapons and head/body/leg armor in the generated pool.
   enable_milk: true
 
-  # Maximum global equipment tier from the user tier tables (1 to 6).
+  # Maximum global equipment tier from the user tier tables (1 to 9).
   # 
   # Each equipment remains a distinct progressive step. Two equipment types
   # in the same tier both keep their own receipt. This is not the number of
   # progressive copies per family, nor the item's star rarity.
-  # Range: 1..6
+  # Range: 1..9
   maximum_equipment_tier: 6
 
+  # Extra upgrades between PDF milestones: 0..4 (default 0).
+  # 2 gives +0, +2, +4, then the next star rank.
+  # A capped family ends at +4; later milestones follow the PDF.
+  equipment_upgrade_steps: 0
+
   # Replace each complete head/body/legs armor set's three progressive
-  # families with one progressive. Each receipt grants all three blueprints
+  # families with one progressive. Each receipt grants all member blueprints
   # of the next step. A four-step set needs four receipts instead of twelve.
-  # Isolated pieces and weapons remain separate. Default: disabled.
-  group_armor_sets: false
+  # Isolated pieces and weapons remain separate. Default: enabled.
+  group_armor_sets: true
 
   # Final boss. Checks above this boss's floor are excluded.
   # Choices: max_sharp, jackson, crowley, taro_gunkanyama
@@ -263,3 +269,8 @@ LET IT DIE:
   # Checks per faction metal type and rank, up to 4 stars and the chosen goal.
   # Set any of these three quantities to 0 to disable its checks.
   faction_metal_checks: 1
+
+  # Replace Momoka KC decals and tower merchant stock with AP purchases.
+  # Each Wednesday merchant has its own three fixed blueprint slots.
+  # Requires the matching ShopSanity native runtime.
+  shop_sanity: true

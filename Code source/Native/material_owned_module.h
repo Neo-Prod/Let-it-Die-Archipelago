@@ -16,7 +16,7 @@ static int r106_owned_copy(void*opaque,uint64_t p,void*out,size_t n){
 }
 static int r106_owned_module(const R105Hash*hash,const R105Slot*slot,const R105SlotOps*ops,const R91Binding*bound){
  R91Binding now;char digest[65];
- if(!bound||!slot||!ops||!ops->thread||slot->address!=bound->image+0x20f90d0||slot->original!=bound->entry[R91_ITEM_PROCESS]||
+ if(!bound||!slot||!ops||!ops->thread||slot->address!=bound->image+0x20fd000||slot->original!=bound->entry[R91_ITEM_PROCESS]||
  !r105_verified(hash,ops->thread(ops->context),bound->image,digest)||!r105_slot_owned(slot,ops))return 0;
  R106OwnedRead ctx={&ops->memory,slot};R6Ops memory={&ctx,r106_owned_copy,0};
  if(!r91_module_bind(&memory,bound->image,digest,&now)||now.image!=bound->image)return 0;

@@ -38,10 +38,10 @@ static int r87_field(const R6Ops*o,uint64_t cls,const char*owner_name,const char
 static int r87_graph(const R6Ops*o,uint64_t manager,uint64_t player,uint64_t base,const R87Fields*f,R87Graph*out){
  R87Graph g={0};uint64_t ui,info,guide,pawn,panel;
  if(!f||!out||!base||base>UINT64_MAX-0x2200000||f->manager_ui!=0x68||f->manager_guide!=0x92cfc||f->ui_info!=0x296c||f->ui_player!=0x2d4c||f->info_panels!=0xb8||
- !r87_identity(o,manager,"BrgDropItemManager",base+0x20f8d60,&g.manager)||
- !r6_at(o,manager,f->manager_ui,&ui,8)||!r87_identity(o,ui,"BrgUIManager",base+0x21d81b0,&g.ui)||
- !r6_at(o,manager,f->manager_guide,&guide,8)||!r87_identity(o,guide,"BrgUIHUD_ButtonGuide",base+0x21cc290,&g.guide)||
- !r6_at(o,ui,f->ui_info,&info,8)||!r87_identity(o,info,"BrgUIHUD_ItemInfoManager",base+0x21d0d20,&g.info)||
+ !r87_identity(o,manager,"BrgDropItemManager",base+0x20fcc90,&g.manager)||
+ !r6_at(o,manager,f->manager_ui,&ui,8)||!r87_identity(o,ui,"BrgUIManager",base+0x21dbca0,&g.ui)||
+ !r6_at(o,manager,f->manager_guide,&guide,8)||!r87_identity(o,guide,"BrgUIHUD_ButtonGuide",base+0x21d0000,&g.guide)||
+ !r6_at(o,ui,f->ui_info,&info,8)||!r87_identity(o,info,"BrgUIHUD_ItemInfoManager",base+0x21d4830,&g.info)||
  !r6_at(o,ui,f->ui_player,&pawn,8)||pawn!=player||!r87_identity(o,pawn,"BrgCommonPawn_CustomCharaNative",0,&g.player))return 0;
  for(unsigned i=0;i<3;i++)if(!r6_at(o,info,f->info_panels+8*i,&panel,8)||!r87_identity(o,panel,"BrgUIMenuPart_ItemInfoPanel",0,&g.panels[i]))return 0;
  *out=g;return 1;

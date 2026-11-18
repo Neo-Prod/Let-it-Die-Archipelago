@@ -12,7 +12,7 @@ from .CheckWire import Context
 SIZE=256
 REQUEST,READY=1,2
 MAGIC=b'LIDMAT01'
-BUILD=bytes.fromhex('f33e91e6e8d58566bfabad8d01cd0486586a0d43fe1c58e65fc6485a417bddfd')
+BUILD=bytes.fromhex('6cfadbba9da3e2f3b3a4463194d247a50d2537a3ad704174730a0bbf899e42ca')
 REQUEST_FILE='material_client_capability.bin'
 READY_FILE='material_native_capability.bin'
 

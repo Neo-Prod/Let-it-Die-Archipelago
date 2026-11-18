@@ -45,9 +45,9 @@ static int starter_marker_publish(void){
 static int starter_native_profile(LidBlueprintDomain*d){
     static const BYTE prefix[16]={0x48,0x83,0xec,0x28,0x48,0x85,0xd2,0x75,0x07,0x32,0xc0,0x48,0x83,0xc4,0x28,0xc3};
     BYTE*exe=g_progress_event_exe;
-    return exe&&d->native.guard(d->native.context)==1&&readable_range(exe+0x131ac20,16)&&
-        lid_wire_equal(exe+0x131ac20,prefix,16)&&executable_ptr(exe,exe+0x131ac20)&&
-        executable_ptr(exe,exe+0x130c7d0);
+    return exe&&d->native.guard(d->native.context)==1&&readable_range(exe+0x131b310,16)&&
+        lid_wire_equal(exe+0x131b310,prefix,16)&&executable_ptr(exe,exe+0x131b310)&&
+        executable_ptr(exe,exe+0x130cfb0);
 }
 static int starter_native_erase(void*context,unsigned part,unsigned level){
     typedef void*(WINAPI*Find)(void*,const unsigned short*,unsigned);
@@ -55,10 +55,10 @@ static int starter_native_erase(void*context,unsigned part,unsigned level){
     LidBlueprintDomain*d=context;BYTE*exe=g_progress_event_exe;BYTE*row;unsigned short ptid[64];
     if((part!=16&&part!=20)||(level!=1&&level!=2)||!starter_native_profile(d))return 0;
     lid_bp_utf_from_ascii(ptid,lid_blueprint_parts[part]);
-    row=((Find)(exe+0x130c7d0))(exe+0x27e3000,ptid,level);
+    row=((Find)(exe+0x130cfb0))(exe+0x27e8010,ptid,level);
     if(!row||!readable_range(row,0x58)||*(unsigned*)(row+0x18)!=level||
        !v074_skill_fstring_matches(row+8,lid_blueprint_parts[part]))return 0;
-    return ((Erase)(exe+0x131ac20))(exe+0x27e3000,row)==1;
+    return ((Erase)(exe+0x131b310))(exe+0x27e8010,row)==1;
 }
 static int starter_guard(void*context){LidBlueprintDomain*d=context;return starter_native_profile(d);}
 static int starter_read(void*context,LidBlueprintNativeSnapshot*out){
@@ -78,7 +78,7 @@ static int starter_commit(void*context){
     if(g_starter_policy_state==0&&mask){
         LidStarterOps ops={d,starter_guard,starter_read,starter_native_erase};
         lid_wire_zero(d->waiting_parts,sizeof(d->waiting_parts));
-        if(d->waiting(d->waiting_context,d->waiting_parts,976)!=1||
+        if(d->waiting(d->waiting_context,d->waiting_parts,LID_BLUEPRINT_PART_COUNT)!=1||
            lid_starter_mask(&d->before,d->counts,d->waiting_parts)!=mask||
            !lid_starter_cleanup(&d->before,&d->after,mask,&ops))return 0;
         log_ascii("AP STARTER R22: inherited default blueprint pairs removed; AP receipts and other plans preserved.");

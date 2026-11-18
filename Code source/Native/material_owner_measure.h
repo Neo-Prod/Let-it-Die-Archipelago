@@ -15,7 +15,7 @@ static int r119_owner_step(R105Hash*s,const R105Ops*o,uint32_t tid){
   if(!n||n>=1000||path[n]!=0)goto failed;
   s->file=o->io->open(path,GENERIC_READ,FILE_SHARE_READ,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);
   if(s->file==INVALID_HANDLE_VALUE){s->file=0;goto failed;}
-  if(!o->file_size(s->file,&size)||size!=45069312ll)goto failed;s->expected=(uint64_t)size;
+  if(!o->file_size(s->file,&size)||size!=45076480ll)goto failed;s->expected=(uint64_t)size;
   if(o->open_alg(&s->algorithm,L"SHA256",0,0)<0||!s->algorithm||
   o->property(s->algorithm,L"ObjectLength",(BYTE*)&object_size,4,&got,0)<0||got!=4||!object_size||object_size>sizeof(s->object)||
   o->property(s->algorithm,L"HashDigestLength",(BYTE*)&digest_size,4,&got,0)<0||got!=4||digest_size!=32||

@@ -2,14 +2,14 @@
 #define LID_MATERIAL_INPUT_SLOT_R122_H
 #include "material_owned_module.h"
 static const uint8_t r122_input_bytes[32]={0x48,0x83,0xec,0x28,0x48,0x8b,0x49,0x68,0xba,0x01,0x00,0x00,0x00,0x48,0x8b,0x01,0xff,0x90,0xb0,0x02,0x00,0x00,0xc1,0xe8,0x04,0x83,0xe0,0x01,0x48,0x83,0xc4,0x28};
-static int r122_input_prefix(const R6Ops*o,uint64_t image){uint8_t bytes[32];return image&&image<=UINT64_MAX-0x2200000&&r6_at(o,image,0x10b5af0,bytes,32)&&!memcmp(bytes,r122_input_bytes,32);}
+static int r122_input_prefix(const R6Ops*o,uint64_t image){uint8_t bytes[32];return image&&image<=UINT64_MAX-0x2200000&&r6_at(o,image,0x10b59c0,bytes,32)&&!memcmp(bytes,r122_input_bytes,32);}
 static int r122_input_install_raw(R105Slot*s,const R105SlotOps*o,const R91Binding*b,uint32_t owner,uint64_t replacement){
  uint64_t current,observed;uint32_t old=0,ignored=0;
- if(!s||!o||!o->thread||!o->protect||!o->cas||!b||!b->image||b->image>UINT64_MAX-0x20f90f8||
+ if(!s||!o||!o->thread||!o->protect||!o->cas||!b||!b->image||b->image>UINT64_MAX-0x20fd028||
  !owner||o->thread(o->context)!=owner||!replacement||!r122_input_prefix(&o->memory,b->image))return 0;
- if(s->attempted)return s->owner==owner&&s->replacement==replacement&&s->address==b->image+0x20f90f8&&r105_slot_owned(s,o);
- if(!r6_copy(&o->memory,b->image+0x20f90f8,&current,8)||current!=(b->image+0x10b5af0)||replacement==current)return 0;
- s->owner=owner;s->address=b->image+0x20f90f8;s->replacement=replacement;s->attempted=1;
+ if(s->attempted)return s->owner==owner&&s->replacement==replacement&&s->address==b->image+0x20fd028&&r105_slot_owned(s,o);
+ if(!r6_copy(&o->memory,b->image+0x20fd028,&current,8)||current!=(b->image+0x10b59c0)||replacement==current)return 0;
+ s->owner=owner;s->address=b->image+0x20fd028;s->replacement=replacement;s->attempted=1;
  /* Dispatcher must acquire original even for foreign/reentrant calls. */
  __atomic_store_n(&s->original,current,__ATOMIC_RELEASE);
  if(!o->protect(o->context,s->address,8,4 /* PAGE_READWRITE */,&old))return 0;
@@ -34,7 +34,7 @@ static int r122_input_install(R105Slot*s,const R105SlotOps*o,const R91Binding*b,
    A NULL completion means pre-completion validation, not permission to add. */
 static int r122_owned_module(const R105Hash*hash,const R105Slot*input,const R105Slot*completion,const R105SlotOps*o,const R91Binding*b){
  char digest[65];R91Binding now;
- if(!input||!o||!b||input->address!=b->image+0x20f90f8||input->original!=b->image+0x10b5af0||
+ if(!input||!o||!b||input->address!=b->image+0x20fd028||input->original!=b->image+0x10b59c0||
  !r105_slot_owned(input,o)||!r122_input_prefix(&o->memory,b->image))return 0;
  if(completion){if(!r106_owned_module(hash,completion,o,b))return 0;}
  else{

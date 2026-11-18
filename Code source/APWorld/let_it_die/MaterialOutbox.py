@@ -7,6 +7,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import hashlib,json,os,re,tempfile
 from .CheckMapIds import area_for_floor
+from .ScreamerIds import SCREAMER_CAP
 from .MaterialIdentity import BY_ID
 from .MaterialCatalogue import eligible
 from .MaterialEvents import Material
@@ -130,7 +131,7 @@ class MaterialCheckOutbox:
                 if s.kind=='miniboss' and s.tag not in MINIS.values():raise ValueError('invalid boss')
                 key=(s.kind,s.floor,s.area,s.tag)
             elif s.kind=='screamer':
-                integer(s.zone,0,3);integer(s.ordinal,1,2500);key=(s.kind,s.zone,s.ordinal)
+                integer(s.zone,0,3);integer(s.ordinal,1,SCREAMER_CAP);key=(s.kind,s.zone,s.ordinal)
             elif s.kind=='tuber':
                 if s.tag not in TUBER_DEFAULTS:raise ValueError('invalid family')
                 integer(s.version,1,5);integer(s.ordinal,1,1000);key=(s.kind,s.tag,s.version,s.ordinal)

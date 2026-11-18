@@ -2,6 +2,7 @@
 #define LID_KILL_COIN_DISK_R142_H
 #include "checks_disk_io.h"
 #include "kill_coin_worker.h"
+#include "archive_compatibility.h"
 /* Long-lived worker storage; do not allocate this large path table on an
    unprobed game-thread stack. Parent owns the existing exclusive slot lease. */
 typedef struct R142Disk {
@@ -26,7 +27,9 @@ static int r142_read(void*opaque,unsigned which,R138Frame*out){
  if(h==INVALID_HANDLE_VALUE)return o->error()==2?0:-1;
  uint8_t raw[257];DWORD count=0;int ok=o->read(h,raw,257,&count,0)!=0;int closed=o->close(h)!=0;
  if(!closed){d->fault=1;d->uncertain_handle=h;}
- return ok&&closed&&count==256&&r138_decode(out,raw,count)?1:-1;
+ if(!ok||!closed||count!=256)return -1;
+ if((which==R141_LEDGER_FILE||which==R141_INTENT_FILE)&&!lid_archive_rebind(raw,raw,256,192,252))return -1;
+ return r138_decode(out,raw,count)?1:-1;
 }
 static int r142_put(void*opaque,unsigned which,const R138Frame*f){
  R142Disk*d=opaque;if(!r142_ready(d)||which<2||which>4||!r138_valid(f))return 0;

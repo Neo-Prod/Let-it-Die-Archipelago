@@ -28,7 +28,7 @@ static int r124_reconcile(R124World*w,R108Host*h,const R104Snapshot*current,cons
  !h->ops.active_snapshot(h->ops.context,stamp.player,current->view.graph.manager.object,&again)||
  !r74_same_stamp(&again.stamp,&current->stamp)||!r103_same_view(&again.view,&current->view)||
  !r6_at(&h->ops.memory,current->view.game.object,0x13e8,&stage_object,8)||
- !r87_identity(&h->ops.memory,stage_object,"BrgStageManager",h->binding.image+0x21c3350,&stage))goto end;
+ !r87_identity(&h->ops.memory,stage_object,"BrgStageManager",h->binding.image+0x21c7820,&stage))goto end;
  if(!strcmp(stamp.floor,h->pickup.event.stamp.floor)&&!strcmp(stamp.area,h->pickup.event.stamp.area)&&
  r87_same_identity(&stage,&h->pickup.view.stage)&&r87_same_identity(&current->view.game,&h->pickup.view.game)&&
  r87_same_identity(&current->view.graph.player,&h->pickup.view.graph.player)&&r87_same_identity(&current->view.graph.manager,&h->pickup.view.graph.manager)&&!recovering){result=0;goto end;}

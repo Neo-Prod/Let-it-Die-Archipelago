@@ -27,7 +27,7 @@ def main():
         (output/(label+'.log')).write_text(p.stdout+p.stderr,encoding='utf-8')
         if p.returncode:raise RuntimeError(label+' failed: '+p.stderr)
     common=config['native_flags']+['-I',str(native)]
-    run('native',common+config['features']+['-c',str(source/'Build/native.c'),'-o',str(output/'native.obj')])
+    run('native',common+config.get('native_extra_flags',[])+config['features']+['-c',str(source/'Build/native.c'),'-o',str(output/'native.obj')])
     run('winlite',common+['-c',str(native/'winlite.c'),'-o',str(output/'winlite.obj')])
     run('fast',config['fast_flags']+['-I',str(native),'-c',str(native/'status_scan_fast.c'),'-o',str(output/'status_scan_fast.obj')])
     run('guard',config['guard_flags']+['-I',str(native),'-c',str(native/'status_scan_guard.c'),'-o',str(output/'status_scan_guard.obj')])

@@ -19,9 +19,9 @@ static int progress_hub_area_view(void* self,int* empty,int* native_hub){
     BYTE (WINAPI *is_hub)(void*);
     if(!exe||!stage||!empty||!native_hub||!g_progress_runtime_mutex.ops.thread_id||
        !(game=progress_native_game(exe))||lid_progress_game_started(game,progress_native_readable)!=1||
-       *(void**)(game+0x13e8)!=self||!readable_range(stage,0x5f0)||*(void**)stage!=exe+0x21c3350)return 0;
+       *(void**)(game+0x13e8)!=self||!readable_range(stage,0x5f0)||*(void**)stage!=exe+0x21c7820)return 0;
     vt=*(void***)stage;
-    if(!readable_range(vt,0x438)||vt[0x430/8]!=exe+0x143b2f0||vt[0x3d0/8]!=exe+0x1433900)return 0;
+    if(!readable_range(vt,0x438)||vt[0x430/8]!=exe+0x143c430||vt[0x3d0/8]!=exe+0x1434a40)return 0;
     strings.readable=progress_native_readable;area=(RawFString*)(stage+0x5e0);
     if(!lid_game_bag_string_valid((LidBagString*)area,&strings))return 0;
     *empty=area->num<=1;*native_hub=0;
@@ -56,10 +56,10 @@ static int progress_install_hub_observer(void* module){
     if(g_hub_area_install_state)return g_hub_area_install_state==1;
     g_hub_area_install_state=-1;
     if(!exe||!g_win.VirtualAlloc||!g_win.VirtualProtect||!g_win.FlushInstructionCache||
-       !g_progress_runtime_mutex.ops.thread_id||!executable_ptr(exe,exe+0x143b2f0))return 0;
+       !g_progress_runtime_mutex.ops.thread_id||!executable_ptr(exe,exe+0x143c430))return 0;
     g_hub_event_exe=exe;
     g_progress_event_exe=exe;
-    if(!hook_install(&g_hub_area_hook,exe+0x143b2f0,(void*)progress_hub_area_set,prefix,sizeof(prefix))){
+    if(!hook_install(&g_hub_area_hook,exe+0x143c430,(void*)progress_hub_area_set,prefix,sizeof(prefix))){
         log_ascii("AP HUB R17: area observer rejected; no fallback or guessed offset.");return 0;
     }
     g_hub_area_original=(LidNativeAreaSetter)g_hub_area_hook.trampoline;g_hub_area_install_state=1;

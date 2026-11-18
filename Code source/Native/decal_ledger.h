@@ -3,6 +3,13 @@
 /* Research pure parser/planner. No I/O, game calls, mutation or save authority.
    Include progression_wire.h, blueprint_wire.h, decal_catalog.h first. */
 #define LID_DECAL_FRAME_SIZE 1152u
+#include "archive_compatibility.h"
+static int lid_decal_archive(unsigned char*out,const unsigned char*raw,size_t n){
+    if(!out||!raw||n!=1152||lid_wire_r32(raw+52)!=lid_blueprint_checksum(raw,n))return 0;
+    lid_wire_copy(out,raw,n);
+    if(!lid_archive_rebind(out+64,raw+64,256,192,224))return 0;
+    lid_wire_w32(out+52,lid_blueprint_checksum(out,n));return 1;
+}
 typedef struct LidDecalLedger {
     LidWireMessage committed_target;unsigned counts[208];
     BYTE identity[32],config[32];
@@ -18,9 +25,11 @@ static int lid_decal_saved_decode(unsigned*counts,LidWireMessage*saved,const BYT
    On rejection caller-owned output is unchanged. NEVER resolve from stock. */
 static int lid_decal_ledger_parse(LidDecalLedger*out,const BYTE*ledger,size_t ledger_n,const BYTE*pending,size_t pending_n,
                                   const BYTE*identity,const BYTE*config){
-    LidWireMessage committed={0},parsed,attempt;BYTE expected[256],pending_target[256];unsigned counts[208]={0},pending_counts[208];size_t i;
+    LidWireMessage committed={0},parsed,attempt;BYTE expected[256],pending_target[256],archive[2][1152];unsigned counts[208]={0},pending_counts[208];size_t i;
     if(!out||out->loaded||!identity||!config||!lid_wire_nonzero(identity,32)||!lid_wire_nonzero(config,32)||
        (ledger_n&&(!ledger||ledger_n!=1152))||(pending_n&&(!pending||pending_n!=1152)))return -1;
+    if(ledger_n){if(!lid_decal_archive(archive[0],ledger,ledger_n))return -1;ledger=archive[0];}
+    if(pending_n){if(!lid_decal_archive(archive[1],pending,pending_n))return -1;pending=archive[1];}
     if(ledger_n){
         if(!lid_wire_decode(&parsed,ledger+64,256)||parsed.kind!=LID_WIRE_SAVED||parsed.status!=1||
            !lid_wire_equal(parsed.identity,identity,32)||!lid_wire_equal(parsed.config,config,32))return -1;

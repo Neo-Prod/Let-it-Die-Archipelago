@@ -18,8 +18,8 @@ typedef struct R31Patch {
 enum{R31_PATCH_EMPTY,R31_PATCH_PREPARING,R31_PATCH_READY,R31_PATCH_FAILED,R31_PATCH_POISONED};
 typedef struct R31PatchSet {unsigned state;R31Patch entries[2];void*originals[2];} R31PatchSet;
 static const struct R31Profile {uintptr_t rva;unsigned size;unsigned char bytes[16];} r31_profiles[2]={
-    {0x114ac90,15,{0x48,0x89,0x4c,0x24,0x08,0x53,0x55,0x56,0x57,0x41,0x56,0x48,0x83,0xec,0x70}},
-    {0x1360950,16,{0x44,0x88,0x44,0x24,0x18,0x55,0x56,0x57,0x41,0x54,0x41,0x55,0x41,0x56,0x41,0x57}}
+    {0x1143710,15,{0x48,0x89,0x4c,0x24,0x08,0x53,0x55,0x56,0x57,0x41,0x56,0x48,0x83,0xec,0x70}},
+    {0x1362740,16,{0x44,0x88,0x44,0x24,0x18,0x55,0x56,0x57,0x41,0x54,0x41,0x55,0x41,0x56,0x41,0x57}}
 };
 static void r31_jump(unsigned char*out,const void*target){
     uintptr_t p=(uintptr_t)target;out[0]=0xff;out[1]=0x25;out[2]=out[3]=out[4]=out[5]=0;__builtin_memcpy(out+6,&p,8);
@@ -52,7 +52,7 @@ static int r31_patch_rollback(R31PatchSet*s,const R31PatchOps*o){
     s->state=good?R31_PATCH_FAILED:R31_PATCH_POISONED;return good;
 }
 static int r31_patch_install(R31PatchSet*s,uintptr_t base,int verified_sha,void*const detours[2],const R31PatchOps*o){
-    if(!s||s->state!=R31_PATCH_EMPTY||!base||base>UINTPTR_MAX-0x1361000||verified_sha!=1||
+    if(!s||s->state!=R31_PATCH_EMPTY||!base||base>UINTPTR_MAX-0x1363000||verified_sha!=1||
        !detours||!detours[0]||!detours[1]||!o||!o->quiet||!o->readable||!o->allocate||!o->release||
        !o->writable||!o->protect||!o->flush||o->quiet(o->context)!=1)return 0;
     for(unsigned i=0;i<2;i++){
