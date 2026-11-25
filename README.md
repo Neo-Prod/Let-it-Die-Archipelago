@@ -1,30 +1,110 @@
-# LET IT DIE Archipelago - Version 1.3
+# LET IT DIE Archipelago
+
+## 1. Install the mod
+
+Close LET IT DIE. Copy **`dinput8.dll`** and the supplied **`Archipelago`** folder into the game's `Binaries/Win64/` folder:
+
+```text
+LET IT DIE/
+  Binaries/
+    Win64/
+      dinput8.dll
+      Archipelago/
+        LetItDieArchipelago.dll
+```
+
+Copy **`let_it_die.apworld`** into Archipelago's **`custom_worlds`** folder, then restart Archipelago Launcher. Copy **`LetItDie.yaml`** into the **`Players`** folder used for generation. Set your slot name and options, then generate and host your Archipelago game.
+
+## 2. Back up your existing save
+
+With the game closed, open the `Savedata` folder inside the LET IT DIE installation folder. Your save is inside a profile subfolder:
+
+```text
+LET IT DIE/Savedata/<profile>/brggame.sav
+```
+
+**If a save already exists, copy the entire `Savedata` folder somewhere safe outside the game folder first.** This also preserves any backup files. Check that your copy contains `brggame.sav` before proceeding.
+
+Once the backup is confirmed, move the existing profile folder out of `Savedata` so the game can create a fresh save. Keep your backup: do not delete it or overwrite it with the new game. Do not leave extra profile copies inside `Savedata`; the AP client expects one active native save profile.
+
+## 3. Prepare the starting save
+
+1. Launch LET IT DIE and start a **new normal game without connecting to Archipelago yet**.
+2. Play the tutorial until the **mandatory death of the first fighter**.
+3. Continue until you reach the **Waiting Room with the second fighter**.
+4. **Quit the game at this point**, allowing it to save normally.
+
+This is the starting save needed by the Archipelago client. You do not need someone else's save.
+
+## 4. Connect and play
+
+Launch LET IT DIE again. From the **title menu**, use the **Archipelago connection option** and enter the connection details for your generated game.
+
+Wait for the connection confirmation, then start the game normally. You can now play your Archipelago run.
+
+## Included files and requirements
+
+Only the `Archipelago` folder, `dinput8.dll`, `let_it_die.apworld` and `LetItDie.yaml` are needed for the mod installation, in addition to LET IT DIE and Archipelago themselves. Universal Tracker is optional and installed separately.
+
+The YAML includes all options with default values. `manifest.json` and `SHA256SUMS.txt` are optional integrity information, not game requirements. No saves, logs or personal connection details are included.
+
+## Four goals
+
+Choose the boss that ends your run:
+
+- Max Sharp
+- Jackson
+- Crowley
+- Taro Gunkanyama
+
+Checks above your chosen goal's floor are excluded from the run.
+
+## Customizable starting fighter
+
+Start with a **Grade 6 fighter**, with starting stats and gains per progressive item configured in your YAML. This includes the six base stats, **Death Bag capacity**, **skill slots**, and **Rage Gauge capacity**.
+
+## Blueprints, decals, and equipment
+
+Equipment blueprints and premium decals are available as Archipelago items. Choose the **maximum equipment tier** and which equipment factions are included in your run:
+
+- D.O.D. Arms
+- War Ensemble
+- Candle Wolf
+- M.I.L.K.
+
+Equipment is progressive: each receipt unlocks the next blueprint in its equipment family, available to purchase at **+0**. Previously unlocked equipment remains available.
+Equipment catalogue tiers now range from 1 to 9. **maximum_equipment_tier** defaults to 6. 
+**equipment_upgrade_steps** defaults to 0 and accepts 0 to 4 extra receipts between tier-table milestones. 
+For example, 2 gives +0, +2, +4, then the next equipment rank. 
+Uncapped milestones follow the tier table, including +5/+10/+15/+20 where applicable.
+
+An optional setting groups each armor set into one progressive item family, unlocking its **head, body, and leg pieces together**. When disabled, the three pieces progress separately.
 
 ## Progressive Floor
 
-`progressive_floor` is optional and defaults to false. When enabled, Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. `progressive_floor_quantity` defaults to36. Minimum quantities by goal are9 for Max Sharps,18 for Jackson,27 for Crowley and36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
+**progressive_floor** is optional Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. 
+**progressive_floor_quantity** defaults to 36. Minimum quantities by goal are9 for Max Sharps,18 for Jackson,27 for Crowley and36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
 
-## MasterySanity
+## Filler
 
-- `mastery_sanity`: optional mastery checks, false by default.
-- `mastery_checks`:1..20 checks per eligible mastery, default 20. Levels are evenly spaced and always include 20. Seven checks use3,6,9,11,14,17,20.
-- `mastery_include_fists`: include fist checks, true by default. Fists also cap at 20.
-- `mastery_xp_multiplier`:1..100, default 1. Multiplies native mastery XP from enemy defeats; normal fighter XP is unchanged. This option also works with MasterySanity disabled, I recommend multiplying the XP by 10 if you activate mastery sanity
+- KC (Kill Coins) 2.000, 10.000 and 50.000.
 
-Only weapon families available through the run's allowed AP progressives receive mastery locations. The tracker also considers received weapons, their current upgrade requirements and the six AP base stats. Optional temporary bonuses or requirement-reducing decals are not assumed as guaranteed access. Native level rewards and XP display remain in control of the game.
+## Checks and locations
 
-## Equipment
+- **Bosses:** defeat bosses and minibosses.
+- **Exploration:** visit each included area for the first time.
+- **Haters:** defeat the Hater in each eligible area.
+- **Tubers:** configure the number of checks per eligible version for each of the six families in your YAML: **Scratch, Hovering, Bullet, Bone, Reversal, and Treasure**.
+- **Screamers:** the remaining checks are distributed as evenly as possible between the included **10-floor bands**. Each eligible Screamer kill has a configurable chance to award a check for its band.
 
-Equipment tiers range from1 to9. Faction toggles and **maximum_equipment_tier** select the pool. **equipment_upgrade_steps** accepts0..4 intermediate upgrades. Grouped armor sets remain optional. Reaper's Set now includes both glasses, coat and pants.
+An optional **Screamer pity** setting guarantees a check after `ceil(100 / check chance)` eligible kills without a check. Receiving a check resets the counter. For example, at a **25%** chance, the fourth eligible kill is guaranteed to award a check if the first three did not. At **50%**, the guarantee also occurs on the second kill.
 
-## Shop Sanity
+- **Chest Sanity** red, silver, and gold chests, for each **10-floor bands**.
+- **Material Sanity** copper, aluminium, iron, oil, wood, cloth and faction metals.
+- **ShopSanity**
+- **MasterySanity**
 
-Momoka's Kill Coin decal stock and Wednesday tower merchants become AP purchase locations; each tower merchant has three fixed blueprint slots. Purchases send checks and become unavailable after completion. Set **shop_sanity: false** for normal merchant purchases.
+## AI Disclosure
 
-With ShopSanity enabled, opening a buy list reveals Archipelago hints for that merchant's currently available, unpurchased offers. Momoka hints only her currently unlocked Kill Coin offers, including all available categories; later unlocks are not revealed in advance. Insufficient KC does not hide an otherwise unlocked offer. Tower hints belong to the exact merchant opened.
-
-Each shop location is hinted once per run. This addition needs no new generation for an existing ShopSanity-enabled run. Opening a shop does not buy an item or grant a reward.
-
-## Bug fix
-
-There was an issue in previous versions where your character's stats were the same as the rank 1 screamers, so the higher your stats were, the higher the enemies' stats were too. The problem has been fixed.
+AI was used in this project mainly for decompilation and recovering classes and native functions using Guidra and UE Explorer. 
+It was also used to run tests to spot potential errors to avoid having to test each change in-game, which saved a lot of time.
