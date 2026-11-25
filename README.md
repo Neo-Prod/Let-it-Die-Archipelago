@@ -2,12 +2,12 @@
 
 ## Progressive Floor
 
-**progressive_floor** is optional and defaults to false. When enabled, Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. **progressive_floor_quantity** defaults to36. Minimum quantities by goal are9 for Max Sharps,18 for Jackson,27 for Crowley and36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
+**progressive_floor** is optional and defaults to false. When enabled, Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. **progressive_floor_quantity** defaults to 36. Minimum quantities by goal are 9 for Max Sharps, 18 for Jackson, 27 for Crowley and 36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
 
 ## MasterySanity
 
 - **mastery_sanity**: optional mastery checks, false by default.
-- **mastery_checks**:1..20 checks per eligible mastery, default 20. Levels are evenly spaced and always include 20. Seven checks use3,6,9,11,14,17,20.
+- **mastery_checks**:1..20 checks per eligible mastery, default 20. Levels are evenly spaced and always include 20. Seven checks use 3,6,9,11,14,17,20.
 - **mastery_include_fists**: include fist checks, true by default. Fists also cap at 20.
 - **mastery_xp_multiplier**:1..100, default 1. Multiplies native mastery XP from enemy defeats; normal fighter XP is unchanged. This option also works with MasterySanity disabled, I recommend multiplying the XP by 10 if you activate mastery sanity
 
