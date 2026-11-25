@@ -2,14 +2,14 @@
 
 ## Progressive Floor
 
-`progressive_floor` is optional and defaults to false. When enabled, Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. `progressive_floor_quantity` defaults to36. Minimum quantities by goal are9 for Max Sharps,18 for Jackson,27 for Crowley and36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
+**progressive_floor** is optional and defaults to false. When enabled, Progressive Floor permanently unlocks numbered ascents within each ten-floor band. The transitions10->11,20->21,30->31 and40->41 are exempt. **progressive_floor_quantity** defaults to36. Minimum quantities by goal are9 for Max Sharps,18 for Jackson,27 for Crowley and36 for Taro Gunkanyama. Insufficient enabled quantities are rejected during generation. Floor items apply through the existing Waiting Room delivery point; extra copies beyond the goal requirement have no further effect. Universal Tracker uses the same floor requirements.
 
 ## MasterySanity
 
-- `mastery_sanity`: optional mastery checks, false by default.
-- `mastery_checks`:1..20 checks per eligible mastery, default 20. Levels are evenly spaced and always include 20. Seven checks use3,6,9,11,14,17,20.
-- `mastery_include_fists`: include fist checks, true by default. Fists also cap at 20.
-- `mastery_xp_multiplier`:1..100, default 1. Multiplies native mastery XP from enemy defeats; normal fighter XP is unchanged. This option also works with MasterySanity disabled, I recommend multiplying the XP by 10 if you activate mastery sanity
+- **mastery_sanity**: optional mastery checks, false by default.
+- **mastery_checks**:1..20 checks per eligible mastery, default 20. Levels are evenly spaced and always include 20. Seven checks use3,6,9,11,14,17,20.
+- **mastery_include_fists**: include fist checks, true by default. Fists also cap at 20.
+- **mastery_xp_multiplier**:1..100, default 1. Multiplies native mastery XP from enemy defeats; normal fighter XP is unchanged. This option also works with MasterySanity disabled, I recommend multiplying the XP by 10 if you activate mastery sanity
 
 Only weapon families available through the run's allowed AP progressives receive mastery locations. The tracker also considers received weapons, their current upgrade requirements and the six AP base stats. Optional temporary bonuses or requirement-reducing decals are not assumed as guaranteed access. Native level rewards and XP display remain in control of the game.
 
