@@ -3,12 +3,14 @@
 Numbers refer to EquipmentTiers, never receipt indices or native star rarity.
 This module has no game/process, transport, or save access.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from . import Items
 from .ArmorSets import SETS
 from .EquipmentProgression import stages_for, option_steps, EquipmentStage
 from .EquipmentPool import _catalogue
+from .FloorProgression import OPTION_NAMES as FLOOR_OPTION_NAMES
+from .MasteryCatalogue import OPTION_NAMES as MASTERY_OPTION_NAMES
 
 
 @dataclass(frozen=True)
@@ -19,6 +21,8 @@ class Route:
     weapon: int
     armor: int
     stats: int
+    skills: int = 0
+    rage: int = 0
 
     @property
     def last_floor(self):
@@ -60,14 +64,24 @@ ROUTES = (
 )
 GOAL_ROUTE = {10: 2, 20: 5, 30: 8, 40: 13}
 
+# Marker-less seeds keep the rules used to place their items. New runs use
+# Content/Universal.txt, revision archived with R349 (2026-11-23).
+LEGACY_ROUTES = ROUTES
+ROUTES = tuple(replace(route, stats=stats, skills=skills, rage=rage)
+               for route, stats, skills, rage in zip(LEGACY_ROUTES,
+                   (5, 10, 20, 25, 30, 40, 50, 70, 80, 95, 100, 130, 135, 150),
+                   (0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4),
+                   (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2)))
+
 
 class TowerLogic:
     def __init__(self, world):
         from .Locations import ROOM_VISIT_LOCATIONS
         self.world = world
         self.player = world.player
+        self.modern = bool(world.boss_logic_schema)
         self.grouped = bool(world.options.group_armor_sets.value)
-        self.routes = ROUTES[:GOAL_ROUTE[int(world.options.goal.value)] + 1]
+        self.routes = (ROUTES if self.modern else LEGACY_ROUTES)[:GOAL_ROUTE[int(world.options.goal.value)] + 1]
         self.maps = {name.removesuffix(' - Visit'): data for name, data in ROOM_VISIT_LOCATIONS.items()
                      if int(name.split('F', 1)[0]) <= world.check_catalogue['goal_floor']}
         self.map_keys = {}
@@ -116,21 +130,36 @@ class TowerLogic:
                     if (slot in slots or (slot == 'set' and len(slots) == 3)) and actual >= tier:
                         best[name] = min(copies, best.get(name, copies))
                 self.alternatives[tier, slot] = tuple(best.items())
+        if self.modern:
+            from .BossEquipment import BossEquipment
+            self.wearable = BossEquipment(world)
 
     def has_slot(self, state, tier, slot):
+        if self.modern:
+            return self.wearable.has_slot(state, tier, slot)
         return any(state.has(name, self.player, copies)
                    for name, copies in self.alternatives[tier, slot])
+
+    def capacity(self, state, key, label):
+        value = lambda name: int(getattr(self.world.options, name).value)
+        return value('starting_' + key) + min(state.count('Progressive ' + label, self.player),
+            value('progressive_' + key + '_quantity')) * value('progressive_' + key + '_increase')
 
     def ready(self, state, index):
         route = self.routes[index]
         return (sum(state.count(name, self.player) for name in Items.STAT_ITEMS) >= route.stats
+                and (not self.modern or (
+                    self.capacity(state, 'death_bag', 'Death Bag') >= (4 if route.armor else 1)
+                    and self.capacity(state, 'skill_slots', 'Skill Slots') >= route.skills
+                    and self.capacity(state, 'rage_gauge', 'Rage Gauge') >= route.rage))
                 and self.has_slot(state, route.weapon, 'weapon')
                 and (not route.armor or (self.has_slot(state, route.armor, 'set') if self.grouped else
                      all(self.has_slot(state, route.armor, slot) for slot in ('head', 'body', 'legs')))))
 
     def rule(self, index):
         # A later requirement implies all preceding ones (monotonic minima).
-        return lambda state: self.ready(state, index)
+        floor = max(int(room.split('F', 1)[0]) for room in self.routes[index].bosses)
+        return lambda state: self.ready(state, index) and self.world.floor_policy.can_enter(state, self.player, floor)
 
     def validate_pool(self):
         required = self.routes[-1]
@@ -146,6 +175,24 @@ class TowerLogic:
         for slot, tier in needed:
             if not self.alternatives[tier, slot]:
                 raise ValueError(f'LET IT DIE {required.name} needs a tier {tier}+ {slot}; faction/tier options exclude all candidates.')
+        if self.modern:
+            quantities = Items.get_equipment_quantities(self.world.options)
+            for name, item in Items.STAT_ITEMS.items():
+                key = 'luck' if item.stat_key == 'luk' else item.stat_key
+                quantities[name] = int(getattr(self.world.options, f'progressive_{key}_quantity').value)
+            for item in self.world.multiworld.precollected_items.get(self.player, []):
+                quantities[item.name] = quantities.get(item.name, 0) + 1
+            class FullPool:
+                def count(_, name, player): return quantities.get(name, 0)
+                def has(_, name, player, count=1): return quantities.get(name, 0) >= count
+            full = FullPool()
+            for index, route in enumerate(self.routes):
+                if not self.ready(full, index):
+                    raise ValueError(f'LET IT DIE {route.name}: configured pool cannot satisfy boss prerequisites '
+                        f'({route.stats} character progressives, tier {route.weapon}+ wearable weapon, '
+                        f'tier {route.armor}+ wearable armor when required, '
+                        f'{4 if route.armor else 1} Death Bag slots, {route.skills} skill slots, '
+                        f'{route.rage} Rage Gauge). Check starting stats, progressive gains/quantities and equipment filters.')
 
 
 MATERIAL_OPTION_NAMES = frozenset(('material_checks','rare_material_checks','faction_metal_checks'))
@@ -165,6 +212,10 @@ def restore_tracker_options(world):
     if type(schema) is not int or schema not in (1, 2):
         raise ValueError('LET IT DIE Universal Tracker requires tracker schema 1 or 2.')
     world.generation_schema = schema
+    boss_schema = tracker.get('boss_logic_schema', 0)
+    if type(boss_schema) is not int or boss_schema not in (0, 1):
+        raise ValueError('Unsupported boss prerequisite tracker schema.')
+    world.boss_logic_schema = boss_schema
     version = tracker.get('catalogue_version', 1)
     if type(version) is not int or version not in (1, 2, 3, 4, 5):
         raise ValueError('Unsupported LET IT DIE tracker catalogue version.')
@@ -173,6 +224,13 @@ def restore_tracker_options(world):
     if type(equipment_schema) is not int or equipment_schema not in (0, 2):
         raise ValueError('Unsupported tracker equipment progression schema')
     world.options._legacy_equipment = equipment_schema == 0
+    floor_schema = tracker.get('floor_progression_schema', 0)
+    if type(floor_schema) is not int or floor_schema not in (0, 1):
+        raise ValueError('Unsupported tracker Floor progression schema')
+    world.floor_schema = floor_schema
+    mastery_schema=tracker.get('mastery_schema',0)
+    if type(mastery_schema)is not int or mastery_schema not in (0,1):raise ValueError('Unsupported mastery tracker schema')
+    world.mastery_schema=mastery_schema
     options = tracker.get('options')
     shop_version = tracker.get('shopsanity_version', 0)
     if type(shop_version) is not int or shop_version not in (0,1):
@@ -180,6 +238,9 @@ def restore_tracker_options(world):
     world.shop_schema = shop_version
     names = world.options_dataclass.__annotations__
     expected = set(names) - (CHEST_OPTION_NAMES if version < 4 else set()) - (MATERIAL_OPTION_NAMES if version < 5 else set())
+    if not mastery_schema:expected -= MASTERY_OPTION_NAMES
+    if not floor_schema:
+        expected -= FLOOR_OPTION_NAMES
     if equipment_schema == 0:
         expected.discard('equipment_upgrade_steps')
     if not shop_version:
@@ -190,16 +251,21 @@ def restore_tracker_options(world):
         raise ValueError('LET IT DIE tracker generation options are incomplete.')
     for name in names:
         option = getattr(world.options, name)
-        setattr(world.options, name, type(option).from_any(options[name] if name in expected else 0))
+        setattr(world.options, name, type(option).from_any(options[name] if name in expected else (1 if name in ('mastery_xp_multiplier','mastery_checks') else 0)))
 
 
 def tracker_slot_data(world):
     return {'schema': world.generation_schema, 'catalogue_version': world.hater_catalogue_version,
+            **({'boss_logic_schema': 1} if world.boss_logic_schema else {}),
             **({'shopsanity_version':1} if world.shop_schema else {}),
+            **({'floor_progression_schema':1} if world.floor_schema else {}),
+            **({'mastery_schema':1} if world.mastery_schema else {}),
             **({} if getattr(world.options, '_legacy_equipment', False) else {'equipment_progression_schema':2}),
             'options': {name: getattr(world.options, name).value
                                   for name in world.options_dataclass.__annotations__
                                   if (world.hater_catalogue_version >= 4 or name not in CHEST_OPTION_NAMES)
+                                  and (world.floor_schema or name not in FLOOR_OPTION_NAMES)
+                                  and (world.mastery_schema or name not in MASTERY_OPTION_NAMES)
                                   and (world.hater_catalogue_version >= 5 or name not in MATERIAL_OPTION_NAMES)
                                   and (world.shop_schema or name!='shop_sanity')
                                   and (not getattr(world.options, '_legacy_equipment', False) or name!='equipment_upgrade_steps')

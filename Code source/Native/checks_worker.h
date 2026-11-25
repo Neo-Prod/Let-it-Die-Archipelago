@@ -1,6 +1,12 @@
 #ifndef LID_CHECKS_R26_WORKER_H
 #define LID_CHECKS_R26_WORKER_H
 #include "checks_disk_io.h"
+#ifndef LID_MASTERY_ENABLED
+#define LID_MASTERY_ENABLED 0
+#endif
+#if LID_MASTERY_ENABLED
+#include "mastery_policy.h"
+#endif
 #ifndef LID_NOTIFICATIONS_ENABLED
 #define LID_NOTIFICATIONS_ENABLED 0
 #endif
@@ -35,6 +41,7 @@
 #if LID_SHOP_PURCHASE_ENABLED
 #include "shop_display.h"
 #include "shop_tower_receipt_disk.h"
+#include "shop_hint_disk.h"
 #endif
 enum {R26_NEW,R26_STARTING,R26_ACTIVE,R26_DRAINING,R26_DONE,R26_FAILED,R26_TIMEOUT,R26_CLOSED};
 typedef struct R26Transport {
@@ -62,6 +69,9 @@ typedef struct R26Transport {
     LidShopDisplay shop_display;
     LidTowerReceiptPort*tower_receipts;LidTowerReceiptDisk tower_disk;
     unsigned tower_io_state;uint64_t tower_next_poll;
+#endif
+#if LID_MASTERY_ENABLED
+    LidMasteryWorker mastery; /* Append only: existing transport offsets preserved. */
 #endif
 } R26Transport;
 #if LID_SHOP_PURCHASE_ENABLED
@@ -92,7 +102,11 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 #endif
     uint64_t started=0;int draining=0;
     for(;;){
-        uint64_t now=ops->clock();unsigned result=r16_service_step(&t->service,tid,now);__atomic_store_n(&t->last_result,result,__ATOMIC_RELEASE);
+        uint64_t now=ops->clock();
+#if LID_MASTERY_ENABLED
+        if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE))lid_mastery_worker_poll(&t->mastery,ops,&t->queue.context,now);
+#endif
+        unsigned result=r16_service_step(&t->service,tid,now);__atomic_store_n(&t->last_result,result,__ATOMIC_RELEASE);
 #if LID_SHOP_CATALOGUE_ENABLED
         if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE)){
             if(!t->shop_policy.initialized&&lid_sm_mode(&t->shop_policy)==LID_SM_UNKNOWN&&
@@ -122,6 +136,10 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 #if LID_SHOP_PURCHASE_ENABLED
         if(!__atomic_load_n(&t->stop,__ATOMIC_ACQUIRE)&&
            __atomic_load_n(&t->shop_catalogue.catalogue.initialized,__ATOMIC_ACQUIRE)){
+            unsigned hints_ready=g_lid_shop_hint_disk.ready,hints_failed=g_lid_shop_hint_disk.failed;
+            (void)lid_sh_worker(&t->disk,t->shop_directory,&t->shop_catalogue.catalogue,now);
+            if(!hints_ready&&g_lid_shop_hint_disk.ready)log_ascii("AP SHOP HINTS R350: current-offer observation channel ready; background publication only.");
+            if(!hints_failed&&g_lid_shop_hint_disk.failed)log_ascii("AP SHOP HINTS R350: optional publication stopped; purchases and checks unchanged.");
             if(!t->shop_display.initialized&&
                __atomic_load_n(&t->shop_display.state,__ATOMIC_ACQUIRE)==LID_SD_WAIT&&
                !lid_sd_prepare(&t->shop_display,ops,t->shop_directory,&t->shop_catalogue.catalogue))
@@ -192,6 +210,9 @@ static DWORD WINAPI r26_worker(LPVOID opaque){
 static int r26_start(R26Transport*t,const R26Ops*ops,const wchar_t*directory,const R15Context*c,uint32_t owner,uint32_t drain_timeout){
     if(!t||t->state!=R26_NEW||t->queue.initialized||!owner||!r26_ops_valid(ops)||ops->thread_id()!=owner||drain_timeout<10||drain_timeout>30000)return 0;
     t->owner=owner;t->drain_timeout=drain_timeout;
+#if LID_MASTERY_ENABLED
+    if(!lid_mastery_worker_init(&t->mastery,directory))return 0;
+#endif
 #if LID_SHOP_CATALOGUE_ENABLED
     if(!directory||!r26_append(t->shop_directory,1000,directory))return 0;
 #endif

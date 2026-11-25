@@ -45,7 +45,9 @@ static int lid_tib_prepare(LidTowerImageBinding*h,LidTowerAutoView*text,LidTower
 static int lid_tib_list(LidTowerImageBinding*h){
     if(!h||!h->prepared||h->busy||h->stopped){r299_note(13,1,0);return 0;}
     LidTowerDisplayView v;int scope=lid_tdv_collect(h->text->current,h->text->queue,h->text->display,&v);
-    if(scope!=1){r299_note(13,2,(unsigned)(scope+1));return scope;}
+    /* No private objects touched yet: a rejected read-only snapshot defers
+       this event. Failures after mutation below remain terminal. */
+    if(scope!=1){r299_note(13,2,(unsigned)(scope+1));return 0;}
     /* Moving the cursor must not rebuild all private objects or invoke the
        per-row full resolver again. One fresh list snapshot, then bounded
        current Unit/AutoInfo/property identity checks: no native resource call. */

@@ -42,7 +42,7 @@ def extract(path):
 @dataclass(frozen=True)
 class Check:
     code:int;name:str;kind:str;floor:int=0;area:str='';tag:str='';version:int=0;ordinal:int=0;zone:int=0
-def build(rows,goal,item_count,quotas=None,include_visits=False,exclude_forcemen=True,room_tubers=False,chest_quotas=None,material_quotas=None,minimum_screamer_checks_per_band=0):
+def build(rows,goal,item_count,quotas=None,include_visits=False,exclude_forcemen=True,room_tubers=False,chest_quotas=None,material_quotas=None,minimum_screamer_checks_per_band=0,mastery_checks=()):
     if type(goal) is not int or goal not in GOALS:raise ValueError('goal')
     integer(item_count,0,1000000)
     quotas=DEFAULTS if quotas is None else quotas
@@ -87,6 +87,8 @@ def build(rows,goal,item_count,quotas=None,include_visits=False,exclude_forcemen
         from .MaterialCatalogue import build as build_materials
         if type(material_quotas) is not dict or set(material_quotas)!={'normal','rare','metal'}:raise ValueError('three material quotas required')
         checks.extend(Check(**asdict(check)) for check in build_materials(goal,**material_quotas))
+    if any(type(c)is not Check or c.kind!='mastery' for c in mastery_checks):raise ValueError('Mastery checks required')
+    checks.extend(mastery_checks)
     minimum=integer(minimum_screamer_checks_per_band,0,SCREAMER_CAP)
     fixed=len(checks);remaining=max(0,item_count-fixed,minimum*(goal//10));base,extra=divmod(remaining,goal//10)
     counts=[]

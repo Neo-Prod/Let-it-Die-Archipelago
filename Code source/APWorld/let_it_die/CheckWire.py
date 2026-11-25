@@ -86,11 +86,17 @@ class Frame:
     version:int=0
     def validate(self):
         if type(self.context) is not Context:raise ValueError('context type')
-        self.context.validate();integer(self.kind,1,5);integer(self.sequence,1,2**64-1);integer(self.epoch,0,2**64-1)
+        self.context.validate();integer(self.kind,1,7);integer(self.sequence,1,2**64-1);integer(self.epoch,0,2**64-1)
         for key in ('status','flags','classes','name_index','name_number','raw_kind','family','version'):integer(getattr(self,key),0,2**32-1)
         for key in ('health','max_health'):integer(getattr(self,key),-2**31,2**31-1)
         for key,n in (('floor',16),('area',32),('rotation',16),('damage',96),('pawn_class',96)):ascii_bytes(getattr(self,key),n)
         unicode_bytes(self.name);unicode_bytes(self.label)
+        if self.kind==6:raise ValueError('Material requires typed material frame')
+        if self.kind==7:
+            from .MasteryCatalogue import data
+            if (self.status or not self.epoch or self.damage not in data()['families'] or not 1<=self.health<=20 or self.max_health!=20
+                or any(getattr(self,k)for k in ('flags','classes','name_index','name_number','raw_kind','floor','area','rotation','pawn_class','name','label','family','version'))):raise ValueError('mastery payload')
+            return
         if self.kind==CHEST:
             if self.status or not self.epoch or self.rotation!='4HMA' or not 1<=self.raw_kind<=3 or any(getattr(self,k) for k in ('flags','classes','health','max_health','damage','pawn_class','name','label','family','version')):raise ValueError('chest payload')
             physical_floor(self.floor,self.area);return

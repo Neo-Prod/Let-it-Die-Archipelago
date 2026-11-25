@@ -1,8 +1,10 @@
-# LET IT DIE Archipelago - Version 1.2
-# Includes all 56 game options and all 11 common Archipelago options.
+# LET IT DIE Archipelago - Version 1.3
+# Includes all 62 game options and all 11 common Archipelago options.
 # Set name to your slot name. The values below are the default settings.
 # Goal: max_sharp (10F), jackson (20F), crowley (30F), taro_gunkanyama (40F).
-# Goal requirements: 15/35/80/150 character progressives and weapon/armor tiers 2/3/4/5.
+# Goal requirements: 20/40/80/150 character progressives and weapon/armor tiers 2/3/4/5.
+# Bosses also require wearable equipment, four Death Bag slots when armor is required,
+# skill capacities 1/2/3/4 for the major bosses and Rage capacity 2 for Taro.
 # The nine character progressive categories are added together for these requirements.
 # maximum_equipment_tier uses catalogue tiers 1..9, not native star rarity.
 # group_armor_sets=true: each receipt grants all pieces from the same set.
@@ -12,9 +14,16 @@
 # YAML changes apply to a NEW generation.
 
 name: Player{number}
-description: LET IT DIE Archipelago Version 1.2 - complete default configuration
+description: LET IT DIE Archipelago Version 1.3 - complete default configuration
 game: LET IT DIE
 LET IT DIE:
+  # Require one Progressive Floor for each numbered ascent within a ten-floor band.
+  # The 10->11, 20->21, 30->31 and 40->41 transitions remain exempt.
+  progressive_floor: false
+
+  # Quantity when enabled. Minimum by goal 10F/20F/30F/40F: 9/18/27/36.
+  # Extra copies have no effect after all required floors are unlocked.
+  progressive_floor_quantity: 36
 
   # A system that can move progression earlier, to try and prevent the player from getting stuck
   # and bored early.
@@ -274,3 +283,12 @@ LET IT DIE:
   # Each Wednesday merchant has its own three fixed blueprint slots.
   # Requires the matching ShopSanity native runtime.
   shop_sanity: true
+
+  # Multiply weapon mastery XP earned by defeating enemies (1..100).
+  mastery_xp_multiplier: 1
+  # Add checks for mastery families available through this run's progressives.
+  mastery_sanity: false
+  # Checks per family (1..20), evenly spaced; level20 always included.
+  mastery_checks: 20
+  # Include fist mastery checks (also maximum level20).
+  mastery_include_fists: true

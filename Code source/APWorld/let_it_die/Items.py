@@ -379,14 +379,8 @@ EQUIPMENT_ITEMS = {
 
 
 # Filler used only when user options create fewer items than fixed locations.
-FILLER_ITEMS = {
-    "Kill Coins": LetItDieItemData(
-        7130001,
-        ItemClassification.filler,
-        "filler",
-        default_quantity=0,
-    ),
-}
+# Retired generic filler ID 7130001 stays reserved; do not reuse it.
+FILLER_ITEMS = {}
 
 
 from .Fillers import KILL_COIN_FILLERS
@@ -678,9 +672,16 @@ ARMOR_SET_ITEMS = {
 }
 # END R24 ARMOR SET ITEMS
 
+FLOOR_ITEMS = {
+    'Progressive Floor': LetItDieItemData(7100010, ItemClassification.progression, "floor", default_quantity=0),
+}
+
+from .EquipmentPool import REMOVED_EQUIPMENT_NAMES
+
 item_table = {
+    **FLOOR_ITEMS,
     **STAT_ITEMS,
-    **EQUIPMENT_ITEMS,
+    **{name: data for name, data in EQUIPMENT_ITEMS.items() if name not in REMOVED_EQUIPMENT_NAMES},
     **ARMOR_SET_ITEMS,
     **PREMIUM_DECAL_ITEMS,
     **FILLER_ITEMS,
@@ -689,8 +690,9 @@ item_table = {
 item_name_to_id = {name: data.code for name, data in item_table.items()}
 
 ITEM_NAME_GROUPS = {
+    "Floor Progression": set(FLOOR_ITEMS),
     "Progressive Stats": set(STAT_ITEMS),
-    "Progressive Equipment": set(EQUIPMENT_ITEMS) | set(ARMOR_SET_ITEMS),
+    "Progressive Equipment": (set(EQUIPMENT_ITEMS) - REMOVED_EQUIPMENT_NAMES) | set(ARMOR_SET_ITEMS),
     "Progressive Armor Sets": set(ARMOR_SET_ITEMS),
     "Premium Decals": set(PREMIUM_DECAL_ITEMS),
     "Filler": set(FILLER_ITEMS),

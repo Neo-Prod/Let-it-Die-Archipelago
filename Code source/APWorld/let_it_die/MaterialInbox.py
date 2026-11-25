@@ -50,7 +50,7 @@ class DurableMaterialInbox:
             for seq,text in pending.items():
                 if type(text) is not str or len(text)!=SIZE*2:raise ValueError('receipt frame size')
                 data=bytes.fromhex(text);frame=self._archive_decode(data)
-                if frame.kind not in (EVENT,VISIT,CHEST,MATERIAL) or frame.context!=context or frame.sequence!=int(seq) or hashlib.sha256(data).hexdigest()!=hashes[int(seq)-1]:raise ValueError('receipt frame mismatch')
+                if frame.kind not in (EVENT,VISIT,CHEST,MATERIAL,7) or frame.context!=context or frame.sequence!=int(seq) or hashlib.sha256(data).hexdigest()!=hashes[int(seq)-1]:raise ValueError('receipt frame mismatch')
             self.state=state
     def _store(self,state):
         raw=json.dumps({'state':state,'sha256':digest(state)},sort_keys=True,separators=(',',':')).encode('ascii')
@@ -64,7 +64,7 @@ class DurableMaterialInbox:
         for i,frame in enumerate(frames):
             if frame.context!=self.context:raise ValueError('foreign producer/identity/config/writer')
             if frame.kind==FAULT:raise ValueError(f'native producer fault {frame.status}; pause, no ACK')
-            if frame.kind not in (EVENT,VISIT,CHEST,MATERIAL):raise ValueError('control frame in event batch')
+            if frame.kind not in (EVENT,VISIT,CHEST,MATERIAL,7):raise ValueError('control frame in event batch')
             if i and frame.sequence!=frames[i-1].sequence+1:raise ValueError('non-contiguous batch')
         state=json.loads(json.dumps(self.state));changed=False
         for i,frame in enumerate(frames):

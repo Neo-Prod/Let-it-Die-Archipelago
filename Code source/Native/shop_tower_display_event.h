@@ -27,8 +27,10 @@ static void lid_tde_info_call(LidTowerDisplayEvent*h,void*self){
     uint32_t incoming=h->ops.error(h->ops.context),outgoing=incoming;volatile unsigned normal=0;h->busy=1;
     __try{
         LidTowerDisplayPoint p;int scope=lid_tdp_resolve(h->text->current,(uintptr_t)self,-1,&p);
-        if(scope<0)lid_tde_stop(h);
-        else if(scope==1){
+        /* Read-only snapshot refusal can occur while vanilla rebuilds the
+           list. Do not poison the purchase queue before any AP mutation;
+           before_charge independently requires a fresh exact row and view. */
+        if(scope==1){
             int applied=h->images?lid_tib_list(h->images):lid_tav_apply(h->text,p.logical);
             if(applied<0)lid_tde_stop(h);
         }
@@ -47,8 +49,7 @@ static void lid_tde_disable_call(LidTowerDisplayEvent*h,void*self,int index,unsi
     uint32_t incoming=h->ops.error(h->ops.context),outgoing=incoming;volatile unsigned normal=0;h->busy=1;
     __try{
         LidTowerDisplayPoint p;int scope=lid_tdp_resolve(h->text->current,(uintptr_t)self,index,&p);
-        if(scope<0)lid_tde_stop(h);
-        else if(scope==1){
+        if(scope==1){
             uint8_t bought[23];
             /* Busy state is NOT permission to buy. Native affordability is
                preserved by OR, and count-red/raw other argument bits retained. */

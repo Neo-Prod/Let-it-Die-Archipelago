@@ -6,7 +6,9 @@
    title/connection/global-stock changes. Host and callbacks must remain resident.
    Admission MUST prove real AP Context/policy/catalogue/Wednesday/owner state.
    Native exceptions propagate; finally never attempts speculative engine cleanup. */
-typedef uint64_t(*LidTFOriginal)(void*,void*);
+/* Current native builder returns bool in AL (MOV AL,1 at RVA0x11FDA60).
+   The upper bits of RAX are unspecified; never compare them as a u64 result. */
+typedef uint8_t(*LidTFOriginal)(void*,void*);
 typedef void(*LidTFClone)(LidTSArray*,const LidTSArray*);
 typedef void(*LidTFClear)(LidTSArray*,int);
 typedef struct LidTFOps {

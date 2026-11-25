@@ -83,12 +83,14 @@ static int starter_commit(void*context){
            !lid_starter_cleanup(&d->before,&d->after,mask,&ops))return 0;
         log_ascii("AP STARTER R22: inherited default blueprint pairs removed; AP receipts and other plans preserved.");
     }
-    if(!lid_blueprint_domain_commit(d))return 0;
+    int result=lid_blueprint_domain_commit(d);
+    if(result!=1)return result;
     if(g_starter_policy_state==0)g_starter_committed=1;
     return 1;
 }
 static int starter_readback(void*context){
     LidBlueprintDomain*d=context;
-    return lid_blueprint_domain_readback(d)&&lid_starter_absent(&d->after,g_starter_cleanup_mask);
+    if(!lid_blueprint_domain_readback(d))return 0;
+    return lid_starter_absent(&d->after,g_starter_cleanup_mask)?1:LID_ITEM_READBACK_FAIL(201);
 }
 #endif

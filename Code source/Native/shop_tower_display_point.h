@@ -4,6 +4,18 @@
 /* One chosen UI row only. Availability setter is called once per unit; do not
    rescan every native product for each of those callbacks. No native call/IO. */
 typedef struct LidTowerDisplayPoint {unsigned logical,original,offer,flag;uint64_t location;} LidTowerDisplayPoint;
+/* One bounded rejection sample per module; read existing checked UI memory
+   only. This does not authorize a row, mutate it or retry a purchase. */
+static void lid_tdp_rejected_product(const M195Ops*o,uint64_t at,const LidTowerStockData*d,unsigned stage){
+    LidTSProduct row;unsigned mask=0;
+    if(!m195_read(o,at,0,&row,108)){r299_note(2,stage,1);return;}
+    if(row.kc!=(int32_t)d->kc)mask|=2;if(row.spirit)mask|=4;if(row.medal)mask|=8;if(row.parts.count)mask|=16;
+    if(!lid_tuc_literal(o,at,d->product))mask|=32;
+    if(!lid_tuc_literal(o,at+0x3c,L"PRDTP_ITEM"))mask|=64;
+    if(!lid_tuc_literal(o,at+0x5c,d->item))mask|=128;
+    r299_note(2,stage,mask);r299_note(2,stage+1,(unsigned)row.kc);r299_note(2,stage+2,d->kc);
+    r299_note(2,stage+3,(unsigned)row.parts.count);r299_note(2,stage+4,(unsigned)row.spirit);r299_note(2,stage+5,(unsigned)row.medal);
+}
 /* index==-1 uses native sorted cursor (script selected index may not yet have
    committed during pre-SetupItemInfoDispNew). 0 foreign/empty, -1 malformed
    known eligible context, 1 exact current AP BUY row. */
@@ -42,10 +54,18 @@ static int lid_tdp_resolve(LidTowerUiCurrent*c,uintptr_t receiver,int index,LidT
     if(index<0||index>=p.count){r299_note(2,14,0);return 0;} /* ordinary native empty padding */
     if(!m195_read(o,(uint64_t)(uintptr_t)indices.data,0,original,(unsigned)indices.count*4)){r299_note(2,15,0);return -1;}
     for(int i=0;i<indices.count;i++)if(original[i]<0||(unsigned)original[i]>=count||seen[original[i]]++){r299_note(2,16,0);return -1;}
-    unsigned ordinal=(unsigned)original[index],offer=offers[ordinal];const LidTowerStockData*d=&lid_tower_stock_data[offer];uint8_t flag;
-    if(!lid_tuc_product(o,(uint64_t)(uintptr_t)p.data+(unsigned)index*108,d)||
-       !lid_tuc_product(o,(uint64_t)(uintptr_t)full.data+ordinal*108,d)||
-       !m195_read(o,(uint64_t)(uintptr_t)flags.data,ordinal,&flag,1)||flag>1){r299_note(2,17,0);return -1;}
+    unsigned ordinal=(unsigned)original[index],offer=offers[ordinal];const LidTowerStockData*d=&lid_tower_stock_data[offer];uint8_t flag=0;
+    int visible=lid_tuc_product(o,(uint64_t)(uintptr_t)p.data+(unsigned)index*108,d);
+    int stored=lid_tuc_product(o,(uint64_t)(uintptr_t)full.data+ordinal*108,d);
+    int read_flag=m195_read(o,(uint64_t)(uintptr_t)flags.data,ordinal,&flag,1);
+    if(!visible||!stored||!read_flag||flag>1){
+        if(!__atomic_load_n(&g_r299_events[2][20],__ATOMIC_ACQUIRE)){
+            r299_note(2,20,offer);r299_note(2,21,(unsigned)index);r299_note(2,22,ordinal);
+            lid_tdp_rejected_product(o,(uint64_t)(uintptr_t)p.data+(unsigned)index*108,d,24);
+            lid_tdp_rejected_product(o,(uint64_t)(uintptr_t)full.data+ordinal*108,d,32);
+        }
+        r299_note(2,17,(!visible?1u:0u)|(!stored?2u:0u)|(!read_flag?4u:0u)|(flag>1?8u:0u)|((unsigned)flag<<8));return -1;
+    }
     LidTSArray p2,i2;int32_t check;
     if(!lid_tuc_roots(c,&again)||again.game!=r.game||again.manager!=r.manager||again.stage!=r.stage||again.shop!=r.shop||again.item_select!=receiver||
        !lid_tuc_array(o,r.shop+c->products,108,36,&p2)||!lid_tdv_headers(&p2,&p)||

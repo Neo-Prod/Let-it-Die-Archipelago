@@ -2,6 +2,7 @@
 #define LID_SHOP_TOWER_DISPLAY_VIEW_H
 #include "shop_tower_purchase_ui.h"
 #include "shop_display.h"
+#include "shop_hint_capture.h"
 /* Synchronous READ ONLY UI-event view. No slot publication, native call,
    allocation, file IO, stock/price/identity mutation or per-frame polling.
    Engine identities below are comparison tokens only after this call; never
@@ -35,6 +36,19 @@ static int lid_tdv_bought(LidTowerQueue*q,uint8_t out[23]){
     }
     ok=1;
 done:lid_tq_unlock(q);return ok;
+}
+/* Optional hints from an already validated BUY list; no product rescan. */
+static void lid_tdv_hints(LidTowerUiCurrent*c,LidTowerQueue*q,const LidShopDisplay*display,const LidTowerDisplayView*view){
+    (void)display;const M195Ops*o=&c->meta->memory;uint64_t shop=view->roots.shop;
+    int32_t state,other;uint32_t ended;
+    if(m195_read(o,shop,c->meta->offsets[LID_TUM_STATE],&state,4)&&
+       m195_read(o,shop,c->meta->offsets[LID_TUM_OTHER],&other,4)&&
+       m195_read(o,shop,c->meta->offsets[LID_TUM_END],&ended,4)&&
+       (int64_t)state-other>=5&&(int64_t)state-other<=9&&!(ended&c->meta->end_mask)){
+        unsigned hints[36],n=0;
+        for(unsigned i=0;i<view->count;i++)if(!view->rows[i].unavailable)hints[n++]=view->rows[i].offer;
+        (void)lid_sh_observe(&g_lid_shop_hints,&c->catalogue->context,c->catalogue->full,q->owner,2,hints,n);
+    }
 }
 /* 0 unrelated/not-yet-ready/busy, -1 malformed known AP tower view, 1 current.
    No native buy-state assumption: same resolver serves initial list creation
@@ -91,6 +105,7 @@ static int lid_tdv_collect(LidTowerUiCurrent*c,LidTowerQueue*q,const LidShopDisp
        !c->ops.live(c->ops.live_context)){r299_note(3,14,0);return -1;}
     for(unsigned k=0;k<32;k++){if(fl2[k]!=floor[k]){r299_note(3,15,0);return -1;}if(!floor[k])break;}
     for(unsigned k=0;k<32;k++){if(ar2[k]!=area[k]){r299_note(3,16,0);return -1;}if(!area[k])break;}
+    lid_tdv_hints(c,q,display,&view);
     *out=view;{r299_note(3,17,0);return 1;}
 }
 /* Resolve native sorted cursor to logical row; no deferred engine instance.

@@ -700,7 +700,8 @@ def build_check_catalogue(world):
                                                  'metal':int(world.options.faction_metal_checks.value)}
                                 if world.hater_catalogue_version>=5 else None,
                                 minimum_screamer_checks_per_band=int(world.options.minimum_screamer_checks_per_band.value)
-                                if getattr(world,'generation_schema',2)>=2 else 0)
+                                if getattr(world,'generation_schema',2)>=2 else 0,
+                                mastery_checks=MasteryCatalogue.checks(world.mastery_policy))
     result['item_count'] = world.generated_item_count
     result['filler_count'] = max(0, len(result['checks']) + shop_count - world.generated_item_count)
     return result
@@ -726,3 +727,13 @@ if set(location_name_to_id) & set(SHOP_LOCATIONS):raise ValueError('Shop locatio
 ALL_DECLARED_LOCATIONS.update(SHOP_LOCATIONS)
 location_name_to_id.update({name:row.code for name,row in SHOP_LOCATIONS.items()})
 LOCATION_NAME_GROUPS['ShopSanity']=set(SHOP_LOCATIONS)
+
+
+# Stable addresses for every mastery level; active generation chooses a subset.
+from . import MasteryCatalogue
+MASTERY_LOCATIONS={MasteryCatalogue.name(f,l):LetItDieLocationData(MasteryCatalogue.code(f,l),'mastery','Mastery',f+'|'+str(l))
+                   for f in MasteryCatalogue.data()['families']for l in range(1,21)}
+if set(location_name_to_id.values()) & {d.code for d in MASTERY_LOCATIONS.values()}:raise ValueError('Mastery location ID collision')
+ALL_DECLARED_LOCATIONS.update(MASTERY_LOCATIONS)
+location_name_to_id.update({n:d.code for n,d in MASTERY_LOCATIONS.items()})
+LOCATION_NAME_GROUPS['Mastery']=set(MASTERY_LOCATIONS)

@@ -2,7 +2,7 @@
 import hashlib,json
 from dataclasses import dataclass
 from pathlib import Path
-from . import CheckCatalogue,Locations
+from . import CheckCatalogue,Locations,MasteryCatalogue
 from .CheckWire import Context,Frame,SIZE
 from .MaterialWire import decode_frame
 from .MaterialOutbox import MaterialCheckOutbox
@@ -33,6 +33,7 @@ class CheckConfig:
     catalogue_version:int=1
     shop_offers:tuple=()
     tower_offers:tuple=()
+    mastery_policy:object=None
 
     @property
     def momoka_ids(self):return frozenset(offer.location for offer in self.shop_offers)
@@ -88,7 +89,8 @@ def validate_catalogue(slot_data,checked,missing):
         include_visits=packet['schema']==2,exclude_forcemen=version>=2,room_tubers=version>=3,
         chest_quotas=packet['chest_checks_per_band'] if version>=4 else None,
         material_quotas=packet['material_checks_per_type'] if version>=5 else None,
-        minimum_screamer_checks_per_band=minimum)
+        minimum_screamer_checks_per_band=minimum,
+        mastery_checks=MasteryCatalogue.checks(MasteryCatalogue.from_slot(slot_data)))
     if type(packet['locations']) is not list or len(packet['locations'])>50000:raise ValueError('catalogue capacity')
     if canonical(packet['locations'])!=canonical(expected['checks']) or packet['goal_name']!=expected['goal_name']:raise ValueError('catalogue differs from local definitions')
     for key,value in (('fixed_location_count',expected['fixed_count']+shop_count),('screamer_location_count',sum(expected['screamer_counts']))):
@@ -104,7 +106,8 @@ def validate_catalogue(slot_data,checked,missing):
     if shop_offers:descriptor['shops']=slot_data['shops']
     if tower_offers:descriptor['tower_shops']=slot_data['tower_shops']
     fingerprint=hashlib.sha256(canonical(descriptor).encode()).hexdigest()
-    return CheckConfig(goal,chance,locations,ids,fingerprint,pity,version,shop_offers,tower_offers)
+    return CheckConfig(goal,chance,locations,ids,fingerprint,pity,version,shop_offers,tower_offers,
+                       MasteryCatalogue.from_slot(slot_data))
 
 class CheckService:
     def __init__(self,directory,context:Context,config:CheckConfig):
@@ -116,6 +119,9 @@ class CheckService:
         try:self.material_capability=MaterialCapabilityState(self.directory,context,config) if config.catalogue_version==5 else None
         except BaseException:self.session.close();raise
         self.last_send=None;self.last_file=None
+        from .MasteryPolicy import publish
+        try:publish(self.directory,context,config.mastery_policy)
+        except BaseException:self.session.close();raise
     def _record(self,frame):
         return record_frame(self.outbox,frame) if self.config.catalogue_version==5 else self.outbox.record(frame.to_death(Death))
     def recover_old(self):

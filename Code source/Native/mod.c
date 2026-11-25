@@ -1,4 +1,7 @@
 int _fltused = 0;
+#ifndef LID_PLAYER_STATS_ENABLED
+#define LID_PLAYER_STATS_ENABLED 0
+#endif
 #include "winlite.h"
 #include "rage_policy.h"
 #if LID_EVENT_PROFILE_ENABLED
@@ -10,6 +13,12 @@ static void lid_perf_detail_count(unsigned,unsigned long long);
 #include "progression_config.h"
 #include "progression_wire.h"
 #include "progression_host.h"
+#ifndef LID_FLOOR_PROGRESSION_ENABLED
+#define LID_FLOOR_PROGRESSION_ENABLED 0
+#endif
+#if LID_FLOOR_PROGRESSION_ENABLED
+#include "floor_pair.h"
+#endif
 #include "progression_bridge_io.h"
 #include "progression_bag_plan.h"
 #include "progression_game_bag.h"
@@ -32,6 +41,7 @@ static void lid_perf_detail_count(unsigned,unsigned long long);
 #include "blueprint_wire.h"
 #include "blueprint_plan.h"
 #include "blueprint_native_model.h"
+#include "item_readback_trace.h"
 #include "blueprint_native_commit.h"
 #include "blueprint_engine_adapter.h"
 #include "blueprint_waiting_reader.h"
@@ -1483,9 +1493,16 @@ typedef struct V074RuntimeConfig {
     int skill_slots_quantity;
     int rage_gauge_quantity;
     int max_levels;
+    int player_only_stats;
 } V074RuntimeConfig;
 
 static V074RuntimeConfig g_v074_cfg;
+#if LID_PLAYER_STATS_ENABLED
+static int player_stats_mode(void);
+static int player_stats_owned(void);
+static int player_stats_prepare_at_idle(void);
+static void player_stats_body_status(void*,void*,RawFString*,int);
+#endif
 static int g_v074_status_rows_ready=0;
 static void* g_v074_last_scanned_body=0;
 static unsigned g_v074_patch_passes=0;
@@ -1789,6 +1806,9 @@ static int WINAPI v076_get_body_detail(void*self,RawFString*type,int grade,int l
     LidReloadCapacityValues restored;int restoring;
 #endif
     if(!g_ap_mode_active||!g_v074_cfg.valid||!out_detail)return result;
+#if LID_PLAYER_STATS_ENABLED
+    if(player_stats_mode()&&!player_stats_owned())return result;
+#endif
     if(!(grade==1||grade==g_v074_cfg.fighter_grade))return result;
     if(!v074_skill_fstring_matches((BYTE*)type,"BAL"))return result;
     if(!readable_range(out_detail,0x68))return result;
@@ -2233,6 +2253,10 @@ static int v074_parse_runtime_config(const char*buf,size_t got){
     V074RuntimeConfig c;
     int maxq=0;
     lid_memset(&c,0,sizeof(c));
+#if LID_PLAYER_STATS_ENABLED
+    (void)extract_json_int(buf,got,"\"player_only_stats\"",&c.player_only_stats);
+    if(c.player_only_stats!=0&&c.player_only_stats!=1)return 0;
+#endif
 #define NEED_INT(JSON_KEY,FIELD) do{if(!extract_json_int(buf,got,JSON_KEY,&c.FIELD))return 0;}while(0)
     NEED_INT("\"starting_fighter_grade\"",fighter_grade);
     NEED_INT("\"starting_hp\"",starting_hp);
@@ -2648,6 +2672,9 @@ static int progress_loaded_levels_ready(BYTE*chara,BYTE*body){
 #endif
 static void WINAPI rage_get_body_status(void*out,void*levels,RawFString*type,int grade){
     BYTE*pawn=0;BYTE*common=0;void*exe;
+#if LID_PLAYER_STATS_ENABLED
+    if(player_stats_mode()){player_stats_body_status(out,levels,type,grade);return;}
+#endif
     if(g_rage_body_status_original)g_rage_body_status_original(out,levels,type,grade);
     if(!g_ap_mode_active||!g_v074_cfg.valid||!out)return;
     exe=lid_find_module_ascii("BrgGame-Steam.exe");
@@ -2761,6 +2788,11 @@ static const LidEventOps g_progress_event_ops={readable_range,progress_event_nam
 static int build_ap_slot_dir(wchar_t*,size_t);
 static LidCharacterHost g_progress_host;
 static LidBridgeIo g_progress_bridge_io;
+#if LID_FLOOR_PROGRESSION_ENABLED
+static LidFloorPair g_floor_pair;
+static int floor_native_read(void*,BYTE*,size_t,size_t*);
+static int floor_native_prepare(void*);
+#endif
 #if LID_BLUEPRINT_DELIVERY_ENABLED
 static LidBlueprintPairGate g_blueprint_pair;
 static LidBlueprintBridgeReader g_blueprint_reader;
@@ -2833,6 +2865,10 @@ static int progress_prepare_host(void){
 #endif
     }
 #endif
+#if LID_FLOOR_PROGRESSION_ENABLED
+    {LidCharacterHostOps previous=host_ops;
+     if(!lid_floor_pair_init(&g_floor_pair,&host_ops,&previous,0,floor_native_read,floor_native_prepare))return 0;}
+#endif
     if(!lid_host_init(&g_progress_host,&host_ops,pid,g_progress_creation_time,nonce,digest))return 0;
     g_progress_prepare_state=1;return 1;
 }
@@ -2866,6 +2902,9 @@ static int progress_entry_body_ready(void);
 #if LID_BLUEPRINT_DELIVERY_ENABLED
 static int progress_blueprint_attach(void);
 static void progress_blueprint_log_status(int);
+#if LID_DECAL_DELIVERY_ENABLED
+static void progress_decal_cancel_unstarted_intent(void);
+#endif
 #endif
 #include "progression_native_adapter.h"
 /* R21: a network NPC reload copies GetChara into ReadUserData before the
@@ -2926,6 +2965,9 @@ static int r21_install_current_chara_hook(BYTE*exe,void*userdata){
 #include "progression_hub_observer.h"
 #if defined(LID_CHECKS_ROTATION_ENABLED) && LID_CHECKS_ROTATION_ENABLED
 static int checks_rotation_prepare_at_idle(void);
+#endif
+#if LID_MASTERY_ENABLED
+static int mastery_retained_prepare_at_idle(void);
 #endif
 #if defined(LID_RELOAD_DECODE_TRACE_ENABLED) && LID_RELOAD_DECODE_TRACE_ENABLED
 static int checks_load_decode_prepare_at_idle(void);
@@ -3035,6 +3077,9 @@ static void progress_profile_record(int section,unsigned long long mark){
 #include "checks_delivery.h"
 #if LID_CHECKS_DELIVERY_ENABLED && LID_CHECKS_DIAGNOSTIC_ENABLED
 static void checks_chest_boundary(DWORD owner);
+#if LID_MASTERY_ENABLED
+static void mastery_native_boundary(DWORD owner);
+#endif
 #endif
 #include "checks_diagnostic.h"
 #include "checks_chest_runtime.h"
@@ -3042,10 +3087,20 @@ static void checks_chest_boundary(DWORD owner);
 #include "material_host_runtime.h"
 #include "material_hook_runtime.h"
 #include "material_early_runtime.h"
+#if LID_FLOOR_PROGRESSION_ENABLED
+#include "floor_runtime.h"
+#endif
+#if LID_MASTERY_ENABLED
+#include "mastery_runtime.h"
+#include "mastery_retained_runtime.h"
+#endif
 #include "progression_entry_driver.h"
 #include "kill_coin_owner_runtime.h"
 #include "notification_native.h"
 #include "shop_momoka_runtime.h"
+#if LID_PLAYER_STATS_ENABLED
+#include "player_stat_runtime.h"
+#endif
 static void v070_sync_runtime_character_impl(int is_title){
     void*exe;
     void*userdata;
@@ -3118,7 +3173,11 @@ static void v070_sync_runtime_character_impl(int is_title){
     body=get_current_body(userdata);
     if(body&&readable_range(body,0x3c))body_grade=get_body_grade(userdata,-1);
 
-    if(body&&body!=g_v074_last_scanned_body&&!g_v074_status_rows_ready){
+    if(body&&body!=g_v074_last_scanned_body&&!g_v074_status_rows_ready
+#if LID_PLAYER_STATS_ENABLED
+       &&!player_stats_mode()
+#endif
+       ){
         profile_mark=progress_profile_mark();
         LID_PERF_BEGIN(master_time);
         unsigned patched=v074_patch_runtime_master_rows();
@@ -3235,6 +3294,9 @@ static void v070_sync_runtime_character_impl(int is_title){
         coins_native_tick((BYTE*)exe,(BYTE*)userdata,(BYTE*)body,current_index,loaded_ready);
 #endif
         profile_mark=progress_profile_mark();progress_native_entry_tick();
+#if LID_MASTERY_ENABLED
+        mastery_native_boundary(g_checks_diag.owner);
+#endif
         progress_profile_record(LID_PROFILE_TRANSACTION,profile_mark);
     }
 }

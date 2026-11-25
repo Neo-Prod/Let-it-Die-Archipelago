@@ -2,6 +2,7 @@
 #define LID_SHOP_MOMOKA_STOCK_H
 #include "shop_momoka_labels.h"
 #include "shop_purchase_bridge.h"
+#include "shop_hint_capture.h"
 /* View cache only: never changes a native product, price, quantity or wallet.
    Current buy root/UI thread and verified build are supplied by event host. */
 typedef struct LidMomokaStock {
@@ -62,6 +63,32 @@ static int lid_ms_array(const M195Ops*o,uint64_t address,unsigned stride,M197Str
        (a.capacity&&!a.data)||(!a.capacity&&a.data)||a.data>UINT64_MAX-(uint64_t)a.capacity*stride)return 0;
     *out=a;return 1;
 }
+/* Full CURRENT buy list, not the generated future catalogue or affordability.
+   Optional hint failures never change stock/payment admission. */
+static void lid_ms_hints(LidMomokaStock*s){
+    uint64_t list,again;uint8_t unavailable[512];M197StringHeader a,after;
+    if(!s||!s->ready||!s->bridge->thread||s->bridge->thread(s->bridge->provider)!=s->bridge->ui||
+       !lid_ms_current(s->labels,&list)||!lid_ms_snapshot(s->bridge,unavailable))return;
+    const LidShopRuntimeCatalogue*c=s->labels->display->catalogue;const M195Ops*o=&s->labels->root->memory;
+    if(!c||!__atomic_load_n(&c->initialized,__ATOMIC_ACQUIRE)||
+       !lid_ms_array(o,list+s->arrays[0],s->stride,&a)||a.count>26)return;
+    unsigned offers[26],count=0;uint32_t seen=0;
+    for(int i=0;i<a.count;i++){
+        uint16_t id[128];unsigned units;M195Signature sig={0};sig.skill_offset=s->skill;sig.parms_size=(uint16_t)s->stride;
+        if(!m197_string(o,a.data+(uint64_t)i*s->stride,&sig,id,&units))return;
+        for(unsigned j=0;j<c->momoka_count;j++){
+            const LidShopUiSku*sku=&c->momoka[j];if(sku->units!=units)continue;
+            unsigned k=0;while(k<units&&sku->skill[k]==id[k])k++;
+            if(k!=units)continue;if(sku->offer>=26)return;
+            if(lid_pb_bit(unavailable,sku->offer))break;
+            uint32_t bit=1u<<sku->offer;if(seen&bit)return;seen|=bit;
+            offers[count++]=sku->offer;break;
+        }
+    }
+    if(!lid_ms_current(s->labels,&again)||again!=list||
+       !lid_ms_array(o,list+s->arrays[0],s->stride,&after)||after.data!=a.data||after.count!=a.count||after.capacity!=a.capacity)return;
+    (void)lid_sh_observe(&g_lid_shop_hints,&c->context,c->full,s->bridge->ui,1,offers,count);
+}
 static int lid_ms_apply(LidMomokaStock*s){
     uint64_t list,again;uint8_t unavailable[512];int changed=0;
     if(!s||!s->ready||!s->bridge->thread||s->bridge->thread(s->bridge->provider)!=s->bridge->ui||
@@ -92,6 +119,6 @@ static int lid_ms_apply(LidMomokaStock*s){
             if(flags&s->mask){*(uint32_t*)(uintptr_t)(at+s->enabled)=flags&~s->mask;changed++;}
         }
     }
-    return changed;
+    lid_ms_hints(s);return changed;
 }
 #endif
