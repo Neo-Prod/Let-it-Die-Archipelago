@@ -351,6 +351,9 @@ static void checks_diagnostic_boundary(int status){
 #if LID_CHECKS_DELIVERY_ENABLED
         checks_delivery_boundary(tid);
         checks_chest_boundary(tid);
+#if LID_MASTERY_ENABLED
+        mastery_native_boundary(tid);
+#endif
 #endif
     }return;}
     if(status!=LID_TX_SAVED||!g_progress_native_ready||!g_ap_mode_active||!g_savedata_route_active||
@@ -396,6 +399,9 @@ static void checks_diagnostic_boundary(int status){
 #if LID_CHECKS_DELIVERY_ENABLED
     checks_delivery_boundary(tid);
     checks_chest_boundary(tid);
+#if LID_MASTERY_ENABLED
+    mastery_native_boundary(tid);
+#endif
 #endif
 #if LID_CHECKS_DELIVERY_ENABLED
     log_ascii("AP CHECKS R27: observer armed; diagnostic keeps 128 records/64 classes; capture continues; delivery awaits verified rotation.");

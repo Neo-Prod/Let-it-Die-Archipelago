@@ -261,6 +261,9 @@ static int progress_native_transaction_tick(void){
     LID_PERF_BEGIN(transaction_time);
     status=lid_transaction_tick(&g_progress_transaction,LID_CHARACTER_DELIVERY_ENABLED);
     LID_PERF_END(transaction_time,1,"transaction_tick",status);
+#if LID_BLUEPRINT_DELIVERY_ENABLED && LID_DECAL_DELIVERY_ENABLED
+    if(status==LID_TX_FAILED)progress_decal_cancel_unstarted_intent();
+#endif
 #if LID_EVENT_PROFILE_ENABLED
     if(status==LID_TX_REFRESH_REFUSED){char reason[144];size_t pos=0;
         append_ascii(reason,sizeof(reason),&pos,"AP PERF R26AU: refresh refusal reason=");

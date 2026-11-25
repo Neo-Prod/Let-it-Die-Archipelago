@@ -509,8 +509,56 @@ class ShopSanity(Toggle):
     default = 1
 
 
+class ProgressiveFloor(Toggle):
+    """Require Progressive Floor items for upward escalators within each ten-floor band.
+    The 10->11, 20->21, 30->31 and 40->41 transitions are exempt.
+    Existing native boss requirements still apply. Disabled by default.
+    """
+    display_name = "Progressive Floor"
+    default = 0
+
+
+class ProgressiveFloorQuantity(Range):
+    """Progressive Floor items in the pool when enabled. Minimums for goals
+    10F/20F/30F/40F are 9/18/27/36. Extra copies have no effect after all
+    required floors are unlocked. Received items are not consumed by travel.
+    """
+    display_name = "Progressive Floor Quantity"
+    range_start = 0
+    range_end = 1000
+    default = 36
+
+
+class MasteryXPMultiplier(Range):
+    """Multiply weapon mastery XP earned from enemy defeats. Normal fighter XP is unchanged."""
+    display_name = "Mastery XP Multiplier"
+    range_start = 1
+    range_end = 100
+    default = 1
+
+class MasterySanity(Toggle):
+    """Add mastery level checks for weapon families available through this run's AP progressives."""
+    display_name = "MasterySanity"
+
+class MasteryChecks(Range):
+    """Checks per mastery, evenly spaced through level20, always including level20."""
+    display_name = "Checks Per Mastery"
+    range_start = 1
+    range_end = 20
+    default = 20
+
+class MasteryIncludeFists(DefaultOnToggle):
+    """Include fist mastery checks when MasterySanity is enabled. Fists also cap at level20."""
+    display_name = "Include Fist Mastery"
+
 @dataclass
 class LetItDieOptions(PerGameCommonOptions):
+    mastery_xp_multiplier: MasteryXPMultiplier
+    mastery_sanity: MasterySanity
+    mastery_checks: MasteryChecks
+    mastery_include_fists: MasteryIncludeFists
+    progressive_floor: ProgressiveFloor
+    progressive_floor_quantity: ProgressiveFloorQuantity
     shop_sanity: ShopSanity
     """All player-configurable LET IT DIE options."""
 

@@ -5,7 +5,7 @@ from typing import Any, Mapping
 from BaseClasses import Tutorial, ItemClassification
 from worlds.AutoWorld import WebWorld, World
 
-from . import Items, Locations, Regions, Rules, ShopCatalogue, EquipmentProgression
+from . import Items, Locations, Regions, Rules, ShopCatalogue, EquipmentProgression, FloorProgression
 from .Items import LetItDieItem
 from .Locations import LetItDieLocation
 from .Options import LetItDieOptions
@@ -42,6 +42,9 @@ class LetItDieWorld(World):
     hater_catalogue_version = 5
     generation_schema = 2
     shop_schema = 1
+    floor_schema = 1
+    mastery_schema = 1
+    boss_logic_schema = 1
 
     @staticmethod
     def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
@@ -65,6 +68,9 @@ class LetItDieWorld(World):
         """Calculate the item count before dynamic Screamer locations are created."""
 
         restore_tracker_options(self)
+        self.floor_policy = FloorProgression.from_options(self.options)
+        from . import MasteryCatalogue
+        self.mastery_policy = MasteryCatalogue.from_options(self.options) if self.mastery_schema else None
         if self.generation_schema >= 2:
             configured_weights(self.options)
         self.generated_item_count = (
@@ -79,6 +85,7 @@ class LetItDieWorld(World):
             + int(self.options.progressive_rage_gauge_quantity.value)
             + sum(Items.get_equipment_quantities(self.options).values())
             + len(Items.PREMIUM_DECAL_ITEMS)
+            + self.floor_policy.pool_count
         )
 
         self.shop_locations = ShopCatalogue.build(int(self.options.goal.value)) if self.options.shop_sanity.value else ()
@@ -87,6 +94,9 @@ class LetItDieWorld(World):
             raise ValueError('Combined LET IT DIE check catalogue exceeds client capacity.')
         self.tower_logic = TowerLogic(self)
         self.tower_logic.validate_pool()
+        from .MasteryLogic import MasteryLogic
+        self.mastery_logic = MasteryLogic(self)
+        self.mastery_logic.validate_pool(self.mastery_policy)
 
     def create_regions(self) -> None:
         """Create regions and the exact number of randomized locations."""
@@ -125,6 +135,8 @@ class LetItDieWorld(World):
         for name, quantity in configured_quantities.items():
             pool.extend(self.create_item(name) for _ in range(quantity))
 
+        pool.extend(self.create_item(FloorProgression.ITEM_NAME) for _ in range(self.floor_policy.pool_count))
+
         for name, quantity in Items.get_equipment_quantities(self.options).items():
             pool.extend(self.create_item(name) for _ in range(quantity))
 
@@ -159,6 +171,7 @@ class LetItDieWorld(World):
 
         return {
             "tracker": tracker_slot_data(self),
+            **({"mastery":self.mastery_policy} if self.mastery_schema else {}),
             "enable_dod_arms": bool(self.options.enable_dod_arms.value),
             "enable_war_ensemble": bool(self.options.enable_war_ensemble.value),
             "enable_candle_wolf": bool(self.options.enable_candle_wolf.value),
@@ -166,6 +179,7 @@ class LetItDieWorld(World):
             "maximum_equipment_tier": int(self.options.maximum_equipment_tier.value),
             "equipment_upgrade_steps": int(self.options.equipment_upgrade_steps.value),
             "equipment_progression": EquipmentProgression.slot_policy(self.options),
+            **({'floor_progression': self.floor_policy.slot_data()} if self.floor_schema else {}),
             "group_armor_sets": bool(self.options.group_armor_sets.value),
             "starting_fighter_class": self.options.starting_fighter_class.current_key,
             "starting_fighter_grade": int(self.options.starting_fighter_grade.value),

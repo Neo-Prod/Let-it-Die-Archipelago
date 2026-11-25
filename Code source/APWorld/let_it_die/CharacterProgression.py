@@ -56,6 +56,7 @@ class CharacterConfig:
     # Each tuple is (starting value, increase per receipt, quantity cap).
     tracks: tuple[tuple[int, int, int], ...]
     equipment_steps: int | None = None
+    floor_policy: object | None = None
 
     def __post_init__(self) -> None:
         if self.equipment_steps is not None and (type(self.equipment_steps) is not int or not 0 <= self.equipment_steps <= 4):
@@ -84,7 +85,9 @@ class CharacterConfig:
             except KeyError as exc:
                 raise ReceiptError(f"Missing character configuration: {exc.args[0]}") from exc
         from .EquipmentProgression import steps_from_slot
-        return cls(tuple(tracks), steps_from_slot(slot_data))
+        from .FloorProgression import from_slot_data as floor_from_slot
+        floor = floor_from_slot(slot_data) if 'floor_progression' in slot_data else None
+        return cls(tuple(tracks), steps_from_slot(slot_data), floor)
 
     @property
     def fingerprint(self) -> str:

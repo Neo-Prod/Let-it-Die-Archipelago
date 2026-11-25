@@ -2,6 +2,7 @@
 #define LID_RESEARCH_DEATH_WIRE_H
 #include <stdint.h>
 #include <stddef.h>
+#include "mastery_identity.h"
 enum {R15_SIZE=1024,R15_EVENT=1,R15_ACK=2,R15_FAULT=3,R39_VISIT=4,R72_CHEST=5};
 typedef struct R15Context {uint32_t pid,client_pid;uint64_t birth;uint8_t nonce[16],run[32],config[32],writer[16];} R15Context;
 typedef struct R15Frame {
@@ -52,8 +53,12 @@ static unsigned r22_map_floor(const char*floor,const char*area){
     return count?block*10+local:0;
 }
 static int r15_valid(const R15Frame*f){
-    if(!f||!r15_context_valid(&f->context)||!f->sequence||f->kind<1||f->kind>5||
+    if(!f||!r15_context_valid(&f->context)||!f->sequence||f->kind<1||f->kind>7||f->kind==6||
        !r15_ascii(f->floor,16)||!r15_ascii(f->area,32)||!r15_ascii(f->rotation,16)||!r15_ascii(f->damage,96)||!r15_ascii(f->pawn_class,96)||!r15_utf16(f->name)||!r15_utf16(f->label))return 0;
+    if(f->kind==7)return !f->status&&f->epoch&&f->health>=1&&f->health<=20&&f->max_health==20&&
+      !f->flags&&!f->classes&&!f->name_index&&!f->name_number&&!f->raw_kind&&!f->family&&!f->version&&
+      !f->floor[0]&&!f->area[0]&&!f->rotation[0]&&!f->pawn_class[0]&&!f->name[0]&&!f->label[0]&&
+      lid_mastery_family_index(f->damage)>=0;
     if(f->kind==R72_CHEST)return !f->status&&f->epoch&&r22_map_floor(f->floor,f->area)&&r15_equal(f->rotation,"4HMA\0",5)&&
       f->raw_kind>=1&&f->raw_kind<=3&&!f->flags&&!f->classes&&!f->health&&!f->max_health&&!f->family&&!f->version&&
       !f->damage[0]&&!f->pawn_class[0]&&!f->name[0]&&!f->label[0];

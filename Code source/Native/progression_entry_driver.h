@@ -92,6 +92,9 @@ static void progress_native_entry_tick(void){
 #if LID_CHECKS_DIAGNOSTIC_ENABLED
         checks_diagnostic_boundary(status);
 #endif
+#if LID_FLOOR_PROGRESSION_ENABLED
+        floor_native_entry_done(status);
+#endif
         progress_entry_finish("AP ENTRY R17: entry closed; no further gate/file work until an actual return.");
     }else if(g_progress_transaction.phase==LID_TX_STOPPED||g_progress_transaction.phase==LID_TX_LOST){
         g_entry_driver.stopped=1;log_ascii("AP ENTRY R17: transaction suspended; retained worker lifetime, no invented acknowledgement.");

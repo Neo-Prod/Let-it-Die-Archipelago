@@ -14,6 +14,25 @@ static LidCharacterView g_decal_character;
 static BYTE g_decal_target[256],g_decal_raw[1152],g_decal_pending[1152],g_decal_saved[1152],g_decal_old_ledger[1152];
 static unsigned g_decal_counts[208],g_decal_delta[208];
 static unsigned g_decal_prepared,g_decal_pending_owned,g_decal_ledger_published,g_decal_proof_published,g_decal_blocked;
+static unsigned g_decal_cancel_checked;
+static int progress_decal_outside(void*context);
+/* A closed failed batch with no additive attempt can discard ONLY its own
+   exact intent. Partial character/blueprint mutations still require reconnect;
+   no save report is fabricated and additive uncertainty stays quarantined. */
+static void progress_decal_cancel_unstarted_intent(void){
+    LidCharacterTransaction*tx=&g_progress_transaction;
+    if(g_decal_cancel_checked||!g_decal_pending_owned||!g_decal_prepared||
+       tx->phase!=LID_TX_STOPPED||tx->lease->active||tx->lease->window||tx->job->active||
+       g_decal_commit.started||g_decal_commit.applied||g_decal_ledger_published||g_decal_proof_published||
+       !progress_decal_outside(0))return;
+    g_decal_cancel_checked=1;
+    if(lid_decal_file_read(&g_decal_files,LID_DECAL_PENDING_FILE,g_decal_raw)!=1||
+       !lid_wire_equal(g_decal_raw,g_decal_pending,1152)||!lid_decal_pending_remove(&g_decal_files)){
+        log_ascii("AP DECAL R337: unstarted intent cleanup refused; preserved for review.");return;
+    }
+    g_decal_pending_owned=0;
+    log_ascii("AP DECAL R337: failed batch closed before any decal grant; exact own intent cancelled. Reconnect required; no ACK.");
+}
 static int progress_decal_stop_read(size_t*size,const char*message){
     g_decal_blocked=1;g_progress_host.poisoned=1;if(size)*size=0;
     if(message)log_ascii(message);return -1;
@@ -66,6 +85,7 @@ static int progress_decal_pair_read(void*context,int id,BYTE*out,size_t capacity
 }
 static int progress_decal_prepare(void*context,const LidWireMessage*target){
     BYTE frame[256];LidDecalCommitOps ops;LidBlueprintDomain*d=context;
+    g_item_readback_reason=0;g_item_readback_index=g_item_readback_byte=g_item_readback_has_actual=0;
     if(g_decal_blocked||g_decal_pending_owned||!g_decal_ledger.loaded||!lid_wire_encode(frame,256,target)||!lid_wire_equal(frame,g_decal_target,256)||
        !starter_prepare(d,target)||!progress_decal_capture()||!lid_decal_engine_ops(&g_decal_engine,&ops)||
        !lid_decal_engine_stock(&g_decal_engine,&g_decal_before)||
@@ -86,8 +106,13 @@ static int progress_decal_validate_armed(void*context){LidBlueprintDomain*d=cont
         lid_decal_engine_stock(&g_decal_engine,&g_decal_scratch)&&lid_decal_unchanged(&g_decal_before,&g_decal_scratch,0)&&
         d->native.guard(d->native.context)==1&&d->native.read_model(d->native.context,&d->after)==1&&lid_bp_commit_unchanged(&d->before,&d->after);
 }
-static int progress_decal_commit(void*context){return starter_commit(context)&&lid_decal_commit_run(&g_decal_commit)==1;}
-static int progress_decal_readback(void*context){return starter_readback(context)&&lid_decal_commit_verify(&g_decal_commit);}
+static int progress_decal_commit(void*context){
+    int result=starter_commit(context);if(result!=1)return result;
+    return lid_decal_commit_run(&g_decal_commit);
+}
+static int progress_decal_readback(void*context){
+    return starter_readback(context)&&lid_decal_commit_verify(&g_decal_commit);
+}
 static int progress_decal_refresh(void*context,const LidWireMessage*target){
     unsigned i;LidBlueprintDomain*d=context;
     if(g_decal_blocked||g_decal_pending_owned||!lid_blueprint_domain_refresh(d,target)||!g_decal_ledger.loaded||

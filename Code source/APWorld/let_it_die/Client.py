@@ -192,6 +192,10 @@ def prepare_local_slot(
     )
     key = local_slot_key(identity)
 
+    # Pair the native output views BEFORE touching the dedicated master copy.
+    from .PlayerMasterData import require_player_stats_native, restore_shared_fighter_tables
+    native_stats_sha = require_player_stats_native(request.game_root)
+
     slot_dir = request.bridge_dir / "slots" / key
     slot_dir.mkdir(parents=True, exist_ok=True)
 
@@ -262,6 +266,10 @@ def prepare_local_slot(
     from .ShopMasterPatch import apply_shop_master_policy
     apply_shop_master_policy(ap_masters, slot_directory=slot_dir,
         source_db=request.game_root / "BrgGame" / "Content" / "masters.db", slot_data=slot_data)
+
+    restored = restore_shared_fighter_tables(ap_masters, slot_directory=slot_dir,
+        source_db=request.game_root / "BrgGame" / "Content" / "masters.db")
+    bridge_log(request.bridge_dir, f"AP PLAYER STATS R347: shared fighter tables native; native_sha={native_stats_sha}; changed_rows={restored['updated_rows']}")
 
     write_slot_metadata(identity, metadata)
 
@@ -576,6 +584,7 @@ class LetItDieContext(CommonContext):
                 # in-process DLL. No starting stat or progressive increase is
                 # compiled into the native mod anymore.
                 starting_fighter_grade=int(slot_data["starting_fighter_grade"]),
+                player_only_stats=1,
                 starting_hp=int(slot_data["starting_hp"]),
                 starting_stm=int(slot_data["starting_stm"]),
                 starting_str=int(slot_data["starting_str"]),

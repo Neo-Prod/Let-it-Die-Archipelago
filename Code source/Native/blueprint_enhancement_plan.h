@@ -105,6 +105,9 @@ static int lid_enhance_desired(LidBlueprintNativeRecord*out,const LidBlueprintNa
     lid_bp_utf_from_ascii(out->research_name,a->research==LID_BP_FINISHED?"FINISHED":"LEVELUP");
     lid_bp_utf_from_ascii(out->receive_name,a->research==LID_BP_FINISHED?"CHARGE":"UNKNOWN");return 1;
 }
+#ifndef LID_ITEM_READBACK_RECORD
+#define LID_ITEM_READBACK_RECORD(expected,actual,index) ((void)0)
+#endif
 static int lid_enhance_readback(const LidBlueprintNativeSnapshot*before,const LidBlueprintNativeSnapshot*after,const LidEnhancementPlan*p){
     if(!before||!after||!p||!p->prepared||before->valid!=1||after->valid!=1||before->count>before->capacity||after->count>after->capacity)return 0;
     size_t b=0,a=0;unsigned action=0;LidBlueprintNativeRecord expected,desired;
@@ -117,7 +120,9 @@ static int lid_enhance_readback(const LidBlueprintNativeSnapshot*before,const Li
         if(part<LID_BLUEPRINT_PART_COUNT&&p->archive[part]&&expected.state.level<p->archive[part]&&expected.state.receive==LID_BP_CHARGE){
             expected.state.receive=LID_BP_ARCHIVED;lid_wire_zero(expected.receive_name,sizeof(expected.receive_name));lid_bp_utf_from_ascii(expected.receive_name,"FINISHED");
         }
-        if(a>=after->count||!lid_wire_equal((const BYTE*)&expected,(const BYTE*)(after->records+a),sizeof(expected)))return 0;a++;
+        if(a>=after->count||!lid_wire_equal((const BYTE*)&expected,(const BYTE*)(after->records+a),sizeof(expected))){
+            LID_ITEM_READBACK_RECORD(&expected,a<after->count?after->records+a:0,a);return 0;
+        }a++;
     }return a==after->count;
 }
 #endif

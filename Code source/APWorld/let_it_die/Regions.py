@@ -16,9 +16,12 @@ def create_regions(world) -> None:
         default = next(i for i, route in enumerate(logic.routes) if floor <= route.last_floor)
         for index, route in enumerate(logic.routes):
             if name in route.maps:
-                stages[index].connect(region, name=f'{route.name}: path to {name}')
+                stages[index].connect(region, name=f'{route.name}: path to {name}',
+                    rule=lambda state, floor=floor: world.floor_policy.can_enter(state, world.player, floor))
         if name not in logic.routes[default].maps:
-            stages[default].connect(region, name=f'{logic.routes[default].name}: other map {name}', rule=logic.rule(default))
+            stages[default].connect(region, name=f'{logic.routes[default].name}: other map {name}',
+                rule=lambda state, floor=floor, default=default:
+                    logic.ready(state, default) and world.floor_policy.can_enter(state, world.player, floor))
     for zone in range(catalogue['goal_floor'] // 10):
         region = Region(f'Tower {zone * 10 + 1:02d}-{zone * 10 + 10:02d}', world.player, world.multiworld)
         regions[zone] = region
@@ -29,7 +32,7 @@ def create_regions(world) -> None:
     for check in catalogue['checks']:
         parent = (regions[logic.map_keys[check['floor'], check['area']]]
                   if check['kind'] in ('room_visit', 'hater', 'miniboss') else regions['Waiting Room']
-                  if (check['kind']=='tuber' and world.hater_catalogue_version>=3) or check['kind'] in ('chest','material')
+                  if (check['kind']=='tuber' and world.hater_catalogue_version>=3) or check['kind'] in ('chest','material','mastery')
                   else regions[check['zone']])
         parent.add_locations({check['name']: check['code']}, world.location_type)
     for shop in getattr(world, 'shop_locations', ()):

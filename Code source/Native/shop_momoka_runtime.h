@@ -27,6 +27,17 @@ typedef struct R254Momoka {
     LidAPImage ap_image;LidMomokaIcons icons;int icons_state;unsigned icons_busy;
 } R254Momoka;
 static R254Momoka g_shop_momoka;
+/* Bounded scalar diagnostics on the existing UI-owner initialization path.
+   No extra watcher or game read. Distinct stage/value pairs only, max64 lines. */
+static unsigned g_r341_seen[16][8],g_r341_lines;
+static void r341_momoka_note(unsigned stage,unsigned value){
+    if(stage>=16||value>=256||g_r341_lines>=64)return;
+    unsigned bit=1u<<(value&31),word=value>>5;
+    if(g_r341_seen[stage][word]&bit)return;g_r341_seen[stage][word]|=bit;g_r341_lines++;
+    char line[128];size_t pos=0;append_ascii(line,sizeof(line),&pos,"AP SHOP R341 MOMOKA stage=");
+    append_dec(line,sizeof(line),&pos,stage);append_ascii(line,sizeof(line),&pos," value=");
+    append_dec(line,sizeof(line),&pos,value);line[pos]=0;log_ascii(line);
+}
 static uint32_t r254_thread(void*c){R254Momoka*r=c;return r->driver.adapter.api.thread?r->driver.adapter.api.thread():0;}
 /* This C-only Context remains pinned while old receipts/lease exist, including
    admission halt/draining. Never read game globals/UObjects off the UI thread. */
@@ -115,24 +126,24 @@ static void r286_schema_log(const char*,unsigned,unsigned,unsigned);
    R252 validation at actual buys still follows the current active menu. */
 static int r254_menu(R254Momoka*r,uint64_t*database,uint64_t*menu){
     LidShopMomokaRoot*c=&r->root;uint64_t game,cls,db,manager,current,dbcls,menucls;
-    if(!lid_sg_game_current(&r->game,&game)||!m195_read(&c->memory,game,0x50,&cls,8))return 0;
+    if(!lid_sg_game_current(&r->game,&game)||!m195_read(&c->memory,game,0x50,&cls,8)){r341_momoka_note(3,0);return 0;}
     if(c->game_class!=cls){
         uint32_t a,b;
         if(!lid_mr_field(&c->memory,game,"BrgGameInfoNative","mDatabase","ObjectProperty",8,&a,0)||
-           !lid_mr_field(&c->memory,game,"BrgGameInfoNative","mUIManager","ObjectProperty",8,&b,0))return 0;
+           !lid_mr_field(&c->memory,game,"BrgGameInfoNative","mUIManager","ObjectProperty",8,&b,0)){r341_momoka_note(4,0);return 0;}
         c->database=a;c->manager=b;c->game_class=cls;c->manager_class=0;
     }
     if(!m195_read(&c->memory,game,c->database,&db,8)||!m195_read(&c->memory,db,0x50,&dbcls,8)||
        !m195_named(&c->memory,dbcls,"BrgDatabase")||
-       !m195_read(&c->memory,game,c->manager,&manager,8)||!m195_read(&c->memory,manager,0x50,&cls,8))return 0;
+       !m195_read(&c->memory,game,c->manager,&manager,8)||!m195_read(&c->memory,manager,0x50,&cls,8)){r341_momoka_note(5,0);return 0;}
     if(c->manager_class!=cls){
         uint32_t offset;
-        if(!lid_mr_field(&c->memory,manager,"BrgUIManager","mSkillExchange","ObjectProperty",8,&offset,0))return 0;
+        if(!lid_mr_field(&c->memory,manager,"BrgUIManager","mSkillExchange","ObjectProperty",8,&offset,0)){r341_momoka_note(6,0);return 0;}
         c->menu=offset;c->manager_class=cls;
     }
     if(!m195_read(&c->memory,manager,c->menu,&current,8)||
-       !m195_read(&c->memory,current,0x50,&menucls,8)||!m195_named(&c->memory,menucls,"BrgUIMenu_SkillExchange"))return 0;
-    return lid_mr_current(c,menucls,dbcls,database,menu);
+       !m195_read(&c->memory,current,0x50,&menucls,8)||!m195_named(&c->memory,menucls,"BrgUIMenu_SkillExchange")){r341_momoka_note(7,0);return 0;}
+    int ready=lid_mr_current(c,menucls,dbcls,database,menu);r341_momoka_note(8,!!ready);return ready;
 }
 static void r254_disabled(R254Momoka*r){
     /* Explicit false is terminal for this Context. Restore only our own guard;
@@ -366,6 +377,8 @@ static void shop_momoka_runtime_tick(BYTE*image){
     if(r->phase==R254_FAILED||r->phase==R254_DISABLED||!g_get_tid||
        g_get_tid()!=__atomic_load_n(&g_hub_events.owner,__ATOMIC_ACQUIRE))return;
     if(r->clock){uint64_t now=r->clock();if(r->next&&now<r->next)return;r->next=now+250;}
+    r341_momoka_note(0,r->phase);
+    r341_momoka_note(1,(r->labels.stopped?1u:0u)|(r->stock.stopped?2u:0u)|(r->icons_state<0?4u:0u));
     if(r->phase==R254_COLD){
         if(!image||!g_ap_mode_active||!g_savedata_route_active||!g_v074_cfg.valid)return;
         r->owner=g_get_tid();r->image=image;
@@ -422,6 +435,7 @@ static void shop_momoka_runtime_tick(BYTE*image){
     }
     if(r->phase==R254_BOUGHT){
         int ready=r254_shop_ready(t);
+        r341_momoka_note(2,(unsigned)(ready+1));
         if(ready<0||(!ready&&r->clock()-r->waiting_since>=120000)){r254_fail(r,"AP SHOPSANITY R254: current bought-state unavailable/invalid.");return;}
         if(!ready)return;
         uint64_t database,menu;

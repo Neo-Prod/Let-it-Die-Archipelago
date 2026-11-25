@@ -121,7 +121,7 @@ static int lid_tav_marked(LidTowerAutoView*h,uint64_t object,unsigned offer){
 static int lid_tav_apply(LidTowerAutoView*h,unsigned logical){
     if(!h||!h->prepared||h->stopped||h->busy||h->queue->ops.thread(h->queue->ops.context)!=h->queue->owner){r299_note(12,1,0);return 0;}
     LidTowerDisplayView view;int status=lid_tdv_collect(h->current,h->queue,h->display,&view);
-    if(status<0){h->stopped=1;r299_note(12,2,0);return -1;}if(!status||logical>=view.count){r299_note(12,3,logical);return 0;}
+    if(status<0){r299_note(12,2,0);return 0;}if(!status||logical>=view.count){r299_note(12,3,logical);return 0;}
     const M195Ops*o=&h->current->meta->memory;LidTSArray units;uint64_t base,old,owned=0;
     uint16_t name[LID_UI_NAME_CAP],recipient[128],game[128],description[260];unsigned n=0;
     if(!lid_tuc_array(o,view.roots.item_select+h->units,0x3e8,36,&units)){r299_note(12,4,logical);return 0;}

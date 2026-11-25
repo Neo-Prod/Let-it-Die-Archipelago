@@ -4,6 +4,9 @@
    native commit first. Host owns buffers/ops; no allocation or polling.
    Not yet attached by mod.c. Context must outlive the transaction. */
 #include "blueprint_enhancement_plan.h"
+#ifndef LID_ITEM_READBACK_FAIL
+#define LID_ITEM_READBACK_FAIL(code) 0
+#endif
 typedef struct LidBlueprintDomain {
     LidCharacterTransaction* transaction;LidBlueprintPairGate* pair;
     LidBlueprintNativeSnapshot before,after;
@@ -60,13 +63,17 @@ static int lid_enhance_domain_commit(LidBlueprintDomain*d){
     if(d->native.enhanced_guard(d->native.context)!=1||d->native.read_model(d->native.context,&d->after)!=1||!lid_bp_commit_unchanged(&d->before,&d->after))return 0;
     for(unsigned i=0;i<p->action_count;i++){
         if(d->waiting_parts[p->actions[i].part]||d->native.enhanced_guard(d->native.context)!=1||!lid_enhance_desired(&desired,&d->before,p->actions+i)){job->stopped=1;return job->started?-1:0;}
-        job->started=1;if(d->native.enhanced_upsert(d->native.context,&desired)!=1){job->stopped=1;return -1;}
+        job->started=1;if(d->native.enhanced_upsert(d->native.context,&desired)!=1){LID_ITEM_READBACK_FAIL(408);job->stopped=1;return -1;}
     }
     for(unsigned part=0;part<LID_BLUEPRINT_PART_COUNT;part++)if(p->archive[part]){
         if(d->waiting_parts[part]||d->native.enhanced_guard(d->native.context)!=1){job->stopped=1;return job->started?-1:0;}
-        job->started=1;if(d->native.archive(d->native.context,part,p->archive[part])!=1){job->stopped=1;return -1;}
+        job->started=1;if(d->native.archive(d->native.context,part,p->archive[part])!=1){LID_ITEM_READBACK_FAIL(411);job->stopped=1;return -1;}
     }
-    if(d->native.enhanced_guard(d->native.context)!=1||d->native.read_model(d->native.context,&d->after)!=1||!lid_enhance_readback(&d->before,&d->after,p)){job->stopped=1;return job->started?-1:0;}
+    unsigned failure=0;
+    if(d->native.enhanced_guard(d->native.context)!=1)failure=412;
+    else if(d->native.read_model(d->native.context,&d->after)!=1)failure=413;
+    else if(!lid_enhance_readback(&d->before,&d->after,p))failure=106;
+    if(failure){LID_ITEM_READBACK_FAIL(failure);job->stopped=1;return job->started?-1:0;}
     job->applied=1;return 1;
 }
 static int lid_blueprint_domain_commit(void* context){
@@ -79,10 +86,14 @@ static int lid_blueprint_domain_commit(void* context){
 }
 static int lid_blueprint_domain_readback(void* context){
     LidBlueprintDomain* d=context;
-    if(!d||!d->prepared)return 0;
-    if(!d->enhanced_mode)return lid_blueprint_commit_verify(&d->commit);
-    if(!d->commit.applied||d->commit.stopped||d->native.enhanced_guard(d->native.context)!=1||
-       d->native.read_model(d->native.context,&d->after)!=1||!lid_enhance_readback(&d->before,&d->after,&d->enhancement)){d->commit.stopped=1;return 0;}
+    if(!d||!d->prepared)return LID_ITEM_READBACK_FAIL(101);
+    if(!d->enhanced_mode){int ok=lid_blueprint_commit_verify(&d->commit);return ok?ok:LID_ITEM_READBACK_FAIL(102);}
+    unsigned failure=0;
+    if(!d->commit.applied||d->commit.stopped)failure=103;
+    else if(d->native.enhanced_guard(d->native.context)!=1)failure=104;
+    else if(d->native.read_model(d->native.context,&d->after)!=1)failure=105;
+    else if(!lid_enhance_readback(&d->before,&d->after,&d->enhancement))failure=106;
+    if(failure){d->commit.stopped=1;return LID_ITEM_READBACK_FAIL(failure);}
     return 1;
 }
 static int lid_blueprint_domain_refresh(void* context,const LidWireMessage* target){

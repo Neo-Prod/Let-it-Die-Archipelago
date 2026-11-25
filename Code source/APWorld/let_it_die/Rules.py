@@ -15,7 +15,9 @@ def set_rules(world) -> None:
     logic = world.tower_logic
     material_cache={}
     for check in world.check_catalogue['checks']:
-        if check['kind'] == 'miniboss':
+        if check['kind']=='mastery':
+            world.multiworld.get_location(check['name'],world.player).access_rule=lambda state,family=check['tag']:world.mastery_logic.can_earn(state,family)
+        elif check['kind'] == 'miniboss':
             name = logic.map_keys[check['floor'], check['area']]
             world.multiworld.get_location(check['name'], world.player).access_rule = logic.rule(logic.boss_routes[name])
         elif check['kind']=='tuber' and world.hater_catalogue_version>=3:

@@ -9,6 +9,7 @@ def record_frame(outbox,frame):
     if type(frame) is MaterialFrame:return outbox.record(from_frame(frame))
     if type(frame) is not Frame:raise ValueError('validated typed wire frame required')
     frame.validate()
+    if frame.kind==7:return outbox.record_mastery(frame)
     if frame.kind==EVENT:return outbox.record(frame.to_death(Death))
     if frame.kind==VISIT:return outbox.record(Visit(frame.context.run.hex(),frame.event_id(),physical_floor(frame.floor,frame.area),frame.area,frame.rotation))
     if frame.kind==CHEST:return outbox.record(Chest(frame.context.run.hex(),frame.event_id(),physical_floor(frame.floor,frame.area),frame.area,frame.rotation,('Red','Silver','Gold')[frame.raw_kind-1]))

@@ -15,6 +15,9 @@ FACTION_OPTIONS = {
     "milk": "enable_milk",
 }
 
+# IDs and native catalogue slots remain reserved for older received histories.
+REMOVED_EQUIPMENT_NAMES = frozenset({"Progressive Iron Hammer RG"})
+
 
 @lru_cache(maxsize=2)
 def _catalogue(legacy=False):
@@ -47,7 +50,7 @@ def equipment_quantities(equipment_items, options):
         entry = catalogue[name]
         if entry.get("ap_id") != item.code:
             raise ValueError(f"Equipment AP ID mismatch: {name}")
-        if entry.get("excluded"):
+        if name in REMOVED_EQUIPMENT_NAMES or entry.get("excluded"):
             quantities[name] = 0
             continue
         tiers = entry.get("tiers", [])

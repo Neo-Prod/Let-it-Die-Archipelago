@@ -495,6 +495,15 @@ static int progress_reload_prepare(BYTE*exe){
     r->bridge.thread_id=progress_reload_thread;r->bridge.capture=lid_reload_bound_source_capture;
     if(!progress_reload_idle_begin())return 0;
     if(!progress_reload_proxy_read(&proxy)){progress_reload_idle_end();return 0;}
+#if LID_PLAYER_STATS_ENABLED
+    if(!player_stats_prepare_at_idle()){
+        progress_reload_idle_end();
+        log_ascii("AP PLAYER STATS R347: publication refused; player-only reload not admitted.");return 0;
+    }
+#endif
+#if LID_MASTERY_ENABLED
+    (void)mastery_retained_prepare_at_idle();
+#endif
 #if defined(LID_CHECKS_ROTATION_ENABLED) && LID_CHECKS_ROTATION_ENABLED
     (void)checks_rotation_prepare_at_idle();
 #endif

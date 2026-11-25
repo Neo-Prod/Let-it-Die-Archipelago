@@ -129,7 +129,7 @@ class Message:
 def atomic_write(path: Path, data: bytes) -> None:
     """Only bridge-owned filenames; refuse accidental writes to a game save."""
     path = Path(path)
-    if path.name not in {OFFER_FILE, QUIESCED_FILE, TARGET_FILE, SAVED_FILE, APPLIED_FILE, 'decal_target.bin', 'decal_applied.json', 'character_reload_source.bin'}:
+    if path.name not in {OFFER_FILE, QUIESCED_FILE, TARGET_FILE, SAVED_FILE, APPLIED_FILE, 'decal_target.bin', 'decal_applied.json', 'character_reload_source.bin', 'floor_target.bin'}:
         raise TransportError("Not a character bridge filename")
     fd, temporary = tempfile.mkstemp(prefix=".character-bridge-", suffix=".tmp", dir=path.parent)
     try:
@@ -180,6 +180,7 @@ class NativeTransport:
         if journal is None:
             return "receipt_unavailable"
         self.equipment_steps = getattr(journal.config, "equipment_steps", None)
+        floor_policy = getattr(journal.config, 'floor_policy', None)
         try:
             offer = read_message(self.directory / OFFER_FILE)
         except FileNotFoundError:
@@ -227,6 +228,9 @@ class NativeTransport:
                              history_length=len(snapshot.history), counts=snapshot.counts,
                              generation=generation, sequence=self.sequence + 1)
             if self.blueprints:
+                if floor_policy is not None:
+                    from .FloorTransport import encode_floor_target
+                    atomic_write(self.directory / 'floor_target.bin', encode_floor_target(snapshot, target, floor_policy))
                 from .BlueprintPublication import publish_blueprint_target
                 publish_blueprint_target(self.directory, snapshot, target, upgrade_steps=self.equipment_steps)
             else:

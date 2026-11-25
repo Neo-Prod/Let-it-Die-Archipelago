@@ -46,8 +46,15 @@ static int lid_decal_commit_run(LidDecalCommit*job){
 uncertain:job->stopped=1;return -1;
 }
 static int lid_decal_commit_verify(LidDecalCommit*job){
-    return job&&job->applied==1&&!job->stopped&&job->ops.guard(job->ops.context)==1&&
-        job->ops.stock(job->ops.context,job->scratch)==1&&lid_decal_unchanged(job->after,job->scratch,0)&&
-        job->ops.view(job->ops.context,job->scratch)==1&&lid_decal_unchanged(job->after,job->scratch,1);
+#ifndef LID_ITEM_READBACK_FAIL
+#define LID_ITEM_READBACK_FAIL(code) 0
+#endif
+    if(!job||job->applied!=1||job->stopped)return LID_ITEM_READBACK_FAIL(301);
+    if(job->ops.guard(job->ops.context)!=1)return LID_ITEM_READBACK_FAIL(302);
+    if(job->ops.stock(job->ops.context,job->scratch)!=1)return LID_ITEM_READBACK_FAIL(303);
+    if(!lid_decal_unchanged(job->after,job->scratch,0))return LID_ITEM_READBACK_FAIL(304);
+    if(job->ops.view(job->ops.context,job->scratch)!=1)return LID_ITEM_READBACK_FAIL(305);
+    if(!lid_decal_unchanged(job->after,job->scratch,1))return LID_ITEM_READBACK_FAIL(306);
+    return 1;
 }
 #endif

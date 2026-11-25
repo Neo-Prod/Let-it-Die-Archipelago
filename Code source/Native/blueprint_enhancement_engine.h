@@ -27,7 +27,8 @@ static int lid_blueprint_engine_archive_enhanced(void*context,unsigned part,unsi
     LidBlueprintEngineAdapter*e=context;unsigned short ptid[64];
     if(!lid_blueprint_enhanced_guard(e)||part>=LID_BLUEPRINT_PART_COUNT||threshold<1||threshold>lid_enhancement_cap[part]+1u)return 0;
     lid_bp_utf_from_ascii(ptid,lid_blueprint_parts[part]);
-    typedef unsigned long long(WINAPI*Archive)(const unsigned short*,unsigned);
+    /* The game returns success in AL (native bool), not the full RAX register. */
+    typedef unsigned char(WINAPI*Archive)(const unsigned short*,unsigned);
     return ((Archive)(e->exe+0x1322750))(ptid,threshold)==1;
 }
 #endif

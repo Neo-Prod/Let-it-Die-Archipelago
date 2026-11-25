@@ -1,6 +1,6 @@
 """KC filler definitions and deterministic generation weights.
 
-Legacy Kill Coins remains reserved; new denomination IDs never reuse its ID.
+Removed generic Kill Coins ID 7130001 remains reserved and is never reused.
 This module does not grant currency or access the game.
 """
 KILL_COIN_FILLERS = (
@@ -21,6 +21,6 @@ def configured_weights(options):
 
 def choose_filler(world):
     if getattr(world, "generation_schema", 2) < 2:
-        return "Kill Coins"
+        return KILL_COIN_FILLERS[0][0]
     return world.random.choices([row[0] for row in KILL_COIN_FILLERS],
                                 weights=configured_weights(world.options), k=1)[0]

@@ -58,7 +58,7 @@ static int progress_blueprint_attach(void){
     log_ascii("AP BLUEPRINT: common entry/save domain attached; native shop behavior unchanged.");return 1;
 }
 static void progress_blueprint_log_status(int status){
-    char line[192];size_t pos=0;
+    char line[512];size_t pos=0;
     if(status==LID_TX_STARTED){
         append_ascii(line,sizeof(line),&pos,"AP BLUEPRINT: applying entry target types=");
         append_dec(line,sizeof(line),&pos,g_blueprint_domain.plan.target_count);
@@ -67,6 +67,25 @@ static void progress_blueprint_log_status(int status){
         line[pos]=0;log_ascii(line);
     }else if(status==LID_TX_SAVED)log_ascii("AP BLUEPRINT: own save/readback and paired native reports completed.");
     else if(status==LID_TX_REFUSED)log_ascii("AP BLUEPRINT: preflight refused; receipts remain pending for a later entry.");
-    else if(status==LID_TX_FAILED||status==LID_TX_GENERATION_LOST)log_ascii("AP BLUEPRINT: transaction suspended; no invented save acknowledgement.");
+    else if(status==LID_TX_FAILED||status==LID_TX_GENERATION_LOST){
+        log_ascii("AP BLUEPRINT: transaction suspended; no invented save acknowledgement.");
+        line[0]=0;append_ascii(line,sizeof(line),&pos,"AP ITEMS R333 READBACK: reason=");append_dec(line,sizeof(line),&pos,g_item_readback_reason);
+        append_ascii(line,sizeof(line),&pos," enhanced=");append_dec(line,sizeof(line),&pos,g_blueprint_domain.enhanced_mode);
+        append_ascii(line,sizeof(line),&pos," cleanup_mask=");append_dec(line,sizeof(line),&pos,g_starter_cleanup_mask);
+        append_ascii(line,sizeof(line),&pos," before_rows=");append_dec(line,sizeof(line),&pos,(unsigned)g_blueprint_domain.before.count);
+        append_ascii(line,sizeof(line),&pos," after_rows=");append_dec(line,sizeof(line),&pos,(unsigned)g_blueprint_domain.after.count);
+        append_ascii(line,sizeof(line),&pos," row=");append_dec(line,sizeof(line),&pos,g_item_readback_index);
+        append_ascii(line,sizeof(line),&pos," byte=");append_dec(line,sizeof(line),&pos,g_item_readback_byte);
+        append_ascii(line,sizeof(line),&pos," actual_present=");append_dec(line,sizeof(line),&pos,g_item_readback_has_actual);
+        if(g_item_readback_reason==106){
+            for(unsigned side=0;side<2;side++){
+                const LidBlueprintNativeRecord*r=side?&g_item_readback_actual:&g_item_readback_expected;
+                append_ascii(line,sizeof(line),&pos,side?" actual=":" expected=");
+                unsigned values[]={r->state.part,r->state.level,r->state.research,r->state.receive,r->state.announced,r->state.checked,r->before_level};
+                for(unsigned i=0;i<7;i++){if(i)append_ascii(line,sizeof(line),&pos,"/");append_dec(line,sizeof(line),&pos,values[i]);}
+            }
+        }
+        line[pos]=0;log_ascii(line);
+    }
 }
 #endif

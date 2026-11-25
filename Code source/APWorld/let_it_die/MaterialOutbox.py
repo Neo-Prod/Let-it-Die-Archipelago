@@ -139,6 +139,10 @@ class MaterialCheckOutbox:
                 if s.tag not in ('Red','Silver','Gold') or s.floor or s.area or s.version:raise ValueError('invalid chest category')
                 integer(s.zone,0,goal_floor//10-1);integer(s.ordinal,1,1000)
                 key=(s.kind,s.tag,s.zone,s.ordinal)
+            elif s.kind=='mastery':
+                from .MasteryCatalogue import data
+                if s.tag not in data()['families'] or s.floor or s.area or s.zone or s.version:raise ValueError('invalid mastery category')
+                integer(s.ordinal,1,20);key=(s.kind,s.tag,s.ordinal)
             elif s.kind=='material':
                 if s.tag not in {item for _,item,_ in eligible(goal_floor)} or s.floor or s.area or s.zone or s.version:raise ValueError('invalid material category')
                 integer(s.ordinal,1,1000);key=(s.kind,s.tag,s.ordinal)
@@ -280,6 +284,19 @@ class MaterialCheckOutbox:
         # Exhausted/inactive quota is a durable empty outcome, never a refill.
         state['pending']=sorted(set(state['pending'])|set(result))
         state['events'][event.event_id]={'payload':payload,'locations':result}
+        self._store(state);return tuple(result)
+    def record_mastery(self,frame):
+        from .CheckWire import Frame
+        if type(frame)is not Frame or frame.kind!=7 or frame.context.run.hex()!=self.run:raise ValueError('foreign mastery event')
+        frame.validate();event_id=frame.event_id();payload=digest(list(frame.encode()))
+        old=self.state['events'].get(event_id)
+        if old:
+            if old['payload']!=payload:raise ValueError('conflicting mastery event')
+            return tuple(old['locations'])
+        if len(self.state['events'])==MAX_EVENTS:raise ValueError('event capacity')
+        state=json.loads(json.dumps(self.state));used=set(state['pending'])|set(state['confirmed'])
+        result=sorted(s.code for s in self.locations if s.kind=='mastery' and s.tag==frame.damage and s.ordinal<=frame.health and s.code not in used)
+        state['pending']=sorted(set(state['pending'])|set(result));state['events'][event_id]={'payload':payload,'locations':result}
         self._store(state);return tuple(result)
     def server_confirmed(self,locations):
         ids={integer(i,1,2**53-1) for i in locations}

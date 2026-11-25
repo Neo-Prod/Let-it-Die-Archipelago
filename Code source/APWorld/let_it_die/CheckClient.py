@@ -6,6 +6,7 @@ from .ShopPurchase import ShopPurchaseService
 from .ShopRuntimeCatalogue import publish as publish_shop_catalogue
 from .ShopRuntimePolicy import publish as publish_shop_policy
 from .ShopDisplay import ShopDisplayService
+from .ShopHints import ShopHintService
 
 def ensure_check_task(ctx,slot_data,log):
     """Checks-only failures must not affect the validated connection/items."""
@@ -19,7 +20,7 @@ def ensure_check_task(ctx,slot_data,log):
 async def watch_checks(ctx,log):
     from .CharacterTransport import read_message,OFFER_FILE,GRANT
     from NetUtils import ClientStatus
-    service=None;shops=None;tower_shops=None;display=None;config=None;loaded=None;state=None;recovered=False;catalogue_published=False;policy_published=False
+    service=None;shops=None;tower_shops=None;display=None;hints=None;hint_count=0;config=None;loaded=None;state=None;recovered=False;catalogue_published=False;policy_published=False
     try:
         while not ctx.exit_event.is_set():
             try:
@@ -94,6 +95,18 @@ async def watch_checks(ctx,log):
                                     await tower_shops.step(checked&config.tower_shop_ids,time.monotonic(),ctx.send_msgs)
                                 except asyncio.CancelledError:raise
                                 except Exception as exc:current+=';tower_shop_paused_'+type(exc).__name__
+                            if config.shop_offers:
+                                try:
+                                    if hints is None:hints=ShopHintService(native.directory,context,config)
+                                    if hints.context!=context:raise ValueError('shop hint session changed; restart required')
+                                    hint_state=await hints.step(ctx,time.monotonic())
+                                    confirmed=len(hints.state['hinted'])
+                                    if confirmed>hint_count:
+                                        log(ctx.request.bridge_dir,'AP SHOP HINTS R350: server-confirmed shop hints='+str(confirmed))
+                                        hint_count=confirmed
+                                    if hint_state not in ('idle','waiting_confirmation'):current+=';shop_hint_'+hint_state
+                                except asyncio.CancelledError:raise
+                                except Exception as exc:current+=';shop_hint_paused_'+type(exc).__name__
             except asyncio.CancelledError:raise
             except Exception as exc:current='paused_'+type(exc).__name__
             if current!=state:

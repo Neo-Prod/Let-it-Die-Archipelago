@@ -33,7 +33,7 @@ static int r15_queue_push(R15Queue*q,uint32_t tid,const R15Frame*source){
     if(__atomic_load_n(&q->fault,__ATOMIC_ACQUIRE))return -2;
     uint64_t tail=__atomic_load_n(&q->tail,__ATOMIC_RELAXED),received=__atomic_load_n(&q->received,__ATOMIC_ACQUIRE);
     if(tail==UINT64_MAX||tail-received>=R15_CAPACITY){r15_queue_fault(q,tid,1);return -2;}
-    if(!source||(source->kind!=R15_EVENT&&source->kind!=R39_VISIT&&source->kind!=R72_CHEST)||source->sequence||!r15_same_context(&source->context,&q->context)){r15_queue_fault(q,tid,3);return -2;}
+    if(!source||(source->kind!=R15_EVENT&&source->kind!=R39_VISIT&&source->kind!=R72_CHEST&&source->kind!=7)||source->sequence||!r15_same_context(&source->context,&q->context)){r15_queue_fault(q,tid,3);return -2;}
     R15Frame frame=*source;frame.sequence=tail+1;
     if(!r15_encode(q->data[tail%R15_CAPACITY],R15_SIZE,&frame)){r15_queue_fault(q,tid,4);return -2;}
     __atomic_store_n(&q->tail,tail+1,__ATOMIC_RELEASE);return 1;
