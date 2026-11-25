@@ -13,13 +13,7 @@
 
 Only weapon families available through the run's allowed AP progressives receive mastery locations. The tracker also considers received weapons, their current upgrade requirements and the six AP base stats. Optional temporary bonuses or requirement-reducing decals are not assumed as guaranteed access. Native level rewards and XP display remain in control of the game.
 
-## Equipment
-
-Equipment tiers range from1 to9. Faction toggles and **maximum_equipment_tier** select the pool. **equipment_upgrade_steps** accepts0..4 intermediate upgrades. Grouped armor sets remain optional. Reaper's Set now includes both glasses, coat and pants.
-
 ## Shop Sanity
-
-Momoka's Kill Coin decal stock and Wednesday tower merchants become AP purchase locations; each tower merchant has three fixed blueprint slots. Purchases send checks and become unavailable after completion. Set **shop_sanity: false** for normal merchant purchases.
 
 With ShopSanity enabled, opening a buy list reveals Archipelago hints for that merchant's currently available, unpurchased offers. Momoka hints only her currently unlocked Kill Coin offers, including all available categories; later unlocks are not revealed in advance. Insufficient KC does not hide an otherwise unlocked offer. Tower hints belong to the exact merchant opened.
 
